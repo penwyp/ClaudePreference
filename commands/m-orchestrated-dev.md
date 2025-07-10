@@ -11,7 +11,7 @@
 - **Responsibilities:**
   - Parse requirements and create development plan using **sequential-thinking** for complex analysis
   - Use **context7** for technology selection and framework evaluation
-  - Leverage **web_search** for current best practices and solution research
+  - Leverage **web_search** (include "2025" in search terms) for current best practices and solution research
   - Coordinate between Developer and Reviewer agents
   - Make final decisions on review acceptance with evidence-based reasoning
   - Manage development workflow and iteration cycles
@@ -25,13 +25,14 @@
   - Maintain code quality during iterations
   - Commit incremental progress with clear messages
   - Focus on execution rather than architectural decision-making
+  - Must NOT introduce functions or methods left unimplemented (e.g., `TODO`, `stub`, empty bodies); every piece of code must provide a complete, working implementation, and each commit must compile and run successfully
 
 ### Agent R (Reviewer)
 - **Role:** Code quality assessment and comprehensive feedback
 - **Responsibilities:**
   - Conduct thorough code reviews using **sequential-thinking** for systematic analysis
   - Use **context7** to verify framework usage and best practices compliance
-  - Leverage **web_search** for security vulnerability checks and performance benchmarks
+  - Leverage **web_search** (include "2025" in search terms) for security vulnerability checks and performance benchmarks
   - Provide specific, actionable feedback with external validation
   - Verify requirements compliance against industry standards
   - Include basic build verification as part of code review when applicable
@@ -47,7 +48,7 @@
 2. **Strategic Planning (Agent O)**
    - Use **sequential-thinking** to break down complex requirements systematically
    - Leverage **context7** for framework and library selection research
-   - Apply **web_search** to validate technology choices against current best practices
+   - Apply **web_search** (include "2025" in search terms) to validate technology choices against current best practices
    - Extract clear development requirements with evidence-based decisions
    - Create comprehensive development plan with architectural justifications
 
@@ -60,7 +61,7 @@
 4. **Comprehensive Review with Build Verification (Agent R)**
    - Use **sequential-thinking** for systematic multi-dimensional code analysis
    - Leverage **context7** to verify framework usage patterns and API compliance
-   - Apply **web_search** for security vulnerability scanning and performance benchmarking
+   - Apply **web_search** (include "2025" in search terms) for security vulnerability scanning and performance benchmarking
    - Attempt project compilation/build to verify technical correctness
    - Check functionality, quality, and requirements compliance against industry standards
    - Generate evidence-backed feedback with external validation and specific improvement points
@@ -69,14 +70,14 @@
 
 5. **Evidence-Based Decision Making (Agent O)**
    - Use **sequential-thinking** to evaluate review results against acceptance criteria
-   - Apply **web_search** to research solutions for identified issues
+   - Apply **web_search** (include "2025" in search terms) to research solutions for identified issues
    - Leverage external validation for technical decisions
    - If approved: proceed to finalization with documented rationale
    - If rejected: coordinate next development iteration with research-backed guidance
    - Track progress and maintain cycle momentum with data-driven insights
 
 6. **Cycle Repetition**
-   - Repeat steps 3-5 until Agent R approves the implementation
+   - Repeat steps 3-7 until Agent R approves the implementation
    - Maintain clear communication between all agents
    - Document decisions and iteration rationale
 
@@ -134,6 +135,10 @@ Agent R → Agent O:
 - **Approval**: Agent R accepts → Agent O finalizes
 - **Rejection**: Agent R rejects → Agent O coordinates next iteration
 - **Max Iterations**: Configurable limit to prevent infinite loops
+- **Max Cycles Exceeded**: When the workflow reaches `max_cycles` without approval, Agent O must:
+  1. Generate a Markdown summary of the project background, accomplished work, and remaining tasks.
+  2. Save the file to `docs/todo/` using the pattern `max-cycle-summary-<timestamp>.md`.
+  3. Output the full path of the generated document for follow-up by humans or higher-level agents
 
 ## Output Format
 
@@ -171,7 +176,7 @@ Agent R → Agent O:
 
 ### Quality Gates & Research Integration
 - **technology_validation**: Use context7 to verify framework and library choices
-- **security_research**: Apply web_search for vulnerability scanning and security best practices
+- **security_research**: Apply web_search (include "2025" in search terms) for vulnerability scanning and security best practices
 - **performance_benchmarking**: Leverage external data for performance standards
 - **architecture_analysis**: Use sequential-thinking for systematic design evaluation
 - **consensus_building**: Apply zen:consensus for complex technical decisions

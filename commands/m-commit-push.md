@@ -9,5 +9,4 @@ If no commit message is provided:
 
 1. Stage all changes with git add
 2. Commit with appropriate message
-3. Do not add "Co-Authored-By" or "Generated with [Claude Code]"
-4. Push to remote repository
+3. Push to remote repository
