@@ -1,191 +1,271 @@
-# Multi-Agent Development Workflow: Orchestrated Dev-Review Cycles
+# Multi-Agent Development Workflow: Research-Driven Dev-Review Cycles
 
 **Target:** $ARGUMENTS (Default: previous discussion results or current requirements)
-
-**Scope:** Deploy three specialized agents for coordinated development and review cycles in current directory
+**Scope:** Deploy three specialized agents with MCP tools for optimal development
 
 ## Agent Architecture
 
 ### Agent O (Orchestrator)
-- **Role:** Workflow coordination and strategic decision making
-- **Responsibilities:**
-  - Parse requirements and create development plan using **sequential-thinking** for complex analysis
-  - Use **context7** for technology selection and framework evaluation
-  - Leverage **web_search** (include "2025" in search terms) for current best practices and solution research
-  - Coordinate between Developer and Reviewer agents
-  - Make final decisions on review acceptance with evidence-based reasoning
-  - Manage development workflow and iteration cycles
-  - Verify project builds successfully before final completion
+**Role:** Strategic planning, architecture decisions, and workflow coordination
+
+**Key Responsibilities:**
+- Parse requirements using **sequential-thinking** for complex analysis
+- Research optimal architecture patterns:
+  - Use **context7** for framework evaluation and best practices
+  - Use **web_search** (append "2025" for latest practices) for current solutions
+  - Apply **zen:consensus** for critical technical decisions
+- Create evidence-based development plans
+- Coordinate Developer and Reviewer with research-backed guidance
+- Ensure 100% functional requirements, 70% non-functional requirements
+- Verify final build success before completion
+
+**MCP Tool Usage:**
+```
+Phase 1 (Requirements Analysis):
+- sequential-thinking: Break down complex requirements
+- web_search "best practices [tech stack] 2025": Current standards
+
+Phase 2 (Architecture Planning):
+- context7: Evaluate framework options
+- web_search "[problem domain] architecture patterns 2025"
+- Document rationale for all technical choices
+```
 
 ### Agent D (Developer)
-- **Role:** Code implementation and iteration
-- **Responsibilities:**
-  - Implement features based on requirements and architectural decisions
-  - Address review feedback and make corrections
-  - Maintain code quality during iterations
-  - Commit incremental progress with clear messages
-  - Focus on execution rather than architectural decision-making
-  - Must NOT introduce functions or methods left unimplemented (e.g., `TODO`, `stub`, empty bodies); every piece of code must provide a complete, working implementation, and each commit must compile and run successfully
+**Role:** Implementation with research-informed coding practices
+
+**Key Responsibilities:**
+- **CRITICAL**: Every function must be completely implemented
+- **FORBIDDEN**: No TODO, FIXME, HACK, XXX, stub, or placeholder code
+- Research before implementing complex features:
+  - Use **web_search** for implementation patterns
+  - Apply **sequential-thinking** for algorithm design
+- Each commit must compile and run successfully
+- Implement with production-ready quality
+
+**Implementation Standards:**
+- Zero tolerance for incomplete code
+- Security-first implementation
+- Proper error handling in all paths
+- Clean, maintainable code structure
 
 ### Agent R (Reviewer)
-- **Role:** Code quality assessment and comprehensive feedback
-- **Responsibilities:**
-  - Conduct thorough code reviews using **sequential-thinking** for systematic analysis
-  - Use **context7** to verify framework usage and best practices compliance
-  - Leverage **web_search** (include "2025" in search terms) for security vulnerability checks and performance benchmarks
-  - Provide specific, actionable feedback with external validation
-  - Verify requirements compliance against industry standards
-  - Include basic build verification as part of code review when applicable
-  - Approve or reject implementation iterations with detailed reasoning
+**Role:** Comprehensive validation with external benchmarking
 
-## Execution Steps
+**Review Priorities (in order):**
 
-1. **Environment Verification**
-   - Verify current working directory is ready for development
-   - Check Git status and ensure clean starting state
-   - Confirm all three agents have access to shared workspace
+1. **Code Completeness (BLOCKING)**
+   - Scan for ANY incomplete markers: TODO, FIXME, pass, stub, ...
+   - Verify all functions have implementations
+   - Check all error paths are handled
+   - Use pattern: `grep -r "TODO\|FIXME\|XXX\|HACK\|pass\|\.\.\.|\bstub\b"`
 
-2. **Strategic Planning (Agent O)**
-   - Use **sequential-thinking** to break down complex requirements systematically
-   - Leverage **context7** for framework and library selection research
-   - Apply **web_search** (include "2025" in search terms) to validate technology choices against current best practices
-   - Extract clear development requirements with evidence-based decisions
-   - Create comprehensive development plan with architectural justifications
+2. **Critical Issues (BLOCKING)**
+   - Security: Use **web_search "[language] security vulnerabilities 2025"**
+   - Concurrency: Check race conditions, deadlocks
+   - Resource management: Memory leaks, unclosed resources
+   - Authentication/Authorization gaps
 
-3. **Development Cycle (Agent D)**
-   - Implement features according to specifications in current directory
-   - Write tests and documentation as needed
-   - Commit changes with descriptive messages
-   - Signal completion to Orchestrator
+3. **Architecture Quality**
+   - Use **context7** to verify framework usage
+   - Compare against industry best practices
+   - Assess scalability and maintainability
 
-4. **Comprehensive Review with Build Verification (Agent R)**
-   - Use **sequential-thinking** for systematic multi-dimensional code analysis
-   - Leverage **context7** to verify framework usage patterns and API compliance
-   - Apply **web_search** (include "2025" in search terms) for security vulnerability scanning and performance benchmarking
-   - Attempt project compilation/build to verify technical correctness
-   - Check functionality, quality, and requirements compliance against industry standards
-   - Generate evidence-backed feedback with external validation and specific improvement points
-   - Include build status and any compilation errors in review feedback
-   - Provide approval or rejection decision with detailed technical reasoning
+4. **Requirements Coverage**
+   - Map features to requirements
+   - Verify 100% functional coverage
+   - Assess non-functional achievements
 
-5. **Evidence-Based Decision Making (Agent O)**
-   - Use **sequential-thinking** to evaluate review results against acceptance criteria
-   - Apply **web_search** (include "2025" in search terms) to research solutions for identified issues
-   - Leverage external validation for technical decisions
-   - If approved: proceed to finalization with documented rationale
-   - If rejected: coordinate next development iteration with research-backed guidance
-   - Track progress and maintain cycle momentum with data-driven insights
-
-6. **Cycle Repetition**
-   - Repeat steps 3-7 until Agent R approves the implementation
-   - Maintain clear communication between all agents
-   - Document decisions and iteration rationale
-
-7. **Finalization**
-   - **Verify project builds successfully (if applicable)**
-   - **If build fails: coordinate fix with Agent D and retry**
-   - Validate final implementation state
-   - Generate completion report with cycle summary
-   - Ensure all changes are committed and workspace is clean
-
-## Workspace Management
-
-### Current Directory Usage
-- All three agents work in the current working directory
-- Shared access to all files and Git operations
-- User is responsible for directory setup and branch management
-- Agents coordinate through file system and Git state
-
-### Collaboration Requirements
-- Clean Git working directory at start (recommended)
-- All agents respect existing file structure
-- Coordinated commit strategy to avoid conflicts
-- Clear communication through commit messages and status updates
-
-## Agent Communication Protocol
-
-### Enhanced Agent Workflow
-
-### Enhanced Development Phase
+**MCP Tool Usage:**
 ```
-Agent O → Agent D: 
-  - Requirements + Research-backed Development Plan
-  - Technology selections with context7 validation
-  - Architectural decisions with sequential-thinking analysis
-  
-Agent D → Agent O: 
-  - Implementation Complete + Change Summary
-  - Self-review results using zen:codereview
-  - Implementation rationale and trade-offs
+- web_search "OWASP top 10 2025": Security validation
+- context7: Framework-specific best practices
+- sequential-thinking: Systematic code analysis
 ```
 
-### Enhanced Review Phase
+## Enhanced Workflow
+
+### 1. Research-Driven Planning (Agent O)
+```yaml
+Input: Requirements
+Actions:
+  1. Use sequential-thinking to decompose requirements
+  2. Research optimal solutions:
+     - web_search "[domain] best architecture 2025"
+     - context7 for framework selection
+  3. Create evidence-based plan with justifications
+Output: Detailed plan with research backing
 ```
-Agent O → Agent R: 
-  - Review Request + Context + Research Background
-  - Technology choice justifications and external validation
-  
-Agent R → Agent O: 
-  - Comprehensive Review Results using multiple analysis tools
-  - Evidence-backed feedback with external benchmarks
-  - Security and performance assessments with web validation
+
+### 2. Informed Development Cycle
+```yaml
+Orchestrator → Developer:
+  - Task specification
+  - Recommended patterns from research
+  - Architecture constraints
+
+Developer Actions:
+  - Research complex implementations via web_search
+  - Implement complete solution (no placeholders)
+  - Self-verify completeness before submission
+
+Developer → Orchestrator:
+  - Complete implementation
+  - No TODO/stub code
+  - Build verification passed
 ```
 
-### Decision Points
-- **Approval**: Agent R accepts → Agent O finalizes
-- **Rejection**: Agent R rejects → Agent O coordinates next iteration
-- **Max Iterations**: Configurable limit to prevent infinite loops
-- **Max Cycles Exceeded**: When the workflow reaches `max_cycles` without approval, Agent O must:
-  1. Generate a Markdown summary of the project background, accomplished work, and remaining tasks.
-  2. Save the file to `docs/todo/` using the pattern `max-cycle-summary-<timestamp>.md`.
-  3. Output the full path of the generated document for follow-up by humans or higher-level agents
+### 3. Comprehensive Review
+```yaml
+Orchestrator → Reviewer:
+  - Code for review
+  - Architecture context
+  - Research references
 
-## Output Format
+Reviewer Actions:
+  1. Completeness check (grep patterns)
+  2. Security audit (OWASP reference)
+  3. Architecture compliance (context7)
+  4. Requirements mapping
 
-### Cycle Summary Report
+Reviewer → Orchestrator:
+  - Detailed findings
+  - External validation results
+  - Accept/Reject decision
+```
+
+### 4. Decision Matrix
+| Completeness | Critical Issues | Functional | Non-Functional | Decision |
+|-------------|-----------------|------------|----------------|----------|
+| < 100% | - | - | - | REJECT: Fix incomplete code |
+| 100% | Yes | - | - | REJECT: Fix critical issues |
+| 100% | No | < 100% | - | REJECT: Complete features |
+| 100% | No | 100% | < 70% | WARN: Consider improvements |
+| 100% | No | 100% | ≥ 70% | APPROVE |
+
+### 5. Iteration Management
+- Maximum cycles: 5 (configurable)
+- Track rejection reasons for learning
+- If max cycles exceeded:
+  - Generate `docs/todo/max-cycle-summary-<timestamp>.md`
+  - Include accomplished work and remaining tasks
+
+## Communication Protocol
+
+### Status Messages
 ```json
 {
-  "working_directory": "string - current directory path",
-  "git_branch": "string - active branch name",
-  "iterations": [
-    {
-      "cycle": "number",
-      "developer_commits": ["commit_hash_1", "commit_hash_2"],
-      "review_feedback": "string - detailed review comments",
-      "decision": "approved|rejected",
-      "reasoning": "string - decision rationale"
-    }
-  ],
-  "final_build_status": "success|failure|not_applicable",
-  "final_status": "completed|failed|timeout",
-  "total_cycles": "number",
-  "completion_time": "string - timestamp"
+  "agent": "O|D|R",
+  "phase": "planning|implementing|reviewing",
+  "mcp_tools_used": ["tool_name"],
+  "research_findings": ["key insights"],
+  "decision_rationale": "explanation"
 }
 ```
 
-### Agent Interaction Log
-- Timestamped communication between agents
-- Decision rationale and feedback history
-- Code change tracking and review evolution
+### Review Output Format
+```json
+{
+  "completeness": {
+    "status": "PASS|FAIL",
+    "incomplete_items": [
+      {
+        "file": "path/file.ext",
+        "line": 42,
+        "issue": "empty function|TODO|stub",
+        "severity": "BLOCKING"
+      }
+    ]
+  },
+  "critical_issues": {
+    "security": ["SQL injection risk in UserService"],
+    "concurrency": ["Race condition in payment processing"],
+    "performance": ["N+1 query in data fetching"]
+  },
+  "architecture_assessment": {
+    "follows_best_practices": true|false,
+    "deviations": ["explanation"],
+    "recommendations": ["improvement suggestions"]
+  },
+  "requirements_coverage": {
+    "functional": 95,
+    "non_functional": 72,
+    "missing_features": ["feature list"]
+  },
+  "mcp_validation": {
+    "security_check": "OWASP 2025 compliant",
+    "framework_usage": "Follows React 19 patterns"
+  },
+  "decision": "APPROVED|REJECTED",
+  "action_items": ["specific next steps"]
+}
+```
 
-## Configuration Options
+## Final Deliverables
 
-### Iteration Limits
-- **max_cycles**: Maximum development-review iterations (default: 5)
-- **timeout**: Maximum workflow duration (default: 60 minutes)
+### Success Criteria
+- ✅ 100% complete code (no placeholders)
+- ✅ Zero critical security/concurrency issues
+- ✅ 100% functional requirements
+- ✅ ≥70% non-functional requirements
+- ✅ Build/compilation success
+- ✅ Research-backed architecture decisions
 
-### Quality Gates & Research Integration
-- **technology_validation**: Use context7 to verify framework and library choices
-- **security_research**: Apply web_search (include "2025" in search terms) for vulnerability scanning and security best practices
-- **performance_benchmarking**: Leverage external data for performance standards
-- **architecture_analysis**: Use sequential-thinking for systematic design evaluation
-- **consensus_building**: Apply zen:consensus for complex technical decisions
+### Summary Report
+```json
+{
+  "project_stats": {
+    "working_directory": "path",
+    "total_cycles": 3,
+    "mcp_tools_used": {
+      "web_search": 12,
+      "context7": 5,
+      "sequential_thinking": 8
+    },
+    "architecture_decisions": [
+      {
+        "decision": "Use Next.js 14",
+        "rationale": "Based on web_search results...",
+        "alternatives_considered": ["Remix", "Nuxt"]
+      }
+    ]
+  },
+  "code_quality": {
+    "completeness": "100%",
+    "security_issues": 0,
+    "test_coverage": "report if available"
+  },
+  "requirements_fulfillment": {
+    "functional": "100%",
+    "non_functional": "85%",
+    "performance": "meets targets",
+    "scalability": "supports 10k users"
+  }
+}
+```
 
-## Final Output
+## Configuration
 
-Return structured report containing:
-- Current working directory and Git branch status
-- Complete iteration history with decisions
-- Final code status and approval details
-- Build verification status (when applicable)
-- Recommendations for future improvements
+```yaml
+max_cycles: 5
+timeout_minutes: 60
+mcp_tools:
+  enabled: ["web_search", "context7", "sequential_thinking", "zen:consensus"]
+  web_search_suffix: "2025"  # Always append for current info
+strict_mode:
+  no_incomplete_code: true
+  require_security_check: true
+  min_functional_coverage: 100
+  min_non_functional_coverage: 70
+```
+
+## Execution Guidelines
+
+1. **Start**: Orchestrator analyzes requirements with MCP tools
+2. **Research**: Gather best practices before coding
+3. **Implement**: Developer writes complete code
+4. **Verify**: Reviewer checks against external standards
+5. **Iterate**: Use research to guide improvements
+6. **Complete**: Deliver with full documentation
+
+**Remember**: Quality through research, completeness through discipline
