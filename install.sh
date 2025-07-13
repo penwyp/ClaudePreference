@@ -702,7 +702,7 @@ main() {
     echo "To use ClaudePreference commands:"
     echo "  1. Run 'claude' in your project directory"
     echo "  2. Type '/' to see available commands"
-    echo "  3. Select any 'm/' command (e.g., /m/orchestrated-dev)"
+    echo "  3. Select any 'm:' command (e.g., /m:orchestrated-dev)"
     echo
     echo "For more information, visit: $REPO_URL"
 }
