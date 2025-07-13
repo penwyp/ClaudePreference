@@ -195,23 +195,72 @@ Tactical code review with detailed implementation analysis.
 
 ## 🔧 Installation & Setup
 
-1. **Prerequisites**:
+### Prerequisites:
    - Claude Code CLI installed and configured
    - Appropriate development environment setup
    - Appropriate MCP environment setup (e.g. `context7`)
 
-2. **Usage**:
-   ```bash
-   # Navigate to your project directory
-   cd /path/to/your/code
-   git clone https://github.com/penwyp/ClaudePreference.git
-   cd ClaudePreference
-   cp commands/* ~/.claude/commands/
-   
-   # Run another claude code command
-   claude
-   # User Slah "/" to select the command you want to run
-   ```
+### Automated Installation (Recommended)
+
+**Quick Install:**
+```bash
+# Clone and install in one command
+git clone https://github.com/penwyp/ClaudePreference.git
+cd ClaudePreference
+./install.sh
+```
+
+**Installation Options:**
+```bash
+# Install to default location (~/.claude/commands)
+./install.sh
+
+# Install to custom directory
+./install.sh --dir /custom/path
+
+# Preview installation without making changes
+./install.sh --dry-run
+
+# Force overwrite existing files
+./install.sh --force
+
+# Update existing installation
+./install.sh --update
+
+# Show all available options
+./install.sh --help
+```
+
+### Manual Installation
+```bash
+# Clone repository
+git clone https://github.com/penwyp/ClaudePreference.git
+cd ClaudePreference
+
+# Copy commands manually
+cp commands/* ~/.claude/commands/
+```
+
+### Verify Installation
+```bash
+# Start Claude Code in any project directory
+claude
+
+# Type "/" to see available commands
+# Look for commands starting with "m-" (e.g., m-orchestrated-dev)
+```
+
+### Management Commands
+```bash
+# Update to latest version
+./install.sh --update
+
+# Remove ClaudePreference commands
+./install.sh --uninstall
+
+# Rollback to previous version
+./install.sh --rollback
+```
 
 ## 📖 Usage Examples
 
