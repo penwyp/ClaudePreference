@@ -10,11 +10,11 @@ set -euo pipefail
 
 # Script metadata
 readonly SCRIPT_NAME="ClaudePreference Installer"
-readonly SCRIPT_VERSION="1.0.0"
+readonly SCRIPT_VERSION="2.0.0"
 readonly REPO_URL="https://github.com/penwyp/ClaudePreference"
 
 # Default configuration
-readonly DEFAULT_INSTALL_DIR="$HOME/.claude/commands"
+readonly DEFAULT_INSTALL_DIR="$HOME/.claude/commands/m"
 readonly BACKUP_DIR="$HOME/.claude/backups"
 readonly MANIFEST_FILE="$HOME/.claude/.claudepreference-manifest"
 readonly COMMANDS_SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/commands"
@@ -71,7 +71,7 @@ DESCRIPTION:
     Install, update, or manage ClaudePreference commands for Claude Code CLI.
 
 OPTIONS:
-    --dir PATH        Custom installation directory (default: ~/.claude/commands)
+    --dir PATH        Custom installation directory (default: ~/.claude/commands/m)
     --update          Update existing installation
     --force           Overwrite files without prompting
     --dry-run         Preview changes without installing
@@ -214,16 +214,45 @@ detect_installation() {
         return 0
     fi
     
-    # Check for ClaudePreference command files
+    # Check for ClaudePreference command files (new structure)
     if [[ -d "$INSTALL_DIR" ]]; then
         local cp_files
-        cp_files=$(find "$INSTALL_DIR" -name "m-*.md" 2>/dev/null | wc -l)
+        cp_files=$(find "$INSTALL_DIR" -name "*.md" 2>/dev/null | wc -l)
         if [[ $cp_files -gt 0 ]]; then
-            log_verbose "Found $cp_files ClaudePreference command files"
+            log_verbose "Found $cp_files ClaudePreference command files in new structure"
             return 0
         fi
     fi
     
+    # Check for legacy installation
+    if detect_legacy_installation; then
+        return 0
+    fi
+    
+    return 1
+}
+
+# Transform filename by stripping m- prefix
+transform_filename() {
+    local filename="$1"
+    if [[ "$filename" =~ ^m-(.+)\.md$ ]]; then
+        echo "${BASH_REMATCH[1]}.md"
+    else
+        echo "$filename"
+    fi
+}
+
+# Detect legacy installation (old structure)
+detect_legacy_installation() {
+    local legacy_dir="$HOME/.claude/commands"
+    if [[ -d "$legacy_dir" ]]; then
+        local legacy_files
+        legacy_files=$(find "$legacy_dir" -maxdepth 1 -name "m-*.md" 2>/dev/null | wc -l)
+        if [[ $legacy_files -gt 0 ]]; then
+            log_verbose "Found $legacy_files legacy command files in $legacy_dir"
+            return 0
+        fi
+    fi
     return 1
 }
 
@@ -250,6 +279,13 @@ create_backup() {
         cp -r "$INSTALL_DIR"/* "$backup_path/" 2>/dev/null || true
     fi
     
+    # Also backup legacy files if they exist
+    local legacy_dir="$HOME/.claude/commands"
+    if [[ -d "$legacy_dir" && "$INSTALL_DIR" != "$legacy_dir" ]]; then
+        mkdir -p "$backup_path/legacy" 2>/dev/null || true
+        find "$legacy_dir" -maxdepth 1 -name "m-*.md" -exec cp {} "$backup_path/legacy/" \; 2>/dev/null || true
+    fi
+    
     # Backup manifest if it exists
     if [[ -f "$MANIFEST_FILE" ]]; then
         cp "$MANIFEST_FILE" "$backup_path/" || true
@@ -257,6 +293,56 @@ create_backup() {
     
     log_verbose "Backup created successfully at: $backup_path"
     echo "$backup_path" > "$HOME/.claude/.claudepreference-last-backup"
+}
+
+# Migrate legacy installation to new structure
+migrate_legacy_installation() {
+    local legacy_dir="$HOME/.claude/commands"
+    log_info "Migrating legacy installation from $legacy_dir to $INSTALL_DIR"
+    
+    if [[ "$DRY_RUN" == true ]]; then
+        log_info "[DRY RUN] Would migrate legacy files to new structure"
+        return 0
+    fi
+    
+    local migrated_count=0
+    
+    # Find and migrate legacy files
+    while IFS= read -r -d '' legacy_file; do
+        local filename
+        filename="$(basename "$legacy_file")"
+        local new_filename
+        new_filename="$(transform_filename "$filename")"
+        local target_file="$INSTALL_DIR/$new_filename"
+        
+        log_verbose "Migrating: $filename → $new_filename"
+        
+        # Copy to new location with new name
+        cp "$legacy_file" "$target_file" || {
+            log_error "Failed to migrate: $filename"
+            exit 1
+        }
+        chmod 644 "$target_file"
+        ((migrated_count++))
+        
+    done < <(find "$legacy_dir" -maxdepth 1 -name "m-*.md" -print0 2>/dev/null)
+    
+    if [[ $migrated_count -gt 0 ]]; then
+        log_success "Migrated $migrated_count legacy command files"
+        
+        # Ask user if they want to remove legacy files
+        if [[ "$FORCE" == false ]]; then
+            read -p "Remove legacy files from $legacy_dir? (y/N): " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                find "$legacy_dir" -maxdepth 1 -name "m-*.md" -delete 2>/dev/null || true
+                log_info "Legacy files removed"
+            fi
+        else
+            find "$legacy_dir" -maxdepth 1 -name "m-*.md" -delete 2>/dev/null || true
+            log_info "Legacy files removed (force mode)"
+        fi
+    fi
 }
 
 # Verify source commands exist
@@ -291,7 +377,9 @@ install_commands() {
     while IFS= read -r -d '' file; do
         local filename
         filename="$(basename "$file")"
-        local target_file="$INSTALL_DIR/$filename"
+        local new_filename
+        new_filename="$(transform_filename "$filename")"
+        local target_file="$INSTALL_DIR/$new_filename"
         
         # Check if file exists and handle conflicts
         if [[ -f "$target_file" && "$FORCE" == false && "$DRY_RUN" == false ]]; then
@@ -303,16 +391,16 @@ install_commands() {
                     target_hash=$(sha256sum "$target_file" | cut -d' ' -f1)
                     
                     if [[ "$source_hash" == "$target_hash" ]]; then
-                        log_verbose "Skipping $filename (unchanged)"
+                        log_verbose "Skipping $new_filename (unchanged)"
                         ((skipped_count++))
                         continue
                     fi
                 fi
             else
-                read -p "File exists: $filename. Overwrite? (y/N): " -n 1 -r
+                read -p "File exists: $new_filename. Overwrite? (y/N): " -n 1 -r
                 echo
                 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                    log_verbose "Skipping $filename (user choice)"
+                    log_verbose "Skipping $new_filename (user choice)"
                     ((skipped_count++))
                     continue
                 fi
@@ -321,9 +409,9 @@ install_commands() {
         
         # Install the file
         if [[ "$DRY_RUN" == true ]]; then
-            log_info "[DRY RUN] Would install: $filename"
+            log_info "[DRY RUN] Would install: $filename → $new_filename"
         else
-            log_verbose "Installing: $filename"
+            log_verbose "Installing: $filename → $new_filename"
             cp "$file" "$target_file" || {
                 log_error "Failed to install: $filename"
                 exit 1
@@ -356,9 +444,9 @@ timestamp=$(date +%s)
 custom_dir=$CUSTOM_DIR
 EOF
     
-    # Add list of installed files
+    # Add list of installed files (new structure uses files without m- prefix)
     echo "# Installed files:" >> "$MANIFEST_FILE"
-    find "$INSTALL_DIR" -name "m-*.md" -exec basename {} \; | sort >> "$MANIFEST_FILE"
+    find "$INSTALL_DIR" -name "*.md" -exec basename {} \; | sort >> "$MANIFEST_FILE"
     
     log_verbose "Installation manifest created"
 }
@@ -370,36 +458,90 @@ uninstall_commands() {
     if [[ ! -f "$MANIFEST_FILE" ]]; then
         log_warning "No installation manifest found. Attempting automatic detection..."
         
+        local removed_count=0
+        
+        # Check new structure first
         if [[ -d "$INSTALL_DIR" ]]; then
             local cp_files
-            mapfile -t cp_files < <(find "$INSTALL_DIR" -name "m-*.md" 2>/dev/null)
+            mapfile -t cp_files < <(find "$INSTALL_DIR" -name "*.md" 2>/dev/null)
             
-            if [[ ${#cp_files[@]} -eq 0 ]]; then
-                log_warning "No ClaudePreference command files found"
-                return 0
-            fi
-            
-            log_info "Found ${#cp_files[@]} ClaudePreference command files"
-            
-            if [[ "$FORCE" == false ]]; then
-                read -p "Remove these files? (y/N): " -n 1 -r
-                echo
-                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                    log_info "Uninstall cancelled"
-                    return 0
+            if [[ ${#cp_files[@]} -gt 0 ]]; then
+                log_info "Found ${#cp_files[@]} ClaudePreference command files in new structure"
+                
+                if [[ "$FORCE" == false ]]; then
+                    read -p "Remove these files? (y/N): " -n 1 -r
+                    echo
+                    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                        log_info "Uninstall cancelled"
+                        return 0
+                    fi
+                fi
+                
+                # Remove files
+                for file in "${cp_files[@]}"; do
+                    if [[ "$DRY_RUN" == true ]]; then
+                        log_info "[DRY RUN] Would remove: $(basename "$file")"
+                    else
+                        log_verbose "Removing: $(basename "$file")"
+                        rm "$file"
+                    fi
+                    ((removed_count++))
+                done
+                
+                # Remove empty directory if it only contains ClaudePreference commands
+                if [[ "$DRY_RUN" == false && -d "$INSTALL_DIR" ]]; then
+                    rmdir "$INSTALL_DIR" 2>/dev/null && log_verbose "Removed empty directory: $INSTALL_DIR" || true
                 fi
             fi
-            
-            # Remove files
-            for file in "${cp_files[@]}"; do
-                if [[ "$DRY_RUN" == true ]]; then
-                    log_info "[DRY RUN] Would remove: $(basename "$file")"
-                else
-                    log_verbose "Removing: $(basename "$file")"
-                    rm "$file"
-                fi
-            done
         fi
+        
+        # Check legacy structure
+        local legacy_dir="$HOME/.claude/commands"
+        if [[ -d "$legacy_dir" ]]; then
+            local legacy_files
+            mapfile -t legacy_files < <(find "$legacy_dir" -maxdepth 1 -name "m-*.md" 2>/dev/null)
+            
+            if [[ ${#legacy_files[@]} -gt 0 ]]; then
+                log_info "Found ${#legacy_files[@]} legacy ClaudePreference command files"
+                
+                if [[ "$FORCE" == false ]]; then
+                    read -p "Remove legacy files? (y/N): " -n 1 -r
+                    echo
+                    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                        log_info "Legacy uninstall cancelled"
+                    else
+                        # Remove legacy files
+                        for file in "${legacy_files[@]}"; do
+                            if [[ "$DRY_RUN" == true ]]; then
+                                log_info "[DRY RUN] Would remove legacy: $(basename "$file")"
+                            else
+                                log_verbose "Removing legacy: $(basename "$file")"
+                                rm "$file"
+                            fi
+                            ((removed_count++))
+                        done
+                    fi
+                else
+                    # Force mode - remove legacy files
+                    for file in "${legacy_files[@]}"; do
+                        if [[ "$DRY_RUN" == true ]]; then
+                            log_info "[DRY RUN] Would remove legacy: $(basename "$file")"
+                        else
+                            log_verbose "Removing legacy: $(basename "$file")"
+                            rm "$file"
+                        fi
+                        ((removed_count++))
+                    done
+                fi
+            fi
+        fi
+        
+        if [[ $removed_count -eq 0 ]]; then
+            log_warning "No ClaudePreference command files found"
+            return 0
+        fi
+        
+        log_success "Uninstalled $removed_count ClaudePreference command files"
     else
         # Use manifest for precise uninstall
         local install_dir
@@ -410,17 +552,21 @@ uninstall_commands() {
         # Remove files listed in manifest
         local removed_count=0
         while IFS= read -r filename; do
-            if [[ "$filename" =~ ^m-.*\.md$ ]]; then
-                local file_path="$install_dir/$filename"
-                if [[ -f "$file_path" ]]; then
-                    if [[ "$DRY_RUN" == true ]]; then
-                        log_info "[DRY RUN] Would remove: $filename"
-                    else
-                        log_verbose "Removing: $filename"
-                        rm "$file_path"
-                    fi
-                    ((removed_count++))
+            # Skip comment lines and empty lines
+            if [[ "$filename" =~ ^#.*$ ]] || [[ -z "$filename" ]]; then
+                continue
+            fi
+            
+            # Handle both old (m-*.md) and new (*.md) filename formats
+            local file_path="$install_dir/$filename"
+            if [[ -f "$file_path" ]]; then
+                if [[ "$DRY_RUN" == true ]]; then
+                    log_info "[DRY RUN] Would remove: $filename"
+                else
+                    log_verbose "Removing: $filename"
+                    rm "$file_path"
                 fi
+                ((removed_count++))
             fi
         done < "$MANIFEST_FILE"
         
@@ -507,9 +653,19 @@ main() {
     check_write_permissions "$INSTALL_DIR"
     
     # Handle existing installation
+    local has_legacy=false
+    if detect_legacy_installation; then
+        has_legacy=true
+    fi
+    
     if detect_installation; then
         if [[ "$UPDATE" == true ]]; then
             log_info "Updating existing ClaudePreference installation"
+            
+            # Handle legacy migration during update
+            if [[ "$has_legacy" == true ]]; then
+                log_info "Legacy installation detected - will migrate to new structure"
+            fi
         else
             log_warning "Existing ClaudePreference installation detected"
             if [[ "$FORCE" == false && "$DRY_RUN" == false ]]; then
@@ -524,6 +680,11 @@ main() {
         
         # Create backup before proceeding
         create_backup
+        
+        # Migrate legacy installation if present
+        if [[ "$has_legacy" == true ]]; then
+            migrate_legacy_installation
+        fi
     fi
     
     # Install commands
@@ -541,7 +702,7 @@ main() {
     echo "To use ClaudePreference commands:"
     echo "  1. Run 'claude' in your project directory"
     echo "  2. Type '/' to see available commands"
-    echo "  3. Select any 'm-*' command to get started"
+    echo "  3. Select any 'm/' command (e.g., /m/orchestrated-dev)"
     echo
     echo "For more information, visit: $REPO_URL"
 }
