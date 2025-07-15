@@ -1,255 +1,257 @@
-# ClaudePreference 命令文档
+# ClaudePreference Command Documentation
 
-这里是 ClaudePreference 项目中所有 Claude Code 命令的详细文档。每个命令都包含完整的使用说明、示例和最佳实践。
+**English** | [中文](README_CN.md)
 
-## 📋 命令分类
+This is the comprehensive documentation for all Claude Code commands in the ClaudePreference project. Each command includes complete usage instructions, examples, and best practices.
 
-### 核心开发工作流
+## 📋 Command Categories
 
-#### 🚀 开发协作类
-- **[m-orchestrated-dev](commands/m-orchestrated-dev.md)** - 多智能体协同开发工作流
-  - 三智能体协同 (编排者、开发者、审查者)
-  - 研究驱动的开发-审查循环
-  - 自动化质量控制和验证
+### Core Development Workflow
 
-#### 📝 版本控制类
-- **[m-commit-push](commands/m-commit-push.md)** - 智能提交推送工作流
-  - 自动生成约定式提交消息
-  - 暂存、提交、推送一体化
-  - 支持自定义提交消息
+#### 🚀 Development Collaboration
+- **[m-orchestrated-dev](commands/m-orchestrated-dev.md)** - Multi-agent collaborative development workflow
+  - Three-agent collaboration (Orchestrator, Developer, Reviewer)
+  - Research-driven development-review cycles
+  - Automated quality control and verification
 
-- **[m-merge-branch](commands/m-merge-branch.md)** - 分支合并工作流
-  - 智能分支合并策略
-  - 冲突解决和验证
-  - 合并后清理
+#### 📝 Version Control
+- **[m-commit-push](commands/m-commit-push.md)** - Smart commit and push workflow
+  - Auto-generates conventional commit messages
+  - Integrated staging, committing, and pushing
+  - Support for custom commit messages
 
-#### 🐛 问题解决类
-- **[m-bug-fix](commands/m-bug-fix.md)** - 综合Bug修复工作流
-  - 支持多种Bug源输入 (问题号、错误文本、截图、日志)
-  - 完整的分析、重现、修复、验证流程
-  - 自动化测试和回归验证
+- **[m-merge-branch](commands/m-merge-branch.md)** - Branch merging workflow
+  - Smart branch merge strategies
+  - Conflict resolution and verification
+  - Post-merge cleanup
 
-### 代码质量管理
+#### 🐛 Problem Resolution
+- **[m-bug-fix](commands/m-bug-fix.md)** - Comprehensive bug fix workflow
+  - Support for multiple bug source inputs (issue numbers, error text, screenshots, logs)
+  - Complete analysis, reproduction, fix, and verification process
+  - Automated testing and regression verification
 
-#### 🔍 审查分析类
-- **[m-review-code](commands/m-review-code.md)** - 综合代码审查工作流
-  - 功能完整性、安全性、性能多维度审查
-  - 双语报告生成
-  - 第三方库优化建议
+### Code Quality Management
 
-- **[m-debate-architecture](commands/m-debate-architecture.md)** - 架构辩论分析
-  - 战略架构审查
-  - 系统设计模式评估
-  - 高级重构建议
+#### 🔍 Review and Analysis
+- **[m-review-code](commands/m-review-code.md)** - Comprehensive code review workflow
+  - Multi-dimensional review: functionality, security, performance
+  - Bilingual report generation
+  - Third-party library optimization suggestions
 
-- **[m-debate-code](commands/m-debate-code.md)** - 代码辩论分析
-  - 战术代码审查
-  - 实现级别问题识别
-  - 编码标准合规性验证
+- **[m-debate-architecture](commands/m-debate-architecture.md)** - Architecture debate analysis
+  - Strategic architecture review
+  - System design pattern evaluation
+  - Advanced refactoring suggestions
 
-#### 🛡️ 安全测试类
-- **[m-security-scan](commands/m-security-scan.md)** - 综合安全扫描工作流
-  - 依赖项、认证、数据处理安全检查
-  - OWASP Top 10 合规验证
-  - 自动化安全修复建议
+- **[m-debate-code](commands/m-debate-code.md)** - Code debate analysis
+  - Tactical code review
+  - Implementation-level issue identification
+  - Coding standards compliance verification
 
-#### 🧪 测试生成类
-- **[m-test-generation](commands/m-test-generation.md)** - 自动化测试生成工作流
-  - 单元测试、集成测试、端到端测试
-  - 覆盖率分析和目标设定
-  - 多框架支持
+#### 🛡️ Security Testing
+- **[m-security-scan](commands/m-security-scan.md)** - Comprehensive security scanning workflow
+  - Dependencies, authentication, data processing security checks
+  - OWASP Top 10 compliance validation
+  - Automated security fix suggestions
 
-- **[m-tdd-planner](commands/m-tdd-planner.md)** - TDD规划工作流
-  - 测试驱动开发计划生成
-  - Red-Green-Refactor 循环规划
-  - JSON格式结构化输出
+#### 🧪 Test Generation
+- **[m-test-generation](commands/m-test-generation.md)** - Automated test generation workflow
+  - Unit tests, integration tests, end-to-end tests
+  - Coverage analysis and target setting
+  - Multi-framework support
 
-### 项目管理与规划
+- **[m-tdd-planner](commands/m-tdd-planner.md)** - TDD planning workflow
+  - Test-driven development plan generation
+  - Red-Green-Refactor cycle planning
+  - JSON format structured output
 
-#### 📊 任务规划类
-- **[m-task-planner](commands/m-task-planner.md)** - 开发任务规划工作流
-  - 需求分析和任务分解
-  - 依赖关系映射
-  - 可视化任务流程图
+### Project Management & Planning
 
-- **[m-next-task](commands/m-next-task.md)** - 下一步任务分析
-  - 当前状态分析
-  - 优先级任务识别
-  - 行动计划生成
+#### 📊 Task Planning
+- **[m-task-planner](commands/m-task-planner.md)** - Development task planning workflow
+  - Requirements analysis and task decomposition
+  - Dependency relationship mapping
+  - Visual task flow diagrams
 
-- **[m-next-context](commands/m-next-context.md)** - 上下文编译
-  - 项目背景分析
-  - 任务提取和分类
-  - 支持材料收集
+- **[m-next-task](commands/m-next-task.md)** - Next task analysis
+  - Current status analysis
+  - Priority task identification
+  - Action plan generation
 
-#### 📋 完成验证类
-- **[m-review-completion](commands/m-review-completion.md)** - 审查完成工作流
-  - 完成状态验证
-  - 质量门控检查
-  - 交付物确认
+- **[m-next-context](commands/m-next-context.md)** - Context compilation
+  - Project background analysis
+  - Task extraction and classification
+  - Supporting material collection
 
-### 维护与文档
+#### 📋 Completion Verification
+- **[m-review-completion](commands/m-review-completion.md)** - Review completion workflow
+  - Completion status verification
+  - Quality gate checks
+  - Deliverable confirmation
 
-#### 🧹 清理维护类
-- **[m-project-cleanup](commands/m-project-cleanup.md)** - 项目清理工作流
-  - 代码清理和优化
-  - 依赖项管理
-  - 结构重组
+### Maintenance & Documentation
 
-- **[m-branch-prune](commands/m-branch-prune.md)** - 分支清理工作流
-  - 合并分支清理
-  - 功能测试和验证
-  - 顺序合并操作
+#### 🧹 Cleanup & Maintenance
+- **[m-project-cleanup](commands/m-project-cleanup.md)** - Project cleanup workflow
+  - Code cleanup and optimization
+  - Dependency management
+  - Structure reorganization
 
-- **[m-branch-prune-lite](commands/m-branch-prune-lite.md)** - 轻量分支清理
-  - 快速分支清理
-  - 无测试的简化流程
-  - 特定分支处理
+- **[m-branch-prune](commands/m-branch-prune.md)** - Branch cleanup workflow
+  - Merged branch cleanup
+  - Function testing and verification
+  - Sequential merge operations
 
-#### 📚 文档管理类
-- **[m-document-update](commands/m-document-update.md)** - 文档更新工作流
-  - API文档自动更新
-  - README和变更日志维护
-  - 代码注释验证
+- **[m-branch-prune-lite](commands/m-branch-prune-lite.md)** - Lightweight branch cleanup
+  - Quick branch cleanup
+  - Simplified process without testing
+  - Specific branch handling
 
-## 🚀 快速开始
+#### 📚 Documentation Management
+- **[m-document-update](commands/m-document-update.md)** - Documentation update workflow
+  - API documentation auto-update
+  - README and changelog maintenance
+  - Code comment validation
 
-### 安装配置
+## 🚀 Quick Start
+
+### Installation & Setup
 ```bash
-# 克隆项目
+# Clone the project
 git clone https://github.com/penwyp/ClaudePreference.git
 cd ClaudePreference
 
-# 复制命令到 Claude Code 目录
+# Copy commands to Claude Code directory
 cp commands/* ~/.claude/commands/
 
-# 启动 Claude Code
+# Start Claude Code
 claude
 ```
 
-### 基本使用
+### Basic Usage
 ```bash
-# 使用斜杠命令
+# Use slash commands
 /m-orchestrated-dev requirements.md
 /m-commit-push "feat: add new feature"
 /m-security-scan
 ```
 
-## 🎯 使用场景
+## 🎯 Usage Scenarios
 
-### 日常开发工作流
+### Daily Development Workflow
 ```bash
-# 1. 任务规划
+# 1. Task planning
 /m-task-planner requirements.md
 
-# 2. 协同开发
+# 2. Collaborative development
 /m-orchestrated-dev
 
-# 3. 代码审查
+# 3. Code review
 /m-review-code src/
 
-# 4. 测试生成
+# 4. Test generation
 /m-test-generation unit src/ 85%
 
-# 5. 安全扫描
+# 5. Security scan
 /m-security-scan
 
-# 6. 提交推送
+# 6. Commit and push
 /m-commit-push
 ```
 
-### Bug 修复工作流
+### Bug Fix Workflow
 ```bash
-# 1. 分析Bug
+# 1. Analyze bug
 /m-bug-fix #123
 
-# 2. 生成测试
+# 2. Generate tests
 /m-test-generation unit src/bugfix/
 
-# 3. 代码审查
+# 3. Code review
 /m-review-code src/bugfix/
 
-# 4. 提交修复
+# 4. Commit fix
 /m-commit-push "fix: resolve issue #123"
 ```
 
-### 发布前工作流
+### Pre-Release Workflow
 ```bash
-# 1. 全面测试
+# 1. Comprehensive testing
 /m-test-generation all
 
-# 2. 安全扫描
+# 2. Security scan
 /m-security-scan full
 
-# 3. 代码审查
+# 3. Code review
 /m-review-code
 
-# 4. 文档更新
+# 4. Documentation update
 /m-document-update
 
-# 5. 项目清理
+# 5. Project cleanup
 /m-project-cleanup
 
-# 6. 分支清理
+# 6. Branch cleanup
 /m-branch-prune
 ```
 
-## 🔧 配置选项
+## 🔧 Configuration Options
 
-### 命令参数模式
-- **无参数**: 使用默认行为
-- **单参数**: 指定目标或范围
-- **多参数**: 详细配置选项
+### Command Parameter Patterns
+- **No parameters**: Use default behavior
+- **Single parameter**: Specify target or scope
+- **Multiple parameters**: Detailed configuration options
 
-### 输出格式
-- **控制台输出**: 实时进度和结果
-- **文件报告**: 保存到 `docs/workspaces/`
-- **JSON数据**: 机器可读的结构化数据
+### Output Formats
+- **Console output**: Real-time progress and results
+- **File reports**: Saved to `docs/workspaces/`
+- **JSON data**: Machine-readable structured data
 
-## 📈 最佳实践
+## 📈 Best Practices
 
-### 1. 命令组合使用
-- 按工作流程顺序使用命令
-- 利用命令间的互补性
-- 建立标准化的使用模式
+### 1. Command Combination Usage
+- Use commands in workflow sequence
+- Leverage command complementarity
+- Establish standardized usage patterns
 
-### 2. 参数优化
-- 根据项目特点调整参数
-- 利用可选参数提高效率
-- 建立团队使用规范
+### 2. Parameter Optimization
+- Adjust parameters based on project characteristics
+- Use optional parameters to improve efficiency
+- Establish team usage standards
 
-### 3. 输出管理
-- 定期清理报告文件
-- 建立报告分析流程
-- 追踪改进进展
+### 3. Output Management
+- Regularly clean up report files
+- Establish report analysis processes
+- Track improvement progress
 
-## 🛠️ 故障排除
+## 🛠️ Troubleshooting
 
-### 常见问题
-1. **命令未找到**: 检查命令文件是否正确复制到 `~/.claude/commands/`
-2. **参数错误**: 参考具体命令文档的参数说明
-3. **权限问题**: 确保对项目目录有读写权限
-4. **依赖缺失**: 检查项目依赖是否完整安装
+### Common Issues
+1. **Command not found**: Check if command files are correctly copied to `~/.claude/commands/`
+2. **Parameter errors**: Refer to specific command documentation for parameter descriptions
+3. **Permission issues**: Ensure read/write permissions for project directory
+4. **Missing dependencies**: Check if project dependencies are fully installed
 
-### 获取帮助
-- 查看具体命令的详细文档
-- 使用 `/help` 命令获取帮助
-- 检查错误消息获取具体指导
+### Getting Help
+- Check specific command detailed documentation
+- Use `/help` command for assistance
+- Check error messages for specific guidance
 
-## 📊 命令统计
+## 📊 Command Statistics
 
-- **总命令数**: 18个
-- **核心开发**: 8个命令
-- **质量管理**: 6个命令
-- **项目管理**: 4个命令
+- **Total commands**: 18
+- **Core development**: 8 commands
+- **Quality management**: 6 commands
+- **Project management**: 4 commands
 
-## 🔄 更新日志
+## 🔄 Update Log
 
-### 最新更新
-- **2025-01-15**: 完成所有18个命令的详细文档
-- **2025-01-14**: 优化文档结构和分类
-- **2025-01-13**: 添加使用示例和最佳实践
+### Latest Updates
+- **2025-01-15**: Completed detailed documentation for all 18 commands
+- **2025-01-14**: Optimized documentation structure and categorization
+- **2025-01-13**: Added usage examples and best practices
 
 ---
 
-*这是一个活跃维护的文档项目，会随着命令的更新而持续改进。*
+*This is an actively maintained documentation project that will continue to improve as commands are updated.*

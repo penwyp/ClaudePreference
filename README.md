@@ -1,10 +1,12 @@
 # ClaudePreference
 
+**English** | [中文](README_CN.md)
+
 A comprehensive collection of development workflow commands for Claude Code, designed to streamline software development processes from planning to deployment.
 
 ## 🚀 Overview
 
-ClaudePreference provides a suite of specialized commands that automate and optimize common development workflows. These commands integrate seamlessly with Claude Code to provide intelligent assistance for:
+ClaudePreference provides a suite of specialized commands that integrate seamlessly with Claude Code to provide intelligent assistance for:
 
 - **Development Lifecycle Management**: From requirements analysis to deployment
 - **Code Quality Assurance**: Automated reviews, testing, and security scanning
@@ -13,7 +15,7 @@ ClaudePreference provides a suite of specialized commands that automate and opti
 
 ## 📋 Available Commands
 
-> 💡 **完整文档**: 查看 [命令文档中心](docs/README.md) 获取所有命令的详细说明、使用示例和最佳实践。
+> 💡 **Complete Documentation**: Visit [Command Documentation Hub](docs/README.md) for detailed descriptions, usage examples, and best practices for all commands.
 
 ### Core Development Workflow
 
@@ -28,7 +30,7 @@ Multi-agent development workflow with coordinated dev-review cycles.
 - Build verification and quality gates
 - Evidence-based decision making
 
-**详细文档**: [m-orchestrated-dev](docs/commands/m-orchestrated-dev.md)
+**Detailed Documentation**: [m-orchestrated-dev](docs/commands/m-orchestrated-dev.md)
 
 #### 2. **Commit & Push** - `m-commit-push`
 Automated commit and push workflow with intelligent message generation.
@@ -40,7 +42,7 @@ Automated commit and push workflow with intelligent message generation.
 - `m-commit-push "fix: resolve memory leak"`
 - `m-commit-push` (auto-generates conventional commit message)
 
-**详细文档**: [m-commit-push](docs/commands/m-commit-push.md)
+**Detailed Documentation**: [m-commit-push](docs/commands/m-commit-push.md)
 
 #### 3. **Bug Fix Workflow** - `m-bug-fix`
 Comprehensive bug analysis, reproduction, and fix workflow.
@@ -53,7 +55,7 @@ Comprehensive bug analysis, reproduction, and fix workflow.
 - `m-bug-fix screenshot.png` - Fix from error screenshot
 - `m-bug-fix logs/error.log` - Analyze log file
 
-**详细文档**: [m-bug-fix](docs/commands/m-bug-fix.md)
+**Detailed Documentation**: [m-bug-fix](docs/commands/m-bug-fix.md)
 
 ### Code Quality Management
 
@@ -67,7 +69,7 @@ Comprehensive security vulnerability scanning and assessment.
 - `m-security-scan auth` - Focus on authentication security
 - `m-security-scan src/api` - Scan specific directory
 
-**详细文档**: [m-security-scan](docs/commands/m-security-scan.md)
+**Detailed Documentation**: [m-security-scan](docs/commands/m-security-scan.md)
 
 #### 5. **Test Generation** - `m-test-generation`
 Automated test case generation with coverage analysis.
@@ -79,10 +81,10 @@ Automated test case generation with coverage analysis.
 - `m-test-generation integration api` - Generate integration tests
 - `m-test-generation e2e user-flow` - Generate end-to-end tests
 
-**详细文档**: [m-test-generation](docs/commands/m-test-generation.md)
+**Detailed Documentation**: [m-test-generation](docs/commands/m-test-generation.md)
 
 #### 6. **Code Review** - `m-review-code`
-Tactical code review with quality assessment and reporting.
+Comprehensive code review with quality assessment and reporting.
 
 **Parameters**: `[target] [depth] [focus]` (optional)
 
@@ -91,7 +93,7 @@ Tactical code review with quality assessment and reporting.
 - `m-review-code PR#123 quick` - Quick PR review
 - `m-review-code components standard performance` - Performance review
 
-**详细文档**: [m-review-code](docs/commands/m-review-code.md)
+**Detailed Documentation**: [m-review-code](docs/commands/m-review-code.md)
 
 ### Project Management & Planning
 
@@ -106,7 +108,7 @@ Analyze requirements and generate structured implementation plans.
 - Implementation strategy design
 - Visual task flow diagrams
 
-**详细文档**: [m-task-planner](docs/commands/m-task-planner.md)
+**Detailed Documentation**: [m-task-planner](docs/commands/m-task-planner.md)
 
 #### 8. **TDD Planner** - `m-tdd-planner`
 Generate comprehensive Test-Driven Development plans.
@@ -118,6 +120,8 @@ Generate comprehensive Test-Driven Development plans.
 - Red-Green-Refactor cycle planning
 - Test pyramid structure definition
 - JSON-formatted implementation plan
+
+**Detailed Documentation**: [m-tdd-planner](docs/commands/m-tdd-planner.md)
 
 #### 9. **Next Tasks** - `m-next-task`
 Analyze current development status and generate prioritized action plans.
@@ -165,7 +169,7 @@ Automated documentation maintenance and updates.
 - Code comment validation
 - Documentation consistency checks
 
-#### 13. **Branch Cleanup** - `m-branch-prune`
+#### 13. **Branch Management** - `m-branch-prune`
 Comprehensive branch management and cleanup workflow.
 
 **Features**:
@@ -187,7 +191,7 @@ Lightweight branch cleanup without testing.
 
 ### Architecture & Design
 
-#### 15. **Architecture Debate** - `m-debate-architecture`
+#### 15. **Architecture Review** - `m-debate-architecture`
 Strategic architecture review and analysis workflow.
 
 **Parameters**: `[target]` (optional) - modules, directories, or "all"
@@ -198,7 +202,7 @@ Strategic architecture review and analysis workflow.
 - Strategic "-ilities" evaluation
 - High-level refactoring proposals
 
-#### 16. **Code Debate** - `m-debate-code`
+#### 16. **Code Analysis** - `m-debate-code`
 Tactical code review with detailed implementation analysis.
 
 **Parameters**: `[target] [depth] [focus]` (optional)
@@ -209,24 +213,50 @@ Tactical code review with detailed implementation analysis.
 - Coding standards compliance verification
 - Line-level feedback generation
 
+#### 17. **Review Completion** - `m-review-completion`
+Review completion workflow and verification.
+
+**Features**:
+- Completion status validation
+- Quality gate verification
+- Deliverable confirmation
+- Final review sign-off
+
+#### 18. **Branch Merge** - `m-merge-branch`
+Intelligent branch merging workflow.
+
+**Features**:
+- Smart merge strategy selection
+- Conflict resolution assistance
+- Post-merge validation
+- Automated cleanup
+
 ## 🔧 Installation & Setup
 
 1. **Prerequisites**:
    - Claude Code CLI installed and configured
    - Appropriate development environment setup
-   - Appropriate MCP environment setup (e.g. `context7`)
+   - MCP environment setup (e.g., `context7`)
 
-2. **Usage**:
+2. **Installation**:
    ```bash
-   # Navigate to your project directory
-   cd /path/to/your/code
+   # Clone the repository
    git clone https://github.com/penwyp/ClaudePreference.git
    cd ClaudePreference
+   
+   # Copy commands to Claude Code directory
    cp commands/* ~/.claude/commands/
    
-   # Run another claude code command
+   # Start Claude Code
    claude
-   # User Slah "/" to select the command you want to run
+   ```
+
+3. **Usage**:
+   ```bash
+   # Use slash commands in Claude Code
+   /m-orchestrated-dev requirements.md
+   /m-commit-push "feat: add new feature"
+   /m-security-scan
    ```
 
 ## 📖 Usage Examples
@@ -236,8 +266,8 @@ Tactical code review with detailed implementation analysis.
 # Start with task planning
 /m-task-planner requirements.md
 
-# Dev-Review Cycle
-/m-orchestrated-dev requirements.md
+# Development and review cycle
+/m-orchestrated-dev
 
 # Generate tests for new features
 /m-test-generation unit src/newfeature 85%
@@ -286,7 +316,7 @@ Tactical code review with detailed implementation analysis.
 /m-debate-code src/api deep security
 
 # Generate improvement plan
-m-task-planner architecture-improvements.md
+/m-task-planner architecture-improvements.md
 ```
 
 ## 🛠️ Best Practices
@@ -319,9 +349,9 @@ m-task-planner architecture-improvements.md
 ### Getting Help
 
 For additional support:
-- 查看 [命令文档中心](docs/README.md) 获取详细说明
-- 查看 [commands/](commands/) 目录中的命令定义
-- 查看 [docs/commands/](docs/commands/) 目录中的详细文档
+- Visit [Command Documentation Hub](docs/README.md) for detailed guides
+- Check [commands/](commands/) directory for command definitions
+- Review [docs/commands/](docs/commands/) directory for detailed documentation
 - Review error messages for specific guidance
 - Ensure your development environment meets all requirements
 
@@ -329,7 +359,8 @@ For additional support:
 
 ```
 ClaudePreference/
-├── README.md                    # This file
+├── README.md                    # This file (English)
+├── README_CN.md                 # Chinese version
 ├── commands/                    # Command definitions (Claude Code slash commands)
 │   ├── m-orchestrated-dev.md   # Multi-agent development
 │   ├── m-commit-push.md        # Commit and push workflow
@@ -350,7 +381,8 @@ ClaudePreference/
 │   ├── m-review-completion.md # Review completion
 │   └── m-merge-branch.md      # Branch merging
 └── docs/                       # Documentation and reports
-    ├── README.md               # Command documentation index
+    ├── README.md               # Command documentation index (English)
+    ├── README_CN.md            # Command documentation index (Chinese)
     ├── commands/               # Detailed command documentation
     │   ├── m-orchestrated-dev.md   # Detailed usage and examples
     │   ├── m-commit-push.md        # Commit workflow documentation
@@ -359,6 +391,7 @@ ClaudePreference/
     │   ├── m-test-generation.md   # Test generation guide
     │   ├── m-review-code.md       # Code review guide
     │   ├── m-task-planner.md      # Task planning guide
+    │   ├── m-tdd-planner.md       # TDD planning guide
     │   └── ... (more documentation)
     └── workspaces/            # Generated workflow reports
 ```
