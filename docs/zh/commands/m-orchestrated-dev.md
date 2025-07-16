@@ -116,21 +116,6 @@
 - 需求履行情况
 - 架构决策记录
 
-## 配置选项
-
-```yaml
-max_cycles: 5                    # 最大循环次数
-timeout_minutes: 60             # 超时时间
-mcp_tools:
-  enabled: ["web_search", "context7", "sequential_thinking", "zen:consensus"]
-  web_search_suffix: "2025"     # 搜索后缀
-strict_mode:
-  no_incomplete_code: true      # 严格模式
-  require_security_check: true # 需要安全检查
-  min_functional_coverage: 100 # 最小功能覆盖
-  min_non_functional_coverage: 70 # 最小非功能覆盖
-```
-
 ## 最佳实践
 
 1. **开始前**: 确保需求文档清晰完整

@@ -15,7 +15,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 ## 📋 可用命令
 
-> 💡 **完整文档**：查看 [命令文档中心](docs/README.md) 获取所有命令的详细说明、使用示例和最佳实践。
+> 💡 **完整文档**：查看 [命令文档中心](docs/README_CN.md) 获取所有命令的详细说明、使用示例和最佳实践。
 
 ### 核心开发工作流
 
@@ -30,7 +30,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 构建验证和质量门控
 - 基于证据的决策制定
 
-**详细文档**：[m-orchestrated-dev](docs/commands/m-orchestrated-dev.md)
+**详细文档**：[m-orchestrated-dev](docs/zh/commands/m-orchestrated-dev.md)
 
 #### 2. **提交推送** - `m-commit-push`
 自动化提交和推送工作流，智能生成消息。
@@ -42,7 +42,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - `m-commit-push "fix: resolve memory leak"`
 - `m-commit-push`（自动生成约定式提交消息）
 
-**详细文档**：[m-commit-push](docs/commands/m-commit-push.md)
+**详细文档**：[m-commit-push](docs/zh/commands/m-commit-push.md)
 
 #### 3. **Bug修复工作流** - `m-bug-fix`
 全面的Bug分析、重现和修复工作流。
@@ -55,7 +55,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - `m-bug-fix screenshot.png` - 从错误截图修复
 - `m-bug-fix logs/error.log` - 分析日志文件
 
-**详细文档**：[m-bug-fix](docs/commands/m-bug-fix.md)
+**详细文档**：[m-bug-fix](docs/zh/commands/m-bug-fix.md)
 
 ### 代码质量管理
 
@@ -69,7 +69,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - `m-security-scan auth` - 专注于认证安全
 - `m-security-scan src/api` - 扫描特定目录
 
-**详细文档**：[m-security-scan](docs/commands/m-security-scan.md)
+**详细文档**：[m-security-scan](docs/zh/commands/m-security-scan.md)
 
 #### 5. **测试生成** - `m-test-generation`
 自动化测试用例生成和覆盖率分析。
@@ -81,7 +81,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - `m-test-generation integration api` - 生成集成测试
 - `m-test-generation e2e user-flow` - 生成端到端测试
 
-**详细文档**：[m-test-generation](docs/commands/m-test-generation.md)
+**详细文档**：[m-test-generation](docs/zh/commands/m-test-generation.md)
 
 #### 6. **代码审查** - `m-review-code`
 全面的代码审查与质量评估报告。
@@ -93,7 +93,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - `m-review-code PR#123 quick` - 快速PR审查
 - `m-review-code components standard performance` - 性能审查
 
-**详细文档**：[m-review-code](docs/commands/m-review-code.md)
+**详细文档**：[m-review-code](docs/zh/commands/m-review-code.md)
 
 ### 项目管理与规划
 
@@ -108,7 +108,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 实施策略设计
 - 可视化任务流程图
 
-**详细文档**：[m-task-planner](docs/commands/m-task-planner.md)
+**详细文档**：[m-task-planner](docs/zh/commands/m-task-planner.md)
 
 #### 8. **TDD规划器** - `m-tdd-planner`
 生成全面的测试驱动开发计划。
@@ -121,7 +121,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 测试金字塔结构定义
 - JSON格式的实施计划
 
-**详细文档**：[m-tdd-planner](docs/commands/m-tdd-planner.md)
+**详细文档**：[m-tdd-planner](docs/zh/commands/m-tdd-planner.md)
 
 #### 9. **下一步任务** - `m-next-task`
 分析当前开发状态并生成优先级行动计划。
@@ -134,6 +134,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 优先级排序和依赖评估
 - 全面状态报告
 
+**详细文档**：[m-next-task](docs/zh/commands/m-next-task.md)
+
 #### 10. **下一步上下文** - `m-next-context`
 编译全面的任务清单和背景信息。
 
@@ -144,6 +146,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 任务提取和分类
 - 支持材料收集
 - 模糊性检测和澄清
+
+**详细文档**：[m-next-context](docs/zh/commands/m-next-context.md)
 
 ### 维护与文档
 
@@ -169,6 +173,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 代码注释验证
 - 文档一致性检查
 
+**详细文档**：[m-document-update](docs/zh/commands/m-document-update.md)
+
 #### 13. **分支管理** - `m-branch-prune`
 全面的分支管理和清理工作流。
 
@@ -177,6 +183,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 已合并分支清理
 - 跨版本功能测试
 - 顺序合并操作
+
+**详细文档**：[m-branch-prune](docs/zh/commands/m-branch-prune.md)
 
 #### 14. **轻量分支清理** - `m-branch-prune-lite`
 不包含测试的轻量分支清理。
@@ -188,6 +196,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 已合并分支清理
 - 特定工作树和分支移除
 - 顺序合并操作
+
+**详细文档**：[m-branch-prune-lite](docs/zh/commands/m-branch-prune-lite.md)
 
 ### 架构与设计
 
@@ -202,6 +212,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 战略"-ilities"评估
 - 高级重构建议
 
+**详细文档**：[m-debate-architecture](docs/zh/commands/m-debate-architecture.md)
+
 #### 16. **代码分析** - `m-debate-code`
 战术代码审查与详细实施分析。
 
@@ -213,6 +225,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 编码标准合规性验证
 - 行级反馈生成
 
+**详细文档**：[m-debate-code](docs/zh/commands/m-debate-code.md)
+
 #### 17. **审查完成** - `m-review-completion`
 审查完成工作流和验证。
 
@@ -222,6 +236,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 交付物确认
 - 最终审查签署
 
+**详细文档**：[m-review-completion](docs/zh/commands/m-review-completion.md)
+
 #### 18. **分支合并** - `m-merge-branch`
 智能分支合并工作流。
 
@@ -230,6 +246,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 冲突解决协助
 - 合并后验证
 - 自动化清理
+
+**详细文档**：[m-merge-branch](docs/zh/commands/m-merge-branch.md)
 
 ## 🔧 安装与设置
 
@@ -349,9 +367,9 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 ### 获得帮助
 
 获取更多支持：
-- 访问 [命令文档中心](docs/README.md) 获取详细指南
+- 访问 [命令文档中心](docs/zh/README.md) 获取详细指南
 - 检查 [commands/](commands/) 目录中的命令定义
-- 查看 [docs/commands/](docs/commands/) 目录中的详细文档
+- 查看 [docs/commands/](docs/zh/commands/) 目录中的详细文档
 - 审查错误消息获取具体指导
 - 确保您的开发环境满足所有要求
 
