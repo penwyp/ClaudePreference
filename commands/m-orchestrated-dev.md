@@ -1,271 +1,258 @@
-# Multi-Agent Development Workflow: Research-Driven Dev-Review Cycles
+# Multi-Agent Development Workflow: A Research-Driven & Template-Based System
 
-**Target:** $ARGUMENTS (Default: previous discussion results or current requirements)
-**Scope:** Deploy three specialized agents with MCP tools for optimal development
+**Target:** `$ARGUMENTS` (Default: previous discussion results or current requirements)
+**Scope:** Deploy three specialized agents governed by a template-based orchestration system to ensure quality, consistency, and adaptability in software development.
 
-## Agent Architecture
+-----
 
-### Agent O (Orchestrator)
-**Role:** Strategic planning, architecture decisions, and workflow coordination
+## 1. System Configuration
+
+*This section defines the high-level operational parameters for the workflow.*
+
+```yaml
+max_cycles: 5
+timeout_minutes: 90
+strict_mode:
+  no_incomplete_code: true
+  require_security_check: true
+  min_functional_coverage_percent: 100
+  min_non_functional_coverage_percent: 70
+mcp_tools:
+  enabled: ["web_search", "context7", "sequential_thinking"]
+  # Principle: Prioritize recent information for time-sensitive queries.
+  # The Orchestrator should dynamically append the current year (e.g., 2025) when appropriate.
+  web_search_year: "dynamic"
+```
+
+-----
+
+## 2. Agent Architecture
+
+*Defines the roles and core responsibilities of each autonomous agent.*
+
+### Agent O (Orchestrator & Prompt Generator)
+
+**Role:** Strategic planning, workflow coordination, and dynamic prompt assembly.
 
 **Key Responsibilities:**
-- Parse requirements using **sequential-thinking** for complex analysis
-- Research optimal architecture patterns:
-  - Use **context7** for framework evaluation and best practices
-  - Use **web_search** (append "2025" for latest practices) for current solutions
-  - Apply **zen:consensus** for critical technical decisions
-- Create evidence-based development plans
-- Coordinate Developer and Reviewer with research-backed guidance
-- Ensure 100% functional requirements, 70% non-functional requirements
-- Verify final build success before completion
 
-**MCP Tool Usage:**
-```
-Phase 1 (Requirements Analysis):
-- sequential-thinking: Break down complex requirements
-- web_search "best practices [tech stack] 2025": Current standards
-
-Phase 2 (Architecture Planning):
-- context7: Evaluate framework options
-- web_search "[problem domain] architecture patterns 2025"
-- Document rationale for all technical choices
-```
+  - **Parse Requirements:** Decompose high-level goals into actionable tasks using **sequential-thinking**.
+  - **Initiate Research:** Launch research cycles to determine optimal architecture and technology stacks.
+  - **Synthesize Findings:** Analyze research from multiple sources (**web\_search**, **context7**) to form a reasoned, evidence-based technical plan.
+  - **Manage State:** Track the development progress, review feedback, and iteration count.
+  - **Assemble & Dispatch Prompts:** Act as the **Prompt Generator**. Populate templates from the `Prompt Template Library` with dynamic context to create specific, actionable instructions for other agents.
+  - **Final Verification:** Verify the final build's success and ensure all success criteria are met before completion.
 
 ### Agent D (Developer)
-**Role:** Implementation with research-informed coding practices
+
+**Role:** High-quality, research-informed code implementation.
 
 **Key Responsibilities:**
-- **CRITICAL**: Every function must be completely implemented
-- **FORBIDDEN**: No TODO, FIXME, HACK, XXX, stub, or placeholder code
-- Research before implementing complex features:
-  - Use **web_search** for implementation patterns
-  - Apply **sequential-thinking** for algorithm design
-- Each commit must compile and run successfully
-- Implement with production-ready quality
 
-**Implementation Standards:**
-- Zero tolerance for incomplete code
-- Security-first implementation
-- Proper error handling in all paths
-- Clean, maintainable code structure
+  - **Execute from Context:** Work exclusively from the contextual prompt provided by Agent O.
+  - **Maintain Consistency:** When modifying existing files, first understand and then mimic the file's code conventions, style, and existing patterns. Use existing libraries and utilities where appropriate.
+  - **Implement Completely:** **CRITICAL:** Every function must have a complete, production-ready implementation.
+  - **FORBIDDEN:** No `TODO`, `FIXME`, `HACK`, `XXX`, `pass`, `stub`, or any other form of placeholder code.
+  - **Pre-Implementation Research:** For complex features or algorithms, use **web\_search** to find optimal implementation patterns as guided by Agent O.
+  - **Ensure Quality:** Each code submission must compile, run, and pass all local verification checks.
 
 ### Agent R (Reviewer)
-**Role:** Comprehensive validation with external benchmarking
+
+**Role:** Comprehensive validation against objective standards and context.
+
+**Key Responsibilities:**
+
+  - **Holistic Review:** Assess code for completeness, security, performance, architectural compliance, and **consistency with the existing codebase.**
+  - **Provide Actionable Feedback:** When identifying issues, provide concrete suggestions, code snippets, or clear guidance for remediation where feasible. This is crucial for accelerating the iteration cycle.
+  - **External Benchmarking:** Use tools like **web\_search** to validate against external standards (e.g., OWASP Top 10) and **context7** to check framework-specific best practices.
+  - **Generate Report:** Complete the standardized `Review Output Format` with clear findings and a final decision.
+
+-----
+
+## 3. Prompt Template Library
+
+*This library contains the standardized, reusable instruction skeletons. Agent O dynamically populates these templates.*
+
+### Template: `Initial_Research`
+
+```
+You are an expert-level Systems Architect. Your goal is to research and propose the best technical architecture for the following requirements.
+
+**Requirements:**
+{{REQUIREMENTS_SUMMARY}}
+
+**Research Directives:**
+1.  Identify the top 2-3 architectural patterns suitable for this problem domain. Use **web_search** with queries like "[problem domain] architecture patterns {{CURRENT_YEAR}}".
+2.  Evaluate and recommend a primary technology stack (language, framework, key libraries). Use **context7** for deep framework analysis. Justify your choice against alternatives.
+3.  Define the core data models or schemas required.
+4.  Identify potential challenges (e.g., scalability, security) and propose mitigation strategies.
+
+**Expected Output:**
+A structured technical plan with clear justifications for all recommendations.
+```
+
+### Template: `Orchestrator_to_Developer`
+
+```
+You are Agent D, the Developer. Your task is to perform a development cycle based on the provided plan.
+
+**High-Level Goal:**
+{{HIGH_LEVEL_GOAL}}
+
+**Current Task Description:**
+{{TASK_DESCRIPTION}}
+
+**Architecture & Constraints (from Agent O's Plan):**
+{{ARCHITECTURE_CONSTRAINTS}}
+
+**Implementation Standards (MANDATORY):**
+- **Adhere to Existing Patterns:** Before writing code, analyze the existing files to understand their conventions. All new code must mimic the style, patterns, and library usage of the surrounding code.
+- **Implement all functionality completely:** No placeholders (`TODO`, `FIXME`, `pass`, etc.) are permitted.
+- **Follow all security and quality standards** outlined in the architecture plan.
+- **Ensure your code is clean, maintainable, and includes proper error handling.**
+
+**Tool Guidance:**
+- For complex algorithms, use **sequential-thinking** to break down the problem.
+- If you encounter an unfamiliar library, use **web_search** for implementation examples.
+
+**Expected Output:**
+1.  The complete, production-ready source code for the task.
+2.  A confirmation that the code compiles and all local checks pass.
+```
+
+### Template: `Orchestrator_to_Reviewer`
+
+```
+You are Agent R, the Reviewer. Conduct a comprehensive code review.
+
+**Code to Review:**
+{{CODE_FOR_REVIEW}}
+
+**Original Context (Task & Architecture):**
+{{TASK_CONTEXT_FOR_REVIEW}}
 
 **Review Priorities (in order):**
+1.  **Code Completeness (BLOCKING):** Perform static analysis to find any markers of incomplete code (`TODO`, empty functions, etc.).
+2.  **Critical Issues (BLOCKING):**
+    - Security: Use **web_search** to check against recent vulnerabilities (e.g., "OWASP top 10 {{CURRENT_YEAR}}").
+    - Concurrency, resource management, and performance bottlenecks.
+3.  **Code Quality & Consistency:**
+    - Verify that new code is consistent with the existing codebase's style, patterns, and conventions.
+    - Assess for maintainability and readability.
+4.  **Architecture & Requirements:**
+    - Use **context7** to verify compliance with framework best practices.
+    - Confirm all functional requirements from the context are met.
 
-1. **Code Completeness (BLOCKING)**
-   - Scan for ANY incomplete markers: TODO, FIXME, pass, stub, ...
-   - Verify all functions have implementations
-   - Check all error paths are handled
-   - Use pattern: `grep -r "TODO\|FIXME\|XXX\|HACK\|pass\|\.\.\.|\bstub\b"`
+**Key Mandate:**
+Where you identify defects, provide actionable suggestions or code snippets to guide the fix.
 
-2. **Critical Issues (BLOCKING)**
-   - Security: Use **web_search "[language] security vulnerabilities 2025"**
-   - Concurrency: Check race conditions, deadlocks
-   - Resource management: Memory leaks, unclosed resources
-   - Authentication/Authorization gaps
-
-3. **Architecture Quality**
-   - Use **context7** to verify framework usage
-   - Compare against industry best practices
-   - Assess scalability and maintainability
-
-4. **Requirements Coverage**
-   - Map features to requirements
-   - Verify 100% functional coverage
-   - Assess non-functional achievements
-
-**MCP Tool Usage:**
-```
-- web_search "OWASP top 10 2025": Security validation
-- context7: Framework-specific best practices
-- sequential-thinking: Systematic code analysis
+**Expected Output:**
+- A completed JSON review report using the standard `Review Output Format`.
+- A clear "APPROVED" or "REJECTED" decision.
 ```
 
-## Enhanced Workflow
+-----
 
-### 1. Research-Driven Planning (Agent O)
-```yaml
-Input: Requirements
-Actions:
-  1. Use sequential-thinking to decompose requirements
-  2. Research optimal solutions:
-     - web_search "[domain] best architecture 2025"
-     - context7 for framework selection
-  3. Create evidence-based plan with justifications
-Output: Detailed plan with research backing
-```
+## 4. Enhanced Workflow
 
-### 2. Informed Development Cycle
-```yaml
-Orchestrator → Developer:
-  - Task specification
-  - Recommended patterns from research
-  - Architecture constraints
+*The high-level, orchestrated sequence of operations.*
 
-Developer Actions:
-  - Research complex implementations via web_search
-  - Implement complete solution (no placeholders)
-  - Self-verify completeness before submission
+1.  **Phase 1: Research & Planning (Agent O)**
+      - O parses the initial requirements.
+      - O populates and executes the `Initial_Research` template to generate a technical plan.
+2.  **Phase 2: Development Cycle (Agent D)**
+      - O breaks down the plan into a specific task.
+      - O generates a contextual prompt for D using the `Orchestrator_to_Developer` template.
+      - D implements the code and submits it upon successful local verification.
+3.  **Phase 3: Comprehensive Review (Agent R)**
+      - O receives the code from D.
+      - O generates a review task for R using the `Orchestrator_to_Reviewer` template, providing both the code and the original context.
+      - R performs the review and returns a structured JSON report.
+4.  **Phase 4: Iteration or Completion**
+      - O parses the review report.
+      - **If REJECTED:** O extracts the actionable feedback, creates a new development task, and returns to Phase 2.
+      - **If APPROVED:** O proceeds to final verification and completion.
+      - **If max\_cycles exceeded:** O halts the process and generates the `max-cycle-summary` document.
 
-Developer → Orchestrator:
-  - Complete implementation
-  - No TODO/stub code
-  - Build verification passed
-```
+-----
 
-### 3. Comprehensive Review
-```yaml
-Orchestrator → Reviewer:
-  - Code for review
-  - Architecture context
-  - Research references
+## 5. Communication & Data Formats
 
-Reviewer Actions:
-  1. Completeness check (grep patterns)
-  2. Security audit (OWASP reference)
-  3. Architecture compliance (context7)
-  4. Requirements mapping
+### Review Output Format (`json`)
 
-Reviewer → Orchestrator:
-  - Detailed findings
-  - External validation results
-  - Accept/Reject decision
-```
+*Standardized format for Agent R's report, now with actionable suggestions.*
 
-### 4. Decision Matrix
-| Completeness | Critical Issues | Functional | Non-Functional | Decision |
-|-------------|-----------------|------------|----------------|----------|
-| < 100% | - | - | - | REJECT: Fix incomplete code |
-| 100% | Yes | - | - | REJECT: Fix critical issues |
-| 100% | No | < 100% | - | REJECT: Complete features |
-| 100% | No | 100% | < 70% | WARN: Consider improvements |
-| 100% | No | 100% | ≥ 70% | APPROVE |
-
-### 5. Iteration Management
-- Maximum cycles: 5 (configurable)
-- Track rejection reasons for learning
-- If max cycles exceeded:
-  - Generate `docs/todo/max-cycle-summary-<timestamp>.md`
-  - Include accomplished work and remaining tasks
-
-## Communication Protocol
-
-### Status Messages
 ```json
 {
-  "agent": "O|D|R",
-  "phase": "planning|implementing|reviewing",
-  "mcp_tools_used": ["tool_name"],
-  "research_findings": ["key insights"],
-  "decision_rationale": "explanation"
-}
-```
-
-### Review Output Format
-```json
-{
-  "completeness": {
-    "status": "PASS|FAIL",
-    "incomplete_items": [
-      {
-        "file": "path/file.ext",
-        "line": 42,
-        "issue": "empty function|TODO|stub",
-        "severity": "BLOCKING"
-      }
-    ]
+  "decision": "APPROVED | REJECTED",
+  "summary": {
+    "completeness_status": "PASS | FAIL",
+    "critical_issues_found": true | false,
+    "functional_coverage_percent": 100,
+    "non_functional_coverage_percent": 85
   },
-  "critical_issues": {
-    "security": ["SQL injection risk in UserService"],
-    "concurrency": ["Race condition in payment processing"],
-    "performance": ["N+1 query in data fetching"]
-  },
-  "architecture_assessment": {
-    "follows_best_practices": true|false,
-    "deviations": ["explanation"],
-    "recommendations": ["improvement suggestions"]
-  },
-  "requirements_coverage": {
-    "functional": 95,
-    "non_functional": 72,
-    "missing_features": ["feature list"]
-  },
+  "findings": [
+    {
+      "file": "path/to/file.ext",
+      "line": 42,
+      "severity": "BLOCKING | WARNING",
+      "issue": "Description of the issue (e.g., 'SQL injection vulnerability')",
+      "suggestion": "Concrete advice for fixing the issue (e.g., 'Use parameterized queries instead of string formatting. Example: ...')"
+    },
+    {
+      "file": "path/to/another/file.ext",
+      "line": 101,
+      "severity": "BLOCKING",
+      "issue": "Incomplete implementation: function is a stub.",
+      "suggestion": "Please provide the full implementation for this function based on the requirements."
+    }
+  ],
   "mcp_validation": {
-    "security_check": "OWASP 2025 compliant",
-    "framework_usage": "Follows React 19 patterns"
-  },
-  "decision": "APPROVED|REJECTED",
-  "action_items": ["specific next steps"]
+    "security_check": "Passed (OWASP {{CURRENT_YEAR}} compliant)",
+    "framework_usage": "Follows React 19 best practices"
+  }
 }
 ```
 
-## Final Deliverables
+-----
+
+## 6. Final Deliverables & Success Criteria
+
+*Defines the conditions for a successful project completion.*
 
 ### Success Criteria
-- ✅ 100% complete code (no placeholders)
-- ✅ Zero critical security/concurrency issues
-- ✅ 100% functional requirements
-- ✅ ≥70% non-functional requirements
-- ✅ Build/compilation success
-- ✅ Research-backed architecture decisions
 
-### Summary Report
+  - ✅ **100% Code Completeness:** No placeholders, stubs, or `TODO`s.
+  - ✅ **Zero Critical Issues:** No blocking security, concurrency, or resource-related bugs.
+  - ✅ **100% Functional Coverage:** All specified features are implemented.
+  - ✅ **≥70% Non-Functional Coverage:** Meets specified performance, scalability, etc., targets.
+  - ✅ **Build Success:** Final code compiles and passes all integration checks.
+  - ✅ **Evidence-Based Architecture:** All major technical decisions are backed by research.
+
+### Summary Report (`json`)
+
+*The final output artifact summarizing the project.*
+
 ```json
 {
   "project_stats": {
-    "working_directory": "path",
     "total_cycles": 3,
-    "mcp_tools_used": {
-      "web_search": 12,
-      "context7": 5,
-      "sequential_thinking": 8
-    },
+    "mcp_tools_used": { "web_search": 12, "context7": 5, "sequential_thinking": 8 },
     "architecture_decisions": [
       {
         "decision": "Use Next.js 14",
-        "rationale": "Based on web_search results...",
-        "alternatives_considered": ["Remix", "Nuxt"]
+        "rationale": "Based on research indicating superior performance and SEO capabilities for this use case.",
+        "alternatives_considered": ["Remix", "Astro"]
       }
     ]
   },
   "code_quality": {
     "completeness": "100%",
-    "security_issues": 0,
-    "test_coverage": "report if available"
+    "final_security_issues": 0
   },
   "requirements_fulfillment": {
     "functional": "100%",
-    "non_functional": "85%",
-    "performance": "meets targets",
-    "scalability": "supports 10k users"
+    "non_functional": "85%"
   }
 }
 ```
-
-## Configuration
-
-```yaml
-max_cycles: 5
-timeout_minutes: 60
-mcp_tools:
-  enabled: ["web_search", "context7", "sequential_thinking", "zen:consensus"]
-  web_search_suffix: "2025"  # Always append for current info
-strict_mode:
-  no_incomplete_code: true
-  require_security_check: true
-  min_functional_coverage: 100
-  min_non_functional_coverage: 70
-```
-
-## Execution Guidelines
-
-1. **Start**: Orchestrator analyzes requirements with MCP tools
-2. **Research**: Gather best practices before coding
-3. **Implement**: Developer writes complete code
-4. **Verify**: Reviewer checks against external standards
-5. **Iterate**: Use research to guide improvements
-6. **Complete**: Deliver with full documentation
-
-**Remember**: Quality through research, completeness through discipline
