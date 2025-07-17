@@ -20,17 +20,18 @@ ClaudePreference provides a suite of specialized commands that integrate seamles
 ### Core Development Workflow
 
 #### 1. **Orchestrated Development** - `m-orchestrated-dev`
-Multi-agent development workflow with coordinated dev-review cycles.
+Multi-agent development workflow with research-driven approach and template-based prompt system.
 
 **Usage**: Deploy three specialized agents (Orchestrator, Developer, Reviewer) for collaborative development in the current directory.
 
 **Features**:
-- Strategic planning with research validation
-- Code implementation with review cycles
-- Build verification and quality gates
-- Evidence-based decision making
+- Research-driven architecture planning with MCP tools integration
+- Template-based prompt generation for consistent agent communication
+- Dynamic context-aware prompts with strict quality enforcement
+- Build verification with 100% functional coverage requirement
+- Evidence-based decision making with external validation
 
-**Detailed Documentation**: [m-orchestrated-dev](docs/zh/commands/m-orchestrated-dev.md)
+**Detailed Documentation**: [m-orchestrated-dev](docs/en/commands/m-orchestrated-dev.md)
 
 #### 2. **Commit & Push** - `m-commit-push`
 Automated commit and push workflow with intelligent message generation.
@@ -42,7 +43,7 @@ Automated commit and push workflow with intelligent message generation.
 - `m-commit-push "fix: resolve memory leak"`
 - `m-commit-push` (auto-generates conventional commit message)
 
-**Detailed Documentation**: [m-commit-push](docs/zh/commands/m-commit-push.md)
+**Detailed Documentation**: [m-commit-push](docs/en/commands/m-commit-push.md)
 
 #### 3. **Bug Fix Workflow** - `m-bug-fix`
 Comprehensive bug analysis, reproduction, and fix workflow.
@@ -55,7 +56,7 @@ Comprehensive bug analysis, reproduction, and fix workflow.
 - `m-bug-fix screenshot.png` - Fix from error screenshot
 - `m-bug-fix logs/error.log` - Analyze log file
 
-**Detailed Documentation**: [m-bug-fix](docs/zh/commands/m-bug-fix.md)
+**Detailed Documentation**: [m-bug-fix](docs/en/commands/m-bug-fix.md)
 
 ### Code Quality Management
 
@@ -69,7 +70,7 @@ Comprehensive security vulnerability scanning and assessment.
 - `m-security-scan auth` - Focus on authentication security
 - `m-security-scan src/api` - Scan specific directory
 
-**Detailed Documentation**: [m-security-scan](docs/zh/commands/m-security-scan.md)
+**Detailed Documentation**: [m-security-scan](docs/en/commands/m-security-scan.md)
 
 #### 5. **Test Generation** - `m-test-generation`
 Automated test case generation with coverage analysis.
@@ -81,7 +82,7 @@ Automated test case generation with coverage analysis.
 - `m-test-generation integration api` - Generate integration tests
 - `m-test-generation e2e user-flow` - Generate end-to-end tests
 
-**Detailed Documentation**: [m-test-generation](docs/zh/commands/m-test-generation.md)
+**Detailed Documentation**: [m-test-generation](docs/en/commands/m-test-generation.md)
 
 #### 6. **Code Review** - `m-review-code`
 Comprehensive code review with quality assessment and reporting.
@@ -93,7 +94,7 @@ Comprehensive code review with quality assessment and reporting.
 - `m-review-code PR#123 quick` - Quick PR review
 - `m-review-code components standard performance` - Performance review
 
-**Detailed Documentation**: [m-review-code](docs/zh/commands/m-review-code.md)
+**Detailed Documentation**: [m-review-code](docs/en/commands/m-review-code.md)
 
 ### Project Management & Planning
 
@@ -108,7 +109,7 @@ Analyze requirements and generate structured implementation plans.
 - Implementation strategy design
 - Visual task flow diagrams
 
-**Detailed Documentation**: [m-task-planner](docs/zh/commands/m-task-planner.md)
+**Detailed Documentation**: [m-task-planner](docs/en/commands/m-task-planner.md)
 
 #### 8. **TDD Planner** - `m-tdd-planner`
 Generate comprehensive Test-Driven Development plans.
@@ -121,7 +122,7 @@ Generate comprehensive Test-Driven Development plans.
 - Test pyramid structure definition
 - JSON-formatted implementation plan
 
-**Detailed Documentation**: [m-tdd-planner](docs/zh/commands/m-tdd-planner.md)
+**Detailed Documentation**: [m-tdd-planner](docs/en/commands/m-tdd-planner.md)
 
 #### 9. **Next Tasks** - `m-next-task`
 Analyze current development status and generate prioritized action plans.
@@ -134,7 +135,7 @@ Analyze current development status and generate prioritized action plans.
 - Priority ranking and dependency assessment
 - Comprehensive status reporting
 
-**Detailed Documentation**: [m-next-task](docs/zh/commands/m-next-task.md)
+**Detailed Documentation**: [m-next-task](docs/en/commands/m-next-task.md)
 
 #### 10. **Next Context** - `m-next-context`
 Compile comprehensive task lists and background information.
@@ -147,7 +148,7 @@ Compile comprehensive task lists and background information.
 - Supporting material collection
 - Ambiguity detection and clarification
 
-**Detailed Documentation**: [m-next-context](docs/zh/commands/m-next-context.md)
+**Detailed Documentation**: [m-next-context](docs/en/commands/m-next-context.md)
 
 ### Maintenance & Documentation
 
@@ -162,7 +163,7 @@ Automated project hygiene and maintenance workflow.
 - Codebase formatting and linting
 - Structural reorganization
 
-**Detailed Documentation**: [m-project-cleanup](docs/zh/commands/m-project-cleanup.md)
+**Detailed Documentation**: [m-project-cleanup](docs/en/commands/m-project-cleanup.md)
 
 #### 12. **Document Update** - `m-document-update`
 Automated documentation maintenance and updates.
@@ -175,7 +176,7 @@ Automated documentation maintenance and updates.
 - Code comment validation
 - Documentation consistency checks
 
-**Detailed Documentation**: [m-document-update](docs/zh/commands/m-document-update.md)
+**Detailed Documentation**: [m-document-update](docs/en/commands/m-document-update.md)
 
 #### 13. **Branch Management** - `m-branch-prune`
 Comprehensive branch management and cleanup workflow.
@@ -186,7 +187,7 @@ Comprehensive branch management and cleanup workflow.
 - Functionality testing across versions
 - Sequential merge operations
 
-**Detailed Documentation**: [m-branch-prune](docs/zh/commands/m-branch-prune.md)
+**Detailed Documentation**: [m-branch-prune](docs/en/commands/m-branch-prune.md)
 
 #### 14. **Branch Cleanup Lite** - `m-branch-prune-lite`
 Lightweight branch cleanup without testing.
@@ -199,7 +200,7 @@ Lightweight branch cleanup without testing.
 - Specific worktree and branch removal
 - Sequential merge operations
 
-**Detailed Documentation**: [m-branch-prune-lite](docs/zh/commands/m-branch-prune-lite.md)
+**Detailed Documentation**: [m-branch-prune-lite](docs/en/commands/m-branch-prune-lite.md)
 
 ### Architecture & Design
 
@@ -214,7 +215,7 @@ Strategic architecture review and analysis workflow.
 - Strategic "-ilities" evaluation
 - High-level refactoring proposals
 
-**Detailed Documentation**: [m-debate-architecture](docs/zh/commands/m-debate-architecture.md)
+**Detailed Documentation**: [m-debate-architecture](docs/en/commands/m-debate-architecture.md)
 
 #### 16. **Code Analysis** - `m-debate-code`
 Tactical code review with detailed implementation analysis.
@@ -227,7 +228,7 @@ Tactical code review with detailed implementation analysis.
 - Coding standards compliance verification
 - Line-level feedback generation
 
-**Detailed Documentation**: [m-debate-code](docs/zh/commands/m-debate-code.md)
+**Detailed Documentation**: [m-debate-code](docs/en/commands/m-debate-code.md)
 
 #### 17. **Review Completion** - `m-review-completion`
 Review completion workflow and verification.
@@ -238,7 +239,7 @@ Review completion workflow and verification.
 - Deliverable confirmation
 - Final review sign-off
 
-**Detailed Documentation**: [m-review-completion](docs/zh/commands/m-review-completion.md)
+**Detailed Documentation**: [m-review-completion](docs/en/commands/m-review-completion.md)
 
 #### 18. **Branch Merge** - `m-merge-branch`
 Intelligent branch merging workflow.
@@ -249,7 +250,7 @@ Intelligent branch merging workflow.
 - Post-merge validation
 - Automated cleanup
 
-**Detailed Documentation**: [m-merge-branch](docs/zh/commands/m-merge-branch.md)
+**Detailed Documentation**: [m-merge-branch](docs/en/commands/m-merge-branch.md)
 
 ## 🔧 Installation & Setup
 

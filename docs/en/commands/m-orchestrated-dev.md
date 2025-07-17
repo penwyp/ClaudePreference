@@ -1,8 +1,8 @@
-# m-orchestrated-dev - Multi-Agent Collaborative Development Workflow
+# m-orchestrated-dev - Multi-Agent Development Workflow: A Research-Driven & Template-Based System
 
 ## Overview
 
-`m-orchestrated-dev` is an advanced multi-agent collaborative development workflow that deploys three specialized agents (Orchestrator, Developer, Reviewer) to implement a research-driven development-review cycle. This command is suitable for complex development tasks that require high-quality code and architectural decisions.
+`m-orchestrated-dev` is an advanced multi-agent collaborative development workflow that deploys three specialized agents (Orchestrator, Developer, Reviewer) governed by a template-based orchestration system to ensure quality, consistency, and adaptability in software development. This command implements a research-driven development-review cycle suitable for complex development tasks that require high-quality code and architectural decisions.
 
 ## Usage
 
@@ -18,37 +18,36 @@
 
 ## Agent Architecture
 
-### Agent O (Orchestrator)
-**Role**: Strategic planning, architecture decisions, and workflow coordination.
+### Agent O (Orchestrator & Prompt Generator)
+**Role**: Strategic planning, workflow coordination, and dynamic prompt assembly.
 
 **Key Responsibilities**:
-- Use `sequential-thinking` for complex requirements analysis.
-- Research optimal architecture patterns:
-  - Use `context7` for framework evaluation and best practices research.
-  - Use `web_search` (append "2025") to get the latest solutions.
-  - Apply `zen:consensus` for critical technical decisions.
-- Create evidence-based development plans.
-- Coordinate the work of the Developer and Reviewer.
-- Ensure 100% coverage of functional requirements and 70% of non-functional requirements.
+- **Parse Requirements**: Decompose high-level goals into actionable tasks using `sequential-thinking`.
+- **Initiate Research**: Launch research cycles to determine optimal architecture and technology stacks.
+- **Synthesize Findings**: Analyze research from multiple sources (`web_search`, `context7`) to form a reasoned, evidence-based technical plan.
+- **Manage State**: Track the development progress, review feedback, and iteration count.
+- **Assemble & Dispatch Prompts**: Act as the **Prompt Generator**. Populate templates from the `Prompt Template Library` with dynamic context to create specific, actionable instructions for other agents.
+- **Final Verification**: Verify the final build's success and ensure all success criteria are met before completion.
 
 ### Agent D (Developer)
-**Role**: Research-based implementation and coding practices.
+**Role**: High-quality, research-informed code implementation.
 
 **Key Responsibilities**:
-- **Critical Requirement**: Every function must be fully implemented.
-- **Forbidden**: No TODO, FIXME, HACK, XXX, stub, or placeholder code is allowed.
-- Research before implementing complex features.
-- Each commit must compile and run successfully.
-- Implement with production-ready quality.
+- **Execute from Context**: Work exclusively from the contextual prompt provided by Agent O.
+- **Maintain Consistency**: When modifying existing files, first understand and then mimic the file's code conventions, style, and existing patterns. Use existing libraries and utilities where appropriate.
+- **Implement Completely**: **CRITICAL:** Every function must have a complete, production-ready implementation.
+- **FORBIDDEN**: No `TODO`, `FIXME`, `HACK`, `XXX`, `pass`, `stub`, or any other form of placeholder code.
+- **Pre-Implementation Research**: For complex features or algorithms, use `web_search` to find optimal implementation patterns as guided by Agent O.
+- **Ensure Quality**: Each code submission must compile, run, and pass all local verification checks.
 
 ### Agent R (Reviewer)
-**Role**: Comprehensive validation through external benchmarks.
+**Role**: Comprehensive validation against objective standards and context.
 
-**Review Priorities** (in order):
-1. **Code Completeness Check** (Blocking)
-2. **Critical Issues Check** (Blocking)
-3. **Architecture Quality Assessment**
-4. **Requirements Coverage Verification**
+**Key Responsibilities**:
+- **Holistic Review**: Assess code for completeness, security, performance, architectural compliance, and **consistency with the existing codebase**.
+- **Provide Actionable Feedback**: When identifying issues, provide concrete suggestions, code snippets, or clear guidance for remediation where feasible. This is crucial for accelerating the iteration cycle.
+- **External Benchmarking**: Use tools like `web_search` to validate against external standards (e.g., OWASP Top 10) and `context7` to check framework-specific best practices.
+- **Generate Report**: Complete the standardized `Review Output Format` with clear findings and a final decision.
 
 ## Usage Examples
 
@@ -70,25 +69,44 @@
 ```
 **Expected Outcome**: Initiates a complete design, development, and review process for the user authentication system.
 
-## Workflow
+## System Configuration
 
-### 1. Research-Driven Planning (Agent O)
-- **Input**: Requirements document.
-- **Actions**:
-  1. Use `sequential-thinking` to decompose requirements.
-  2. Research optimal solutions.
-  3. Create an evidence-based plan.
-- **Output**: A detailed, research-supported plan.
+```yaml
+max_cycles: 5
+timeout_minutes: 90
+strict_mode:
+  no_incomplete_code: true
+  require_security_check: true
+  min_functional_coverage_percent: 100
+  min_non_functional_coverage_percent: 70
+mcp_tools:
+  enabled: ["web_search", "context7", "sequential_thinking"]
+  # Principle: Prioritize recent information for time-sensitive queries.
+  # The Orchestrator should dynamically append the current year (e.g., 2025) when appropriate.
+  web_search_year: "dynamic"
+```
 
-### 2. Informed Development Cycle
-- **Orchestrator → Developer**: Task specifications, recommended patterns, architecture constraints.
-- **Developer Actions**: Research complex implementations, implement a complete solution, self-verify.
-- **Developer → Orchestrator**: Complete implementation, no placeholder code, build verification passed.
+## Enhanced Workflow
 
-### 3. Comprehensive Review
-- **Orchestrator → Reviewer**: Code, architecture context, research references.
-- **Reviewer Actions**: Completeness check, security audit, architecture compliance, requirements mapping.
-- **Reviewer → Orchestrator**: Detailed findings, external validation results, accept/reject decision.
+### Phase 1: Research & Planning (Agent O)
+- O parses the initial requirements.
+- O populates and executes the `Initial_Research` template to generate a technical plan.
+
+### Phase 2: Development Cycle (Agent D)
+- O breaks down the plan into a specific task.
+- O generates a contextual prompt for D using the `Orchestrator_to_Developer` template.
+- D implements the code and submits it upon successful local verification.
+
+### Phase 3: Comprehensive Review (Agent R)
+- O receives the code from D.
+- O generates a review task for R using the `Orchestrator_to_Reviewer` template, providing both the code and the original context.
+- R performs the review and returns a structured JSON report.
+
+### Phase 4: Iteration or Completion
+- O parses the review report.
+- **If REJECTED**: O extracts the actionable feedback, creates a new development task, and returns to Phase 2.
+- **If APPROVED**: O proceeds to final verification and completion.
+- **If max_cycles exceeded**: O halts the process and generates the `max-cycle-summary` document.
 
 ## Decision Matrix
 
@@ -100,21 +118,77 @@
 | 100%         | No              | 100%       | < 70%          | WARN: Consider improvements |
 | 100%         | No              | 100%       | ≥ 70%          | APPROVE  |
 
+## Prompt Template Library
+
+The system uses standardized, reusable instruction templates that Agent O dynamically populates:
+
+### Template Types:
+1. **Initial_Research**: For researching and proposing technical architecture
+2. **Orchestrator_to_Developer**: For providing development context and standards
+3. **Orchestrator_to_Reviewer**: For comprehensive code review instructions
+
+## Communication & Data Formats
+
+### Review Output Format (JSON)
+```json
+{
+  "decision": "APPROVED | REJECTED",
+  "summary": {
+    "completeness_status": "PASS | FAIL",
+    "critical_issues_found": true | false,
+    "functional_coverage_percent": 100,
+    "non_functional_coverage_percent": 85
+  },
+  "findings": [
+    {
+      "file": "path/to/file.ext",
+      "line": 42,
+      "severity": "BLOCKING | WARNING",
+      "issue": "Description of the issue",
+      "suggestion": "Concrete advice for fixing the issue"
+    }
+  ],
+  "mcp_validation": {
+    "security_check": "Passed (OWASP 2025 compliant)",
+    "framework_usage": "Follows React 19 best practices"
+  }
+}
+```
+
 ## Expected Outcomes
 
 ### Success Criteria
-- ✅ 100% complete code (no placeholders)
-- ✅ Zero critical security/concurrency issues
-- ✅ 100% functional requirements coverage
-- ✅ ≥70% non-functional requirements coverage
-- ✅ Successful build/compilation
-- ✅ Research-backed architecture decisions
+- ✅ **100% Code Completeness**: No placeholders, stubs, or `TODO`s
+- ✅ **Zero Critical Issues**: No blocking security, concurrency, or resource-related bugs
+- ✅ **100% Functional Coverage**: All specified features are implemented
+- ✅ **≥70% Non-Functional Coverage**: Meets specified performance, scalability, etc., targets
+- ✅ **Build Success**: Final code compiles and passes all integration checks
+- ✅ **Evidence-Based Architecture**: All major technical decisions are backed by research
 
-### Output Files
-- Project statistics report
-- Code quality assessment
-- Requirements fulfillment status
-- Architecture decision log
+### Summary Report (JSON)
+```json
+{
+  "project_stats": {
+    "total_cycles": 3,
+    "mcp_tools_used": { "web_search": 12, "context7": 5, "sequential_thinking": 8 },
+    "architecture_decisions": [
+      {
+        "decision": "Use Next.js 14",
+        "rationale": "Based on research indicating superior performance and SEO capabilities for this use case.",
+        "alternatives_considered": ["Remix", "Astro"]
+      }
+    ]
+  },
+  "code_quality": {
+    "completeness": "100%",
+    "final_security_issues": 0
+  },
+  "requirements_fulfillment": {
+    "functional": "100%",
+    "non_functional": "85%"
+  }
+}
+```
 
 ## Best Practices
 
