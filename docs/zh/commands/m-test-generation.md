@@ -1,13 +1,13 @@
-# m-test-generation - 自动化测试生成工作流
+# 命令: m:test-generation - 自动化测试生成工作流
 
 ## 概述
 
-`m-test-generation` 是一个智能的测试生成工具，能够自动创建单元测试、集成测试和端到端测试。该命令分析代码覆盖率、识别测试缺口，并生成全面的测试用例以确保代码质量和稳定性。
+`m:test-generation` 是一个智能的测试生成工具，能够自动创建单元测试、集成测试和端到端测试。该命令分析代码覆盖率、识别测试缺口，并生成全面的测试用例以确保代码质量和稳定性。
 
 ## 使用方法
 
 ```bash
-/m-test-generation [type] [target] [coverage]
+/m:test-generation [type] [target] [coverage]
 ```
 
 ## 参数详解
@@ -29,7 +29,7 @@
 
 ### 默认测试生成
 ```bash
-/m-test-generation
+/m:test-generation
 ```
 **预期结果**: 
 - 分析最近修改的文件
@@ -39,7 +39,7 @@
 
 ### 单元测试生成
 ```bash
-/m-test-generation unit src/auth 90%
+/m:test-generation unit src/auth 90%
 ```
 **预期结果**: 
 - 为 `src/auth` 目录生成单元测试
@@ -49,7 +49,7 @@
 
 ### 集成测试生成
 ```bash
-/m-test-generation integration api
+/m:test-generation integration api
 ```
 **预期结果**: 
 - 为API模块生成集成测试
@@ -59,7 +59,7 @@
 
 ### 端到端测试生成
 ```bash
-/m-test-generation e2e user-flow
+/m:test-generation e2e user-flow
 ```
 **预期结果**: 
 - 生成用户流程的端到端测试
@@ -69,7 +69,7 @@
 
 ### 全面测试生成
 ```bash
-/m-test-generation all components 85%
+/m:test-generation all components 85%
 ```
 **预期结果**: 
 - 为所有组件生成所有类型测试
@@ -320,7 +320,7 @@ tests/
 
 ## 相关命令
 
-- [`m-tdd-planner`](m-tdd-planner.md) - TDD规划
-- [`m-review-code`](m-review-code.md) - 代码审查
-- [`m-bug-fix`](m-bug-fix.md) - Bug修复
-- [`m-security-scan`](m-security-scan.md) - 安全测试
+- [m:tdd-planner`](m-tdd-planner.md) - TDD规划
+- [m:review-code`](m-review-code.md) - 代码审查
+- [m:bug-fix`](m-bug-fix.md) - Bug修复
+- [m:security-scan`](m-security-scan.md) - 安全测试

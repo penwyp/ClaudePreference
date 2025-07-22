@@ -1,13 +1,13 @@
-# m-bug-fix - 综合Bug修复工作流
+# 命令: m:bug-fix - 综合Bug修复工作流
 
 ## 概述
 
-`m-bug-fix` 是一个全面的Bug分析、重现、识别、修复和验证工作流。该命令支持多种Bug源输入格式，包括问题编号、错误文本、截图、日志文件或问题描述，能够系统性地解决代码中的各类问题。
+`m:bug-fix` 是一个全面的Bug分析、重现、识别、修复和验证工作流。该命令支持多种Bug源输入格式，包括问题编号、错误文本、截图、日志文件或问题描述，能够系统性地解决代码中的各类问题。
 
 ## 使用方法
 
 ```bash
-/m-bug-fix [source]
+/m:bug-fix [source]
 ```
 
 ## 参数详解
@@ -25,7 +25,7 @@
 
 ### 基于问题编号修复
 ```bash
-/m-bug-fix #123
+/m:bug-fix #123
 ```
 **预期结果**: 
 - 从GitHub/GitLab等平台获取问题详情
@@ -35,7 +35,7 @@
 
 ### 基于错误文本修复
 ```bash
-/m-bug-fix "NullPointerException in UserService.login()"
+/m:bug-fix "NullPointerException in UserService.login()"
 ```
 **预期结果**: 
 - 解析错误信息
@@ -45,7 +45,7 @@
 
 ### 基于截图修复
 ```bash
-/m-bug-fix screenshot.png
+/m:bug-fix screenshot.png
 ```
 **预期结果**: 
 - 分析截图中的错误信息
@@ -55,7 +55,7 @@
 
 ### 基于日志文件修复
 ```bash
-/m-bug-fix logs/error.log
+/m:bug-fix logs/error.log
 ```
 **预期结果**: 
 - 解析日志文件内容
@@ -65,7 +65,7 @@
 
 ### 默认分析模式
 ```bash
-/m-bug-fix
+/m:bug-fix
 ```
 **预期结果**: 
 - 扫描最近的错误日志
@@ -107,7 +107,7 @@
 
 ### 空指针异常
 ```bash
-/m-bug-fix "NullPointerException in payment processing"
+/m:bug-fix "NullPointerException in payment processing"
 ```
 **处理流程**:
 1. 定位空指针发生位置
@@ -117,7 +117,7 @@
 
 ### 内存泄漏
 ```bash
-/m-bug-fix "Memory leak in data processing service"
+/m:bug-fix "Memory leak in data processing service"
 ```
 **处理流程**:
 1. 使用内存分析工具
@@ -127,7 +127,7 @@
 
 ### 并发问题
 ```bash
-/m-bug-fix "Race condition in user session management"
+/m:bug-fix "Race condition in user session management"
 ```
 **处理流程**:
 1. 分析并发访问模式
@@ -137,7 +137,7 @@
 
 ### 性能问题
 ```bash
-/m-bug-fix "Query timeout in user dashboard"
+/m:bug-fix "Query timeout in user dashboard"
 ```
 **处理流程**:
 1. 分析查询性能
@@ -252,7 +252,7 @@
 
 ## 相关命令
 
-- [`m-test-generation`](m-test-generation.md) - 生成测试用例
-- [`m-review-code`](m-review-code.md) - 代码审查
-- [`m-security-scan`](m-security-scan.md) - 安全扫描
-- [`m-commit-push`](m-commit-push.md) - 提交修复
+- [m:test-generation`](m-test-generation.md) - 生成测试用例
+- [m:review-code`](m-review-code.md) - 代码审查
+- [m:security-scan`](m-security-scan.md) - 安全扫描
+- [m:commit-push`](m-commit-push.md) - 提交修复

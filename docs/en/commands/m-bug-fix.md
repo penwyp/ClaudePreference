@@ -1,13 +1,13 @@
-# m-bug-fix - Comprehensive Bug Fix Workflow
+# Command: m:bug-fix - Comprehensive Bug Fix Workflow
 
 ## Overview
 
-`m-bug-fix` is a comprehensive workflow for analyzing, reproducing, identifying, fixing, and verifying bugs. The command supports various bug source input formats, including issue numbers, error text, screenshots, log files, or bug descriptions, enabling a systematic approach to resolving issues in the codebase.
+The `m:bug-fix` is a comprehensive workflow for analyzing, reproducing, identifying, fixing, and verifying bugs. The command supports various bug source input formats, including issue numbers, error text, screenshots, log files, or bug descriptions, enabling a systematic approach to resolving issues in the codebase.
 
 ## Usage
 
 ```bash
-/m-bug-fix [source]
+/m:bug-fix [source]
 ```
 
 ## Parameter Details
@@ -25,7 +25,7 @@
 
 ### Fix Based on Issue Number
 ```bash
-/m-bug-fix #123
+/m:bug-fix #123
 ```
 **Expected Outcome**:
 - Fetches issue details from platforms like GitHub/GitLab.
@@ -35,7 +35,7 @@
 
 ### Fix Based on Error Text
 ```bash
-/m-bug-fix "NullPointerException in UserService.login()"
+/m:bug-fix "NullPointerException in UserService.login()"
 ```
 **Expected Outcome**:
 - Parses the error message.
@@ -45,7 +45,7 @@
 
 ### Fix Based on Screenshot
 ```bash
-/m-bug-fix screenshot.png
+/m:bug-fix screenshot.png
 ```
 **Expected Outcome**:
 - Analyzes error information from the screenshot.
@@ -55,7 +55,7 @@
 
 ### Fix Based on Log File
 ```bash
-/m-bug-fix logs/error.log
+/m:bug-fix logs/error.log
 ```
 **Expected Outcome**:
 - Parses the content of the log file.
@@ -65,7 +65,7 @@
 
 ### Default Analysis Mode
 ```bash
-/m-bug-fix
+/m:bug-fix
 ```
 **Expected Outcome**:
 - Scans recent error logs.
@@ -107,7 +107,7 @@
 
 ### NullPointerException
 ```bash
-/m-bug-fix "NullPointerException in payment processing"
+/m:bug-fix "NullPointerException in payment processing"
 ```
 **Process**:
 1. Locate where the null pointer occurs.
@@ -117,7 +117,7 @@
 
 ### Memory Leak
 ```bash
-/m-bug-fix "Memory leak in data processing service"
+/m:bug-fix "Memory leak in data processing service"
 ```
 **Process**:
 1. Use memory analysis tools.
@@ -127,7 +127,7 @@
 
 ### Concurrency Issue
 ```bash
-/m-bug-fix "Race condition in user session management"
+/m:bug-fix "Race condition in user session management"
 ```
 **Process**:
 1. Analyze concurrent access patterns.
@@ -137,7 +137,7 @@
 
 ### Performance Issue
 ```bash
-/m-bug-fix "Query timeout in user dashboard"
+/m:bug-fix "Query timeout in user dashboard"
 ```
 **Process**:
 1. Analyze query performance.
@@ -252,7 +252,7 @@ Recommendation: Roll back the fix and re-analyze
 
 ## Related Commands
 
-- [`m-test-generation`](m-test-generation.md) - Generate test cases
-- [`m-review-code`](m-review-code.md) - Code review
-- [`m-security-scan`](m-security-scan.md) - Security scan
-- [`m-commit-push`](m-commit-push.md) - Commit fix
+- [m:test-generation`](m-test-generation.md) - Generate test cases
+- [m:review-code`](m-review-code.md) - Code review
+- [m:security-scan`](m-security-scan.md) - Security scan
+- [m:commit-push`](m-commit-push.md) - Commit fix

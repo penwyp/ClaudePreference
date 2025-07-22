@@ -14,12 +14,11 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - **架构规划**：战略设计决策和代码分析
 
 ## 📋 可用命令
-
-> 💡 **完整文档**：查看 [命令文档中心](docs/README_CN.md) 获取所有命令的详细说明、使用示例和最佳实践。
+💡 **完整文档**：查看 [命令文档中心](docs/README.md) 获取所有命令的详细说明、使用示例和最佳实践。
 
 ### 核心开发工作流
 
-#### 1. **协同开发** - `m-orchestrated-dev`
+#### 1. **协同开发** - `/m:orchestrated-dev`
 基于研究驱动和模板系统的多智能体开发工作流。
 
 **用法**：为当前目录部署三个专业化智能体（编排者、开发者、审查者）进行协同开发。
@@ -31,74 +30,74 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 构建验证要求100%功能覆盖率
 - 通过外部验证实现基于证据的决策制定
 
-**详细文档**：[m-orchestrated-dev](docs/zh/commands/m-orchestrated-dev.md)
+- **详细文档**：[m:orchestrated-dev](docs/en/commands/m-orchestrated-dev.md)
 
-#### 2. **提交推送** - `m-commit-push`
+#### 2. **提交推送** - `/m:commit-push`
 自动化提交和推送工作流，智能生成消息。
 
 **参数**：`[message]`（可选）
 
 **示例**：
-- `m-commit-push "feat: add user authentication"`
-- `m-commit-push "fix: resolve memory leak"`
-- `m-commit-push`（自动生成约定式提交消息）
+- `/m:commit-push "feat: add user authentication"`
+- `/m:commit-push "fix: resolve memory leak"`
+- `/m:commit-push`（自动生成约定式提交消息）
 
 **详细文档**：[m-commit-push](docs/zh/commands/m-commit-push.md)
 
-#### 3. **Bug修复工作流** - `m-bug-fix`
+#### 3. **Bug修复工作流** - `/m:bug-fix`
 全面的Bug分析、重现和修复工作流。
 
 **参数**：`[source]`（可选）- 问题编号、错误文本、截图、日志文件或描述
 
 **示例**：
-- `m-bug-fix #123` - 修复GitHub问题
-- `m-bug-fix "NullPointerException in login"`
-- `m-bug-fix screenshot.png` - 从错误截图修复
-- `m-bug-fix logs/error.log` - 分析日志文件
+- `/m:bug-fix #123` - 修复GitHub问题
+- `/m:bug-fix "NullPointerException in login"`
+- `/m:bug-fix screenshot.png` - 从错误截图修复
+- `/m:bug-fix logs/error.log` - 分析日志文件
 
 **详细文档**：[m-bug-fix](docs/zh/commands/m-bug-fix.md)
 
 ### 代码质量管理
 
-#### 4. **安全扫描** - `m-security-scan`
+#### 4. **安全扫描** - `/m:security-scan`
 全面的安全漏洞扫描和评估。
 
 **参数**：`[scope]`（可选）- dependencies, auth, data-handling, full, 或特定路径
 
 **示例**：
-- `m-security-scan dependencies` - 仅扫描依赖项
-- `m-security-scan auth` - 专注于认证安全
-- `m-security-scan src/api` - 扫描特定目录
+- `/m:security-scan dependencies` - 仅扫描依赖项
+- `/m:security-scan auth` - 专注于认证安全
+- `/m:security-scan src/api` - 扫描特定目录
 
 **详细文档**：[m-security-scan](docs/zh/commands/m-security-scan.md)
 
-#### 5. **测试生成** - `m-test-generation`
+#### 5. **测试生成** - `/m:test-generation`
 自动化测试用例生成和覆盖率分析。
 
 **参数**：`[type] [target] [coverage]`（可选）
 
 **示例**：
-- `m-test-generation unit src/auth 90%` - 生成90%覆盖率的单元测试
-- `m-test-generation integration api` - 生成集成测试
-- `m-test-generation e2e user-flow` - 生成端到端测试
+- `/m:test-generation unit src/auth 90%` - 生成90%覆盖率的单元测试
+- `/m:test-generation integration api` - 生成集成测试
+- `/m:test-generation e2e user-flow` - 生成端到端测试
 
 **详细文档**：[m-test-generation](docs/zh/commands/m-test-generation.md)
 
-#### 6. **代码审查** - `m-review-code`
+#### 6. **代码审查** - `/m:review-code`
 全面的代码审查与质量评估报告。
 
 **参数**：`[target] [depth] [focus]`（可选）
 
 **示例**：
-- `m-review-code src/auth deep security` - 深度安全审查
-- `m-review-code PR#123 quick` - 快速PR审查
-- `m-review-code components standard performance` - 性能审查
+- `/m:review-code src/auth deep security` - 深度安全审查
+- `/m:review-code PR#123 quick` - 快速PR审查
+- `/m:review-code components standard performance` - 性能审查
 
 **详细文档**：[m-review-code](docs/zh/commands/m-review-code.md)
 
 ### 项目管理与规划
 
-#### 7. **任务规划器** - `m-task-planner`
+#### 7. **任务规划器** - `/m:task-planner`
 分析需求并生成结构化实施计划。
 
 **参数**：`[target]`（可选）- 需求文档或项目范围
@@ -111,7 +110,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-task-planner](docs/zh/commands/m-task-planner.md)
 
-#### 8. **TDD规划器** - `m-tdd-planner`
+#### 8. **TDD规划器** - `/m:tdd-planner`
 生成全面的测试驱动开发计划。
 
 **参数**：`[target]`（可选）- 需求文档
@@ -124,7 +123,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-tdd-planner](docs/zh/commands/m-tdd-planner.md)
 
-#### 9. **下一步任务** - `m-next-task`
+#### 9. **下一步任务** - `/m:next-task`
 分析当前开发状态并生成优先级行动计划。
 
 **参数**：`[priority]`（可选）- high, medium, low
@@ -137,7 +136,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-next-task](docs/zh/commands/m-next-task.md)
 
-#### 10. **下一步上下文** - `m-next-context`
+#### 10. **下一步上下文** - `/m:next-context`
 编译全面的任务清单和背景信息。
 
 **参数**：`[target]`（可选）- 项目范围或对话上下文
@@ -152,7 +151,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 ### 维护与文档
 
-#### 11. **项目清理** - `m-project-cleanup`
+#### 11. **项目清理** - `/m:project-cleanup`
 自动化项目卫生和维护工作流。
 
 **参数**：`[scope]`（可选）- code, dependencies, structure, artifacts, config, all
@@ -163,7 +162,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 代码库格式化和检查
 - 结构重组
 
-#### 12. **文档更新** - `m-document-update`
+#### 12. **文档更新** - `/m:document-update`
 自动化文档维护和更新。
 
 **参数**：`[scope]`（可选）- api, readme, changelog, comments, all, 或特定路径
@@ -176,7 +175,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-document-update](docs/zh/commands/m-document-update.md)
 
-#### 13. **分支管理** - `m-branch-prune`
+#### 13. **分支管理** - `/m:branch-prune`
 全面的分支管理和清理工作流。
 
 **特性**：
@@ -187,7 +186,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-branch-prune](docs/zh/commands/m-branch-prune.md)
 
-#### 14. **轻量分支清理** - `m-branch-prune-lite`
+#### 14. **轻量分支清理** - `/m:branch-prune-lite`
 不包含测试的轻量分支清理。
 
 **参数**：`[target_branch]`（可选）- 要修剪的特定分支
@@ -202,7 +201,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 ### 架构与设计
 
-#### 15. **架构审查** - `m-debate-architecture`
+#### 15. **架构审查** - `/m:debate-architecture`
 战略架构审查和分析工作流。
 
 **参数**：`[target]`（可选）- 模块、目录或"all"
@@ -214,8 +213,8 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 - 高级重构建议
 
 **详细文档**：[m-debate-architecture](docs/zh/commands/m-debate-architecture.md)
-
-#### 16. **代码分析** - `m-debate-code`
+**详细文档**：
+#### 16. **代码分析** - `/m:debate-code`
 战术代码审查与详细实施分析。
 
 **参数**：`[target] [depth] [focus]`（可选）
@@ -228,7 +227,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-debate-code](docs/zh/commands/m-debate-code.md)
 
-#### 17. **审查完成** - `m-review-completion`
+#### 17. **审查完成** - `/m:review-completion`
 审查完成工作流和验证。
 
 **特性**：
@@ -239,7 +238,7 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 **详细文档**：[m-review-completion](docs/zh/commands/m-review-completion.md)
 
-#### 18. **分支合并** - `m-merge-branch`
+#### 18. **分支合并** - `/m:merge-branch`
 智能分支合并工作流。
 
 **特性**：
@@ -252,31 +251,72 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 
 ## 🔧 安装与设置
 
-1. **先决条件**：
+### 先决条件：
    - 已安装并配置Claude Code CLI
    - 适当的开发环境设置
-   - MCP环境设置（如 `context7`）
+   - 适当的MCP环境设置（如 `context7`）
 
-2. **安装**：
-   ```bash
-   # 克隆仓库
-   git clone https://github.com/penwyp/ClaudePreference.git
-   cd ClaudePreference
-   
-   # 复制命令到Claude Code目录
-   cp commands/* ~/.claude/commands/
-   
-   # 启动Claude Code
-   claude
-   ```
+### 自动安装（推荐）
 
-3. **使用**：
-   ```bash
-   # 在Claude Code中使用斜杠命令
-   /m-orchestrated-dev requirements.md
-   /m-commit-push "feat: add new feature"
-   /m-security-scan
-   ```
+**快速安装：**
+```bash
+# 克隆并一键安装
+git clone https://github.com/penwyp/ClaudePreference.git
+cd ClaudePreference
+./install.sh
+```
+
+**安装选项：**
+```bash
+# 安装到默认位置 (~/.claude/commands/m)
+./install.sh
+
+# 安装到自定义目录
+./install.sh --dir /custom/path
+
+# 预览安装而不做改变
+./install.sh --dry-run
+
+# 强制覆盖现有文件
+./install.sh --force
+
+# 更新现有安装
+./install.sh --update
+
+# 显示所有可用选项
+./install.sh --help
+```
+
+### 手动安装
+```bash
+# 克隆仓库
+git clone https://github.com/penwyp/ClaudePreference.git
+cd ClaudePreference
+
+# 手动复制命令
+cp commands/* ~/.claude/commands/
+```
+
+### 验证安装
+```bash
+# 在任意项目目录启动Claude Code
+claude
+
+# 输入"/"查看可用命令
+# 寻找"m:"目录中的命令（例如，/m:orchestrated-dev）
+```
+
+### 管理命令
+```bash
+# 更新到最新版本
+./install.sh --update
+
+# 卸载ClaudePreference命令
+./install.sh --uninstall
+
+# 回滚到上一个版本
+./install.sh --rollback
+```
 
 ## 📖 使用示例
 
@@ -368,51 +408,46 @@ ClaudePreference提供了一套专业化的命令，与Claude Code无缝集成�
 ### 获得帮助
 
 获取更多支持：
-- 访问 [命令文档中心](docs/zh/README.md) 获取详细指南
 - 检查 [commands/](commands/) 目录中的命令定义
 - 查看 [docs/commands/](docs/zh/commands/) 目录中的详细文档
 - 审查错误消息获取具体指导
 - 确保您的开发环境满足所有要求
 
-## 📁 项目结构
+## 项目结构
 
 ```
 ClaudePreference/
-├── README.md                    # 英文版本
-├── README_CN.md                 # 中文版本（本文件）
-├── commands/                    # 命令定义（Claude Code斜杠命令）
-│   ├── m-orchestrated-dev.md   # 多智能体开发
-│   ├── m-commit-push.md        # 提交推送工作流
-│   ├── m-bug-fix.md           # Bug修复工作流
-│   ├── m-security-scan.md     # 安全扫描
-│   ├── m-test-generation.md   # 测试生成
-│   ├── m-review-code.md       # 代码审查
-│   ├── m-task-planner.md      # 任务规划
-│   ├── m-tdd-planner.md       # TDD规划
-│   ├── m-next-task.md         # 下一步任务分析
-│   ├── m-next-context.md      # 上下文编译
-│   ├── m-project-cleanup.md   # 项目清理
-│   ├── m-document-update.md   # 文档更新
-│   ├── m-branch-prune.md      # 分支清理
-│   ├── m-branch-prune-lite.md # 轻量分支清理
-│   ├── m-debate-architecture.md # 架构审查
-│   ├── m-debate-code.md       # 代码审查辩论
-│   ├── m-review-completion.md # 审查完成
-│   └── m-merge-branch.md      # 分支合并
-└── docs/                       # 文档和报告
-    ├── README.md               # 命令文档索引（英文）
-    ├── README_CN.md            # 命令文档索引（中文）
-    ├── commands/               # 详细命令文档
-    │   ├── m-orchestrated-dev.md   # 详细使用和示例
-    │   ├── m-commit-push.md        # 提交工作流文档
-    │   ├── m-bug-fix.md           # Bug修复过程指南
-    │   ├── m-security-scan.md     # 安全扫描指南
-    │   ├── m-test-generation.md   # 测试生成指南
-    │   ├── m-review-code.md       # 代码审查指南
-    │   ├── m-task-planner.md      # 任务规划指南
-    │   ├── m-tdd-planner.md       # TDD规划指南
-    │   └── ...（更多文档）
-    └── workspaces/            # 生成的工作流报告
+├── README.md                    # 主项目文档
+├── README_CN.md                 # 中文文档
+├── LICENSE                      # MIT许可证
+├── install.sh                   # 安装脚本
+├── commands/                    # Claude Code命令定义
+│   ├── m-orchestrated-dev.md
+│   ├── m-commit-push.md
+│   ├── m-bug-fix.md
+│   ├── m-security-scan.md
+│   ├── m-test-generation.md
+│   ├── m-review-code.md
+│   ├── m-task-planner.md
+│   ├── m-tdd-planner.md
+│   ├── m-next-task.md
+│   ├── m-next-context.md
+│   ├── m-project-cleanup.md
+│   ├── m-document-update.md
+│   ├── m-branch-prune.md
+│   ├── m-branch-prune-lite.md
+│   ├── m-debate-architecture.md
+│   ├── m-debate-code.md
+│   ├── m-review-completion.md
+│   └── m-merge-branch.md
+└── docs/                        # 完整文档
+    ├── README.md                # 文档中心
+    ├── en/                      # 英文文档
+    │   └── commands/            # 详细命令指南
+    │       └── ...              # 18个命令文档文件
+    └── zh/                      # 中文文档
+        └── commands/            # 中文命令指南
+            └── ...              # 18个命令文档文件
 ```
 
 ## 🤝 贡献

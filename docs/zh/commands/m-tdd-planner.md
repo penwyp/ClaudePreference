@@ -1,13 +1,13 @@
-# m-tdd-planner - 测试驱动开发规划工作流
+# 命令: m:tdd-planner - 测试驱动开发规划工作流
 
 ## 概述
 
-`m-tdd-planner` 是一个专门的测试驱动开发规划工具，分析需求并生成全面的TDD实施计划。该命令采用结构化的JSON输出格式，提供详细的Red-Green-Refactor循环规划、测试策略设计和任务依赖映射。
+`m:tdd-planner` 是一个专门的测试驱动开发规划工具，分析需求并生成全面的TDD实施计划。该命令采用结构化的JSON输出格式，提供详细的Red-Green-Refactor循环规划、测试策略设计和任务依赖映射。
 
 ## 使用方法
 
 ```bash
-/m-tdd-planner [target]
+/m:tdd-planner [target]
 ```
 
 ## 参数详解
@@ -21,7 +21,7 @@
 
 ### 基于需求文档规划
 ```bash
-/m-tdd-planner requirements.md
+/m:tdd-planner requirements.md
 ```
 **预期结果**: 
 - 解析需求文档中的可测试需求
@@ -31,7 +31,7 @@
 
 ### 基于项目描述规划
 ```bash
-/m-tdd-planner "用户认证和权限管理系统"
+/m:tdd-planner "用户认证和权限管理系统"
 ```
 **预期结果**: 
 - 分析项目描述中的功能需求
@@ -41,7 +41,7 @@
 
 ### 默认自动发现
 ```bash
-/m-tdd-planner
+/m:tdd-planner
 ```
 **预期结果**: 
 - 自动发现项目中的需求文档
@@ -298,7 +298,7 @@
 
 ## 相关命令
 
-- [`m-test-generation`](m-test-generation.md) - 测试生成工具
-- [`m-task-planner`](m-task-planner.md) - 任务规划
-- [`m-review-code`](m-review-code.md) - 代码审查
-- [`m-orchestrated-dev`](m-orchestrated-dev.md) - 协同开发
+- [m:test-generation`](m-test-generation.md) - 测试生成工具
+- [m:task-planner`](m-task-planner.md) - 任务规划
+- [m:review-code`](m-review-code.md) - 代码审查
+- [m:orchestrated-dev`](m-orchestrated-dev.md) - 协同开发

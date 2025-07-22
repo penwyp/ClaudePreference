@@ -1,13 +1,13 @@
-# m-orchestrated-dev - Multi-Agent Development Workflow: A Research-Driven & Template-Based System
+# Command: m:orchestrated-dev - Multi-Agent Development Workflow: A Research-Driven & Template-Based System
 
 ## Overview
 
-`m-orchestrated-dev` is an advanced multi-agent collaborative development workflow that deploys three specialized agents (Orchestrator, Developer, Reviewer) governed by a template-based orchestration system to ensure quality, consistency, and adaptability in software development. This command implements a research-driven development-review cycle suitable for complex development tasks that require high-quality code and architectural decisions.
+The `m:orchestrated-dev` is an advanced multi-agent collaborative development workflow that deploys three specialized agents (Orchestrator, Developer, Reviewer) governed by a template-based orchestration system to ensure quality, consistency, and adaptability in software development. This command implements a research-driven development-review cycle suitable for complex development tasks that require high-quality code and architectural decisions.
 
 ## Usage
 
 ```bash
-/m-orchestrated-dev [target]
+/m:orchestrated-dev [target]
 ```
 
 ## Parameter Details
@@ -53,19 +53,19 @@
 
 ### Basic Usage
 ```bash
-/m-orchestrated-dev
+/m:orchestrated-dev
 ```
 **Expected Outcome**: Analyzes current project requirements and initiates the three-agent collaborative development process.
 
 ### Specifying a Requirements Document
 ```bash
-/m-orchestrated-dev requirements.md
+/m:orchestrated-dev requirements.md
 ```
 **Expected Outcome**: Performs requirements analysis and development planning based on the `requirements.md` file.
 
 ### Complex Project Development
 ```bash
-/m-orchestrated-dev "Implement user authentication system"
+/m:orchestrated-dev "Implement user authentication system"
 ```
 **Expected Outcome**: Initiates a complete design, development, and review process for the user authentication system.
 
@@ -210,7 +210,7 @@ If the maximum number of cycles is exceeded, the system will generate a `docs/to
 
 ## Related Commands
 
-- [`m-task-planner`](m-task-planner.md) - Task Planning
-- [`m-review-code`](m-review-code.md) - Code Review
-- [`m-security-scan`](m-security-scan.md) - Security Scan
-- [`m-test-generation`](m-test-generation.md) - Test Generation
+- [m:task-planner`](m-task-planner.md) - Task Planning
+- [m:review-code`](m-review-code.md) - Code Review
+- [m:security-scan`](m-security-scan.md) - Security Scan
+- [m:test-generation`](m-test-generation.md) - Test Generation

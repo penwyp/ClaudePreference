@@ -1,13 +1,13 @@
-# m-review-code - 综合代码审查工作流
+# 命令: m:review-code - 综合代码审查工作流
 
 ## 概述
 
-`m-review-code` 是一个全面的代码审查工具，提供深入的代码质量分析、架构评估和安全检查。该命令生成详细的双语报告，涵盖功能完整性、关键Bug、代码异味、第三方库优化建议和测试覆盖率评估。
+`m:review-code` 是一个全面的代码审查工具，提供深入的代码质量分析、架构评估和安全检查。该命令生成详细的双语报告，涵盖功能完整性、关键Bug、代码异味、第三方库优化建议和测试覆盖率评估。
 
 ## 使用方法
 
 ```bash
-/m-review-code [target] [depth] [focus]
+/m:review-code [target] [depth] [focus]
 ```
 
 ## 参数详解
@@ -30,7 +30,7 @@
 
 ### 标准代码审查
 ```bash
-/m-review-code
+/m:review-code
 ```
 **预期结果**: 
 - 审查当前分支最新提交
@@ -40,7 +40,7 @@
 
 ### 安全性深度审查
 ```bash
-/m-review-code src/auth deep security
+/m:review-code src/auth deep security
 ```
 **预期结果**: 
 - 深度审查认证模块
@@ -50,7 +50,7 @@
 
 ### PR快速审查
 ```bash
-/m-review-code PR#123 quick
+/m:review-code PR#123 quick
 ```
 **预期结果**: 
 - 快速审查Pull Request
@@ -60,7 +60,7 @@
 
 ### 性能审查
 ```bash
-/m-review-code components standard performance
+/m:review-code components standard performance
 ```
 **预期结果**: 
 - 审查组件性能
@@ -70,7 +70,7 @@
 
 ### 架构审查
 ```bash
-/m-review-code src/core deep architecture
+/m:review-code src/core deep architecture
 ```
 **预期结果**: 
 - 深度架构分析
@@ -340,7 +340,7 @@
 
 ## 相关命令
 
-- [`m-security-scan`](m-security-scan.md) - 安全扫描
-- [`m-test-generation`](m-test-generation.md) - 测试生成
-- [`m-debate-code`](m-debate-code.md) - 代码辩论
-- [`m-project-cleanup`](m-project-cleanup.md) - 项目清理
+- [m:security-scan`](m-security-scan.md) - 安全扫描
+- [m:test-generation`](m-test-generation.md) - 测试生成
+- [m:debate-code`](m-debate-code.md) - 代码辩论
+- [m:project-cleanup`](m-project-cleanup.md) - 项目清理

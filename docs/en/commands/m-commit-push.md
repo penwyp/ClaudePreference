@@ -1,13 +1,13 @@
-# m-commit-push - Smart Commit and Push Workflow
+# Command: m:commit-push - Smart Commit and Push Workflow
 
 ## Overview
 
-`m-commit-push` is an automated Git commit and push workflow that intelligently generates messages compliant with Conventional Commits specifications. This command simplifies the code submission process, ensuring a consistent and readable commit history.
+The `m:commit-push` is an automated Git commit and push workflow that intelligently generates messages compliant with Conventional Commits specifications. This command simplifies the code submission process, ensuring a consistent and readable commit history.
 
 ## Usage
 
 ```bash
-/m-commit-push [message]
+/m:commit-push [message]
 ```
 
 ## Parameter Details
@@ -20,7 +20,7 @@
 
 ### Automatically Generate Commit Message
 ```bash
-/m-commit-push
+/m:commit-push
 ```
 **Expected Outcome**:
 - Analyzes the current changes.
@@ -29,7 +29,7 @@
 
 ### Custom Commit Message
 ```bash
-/m-commit-push "feat: add user authentication system"
+/m:commit-push "feat: add user authentication system"
 ```
 **Expected Outcome**:
 - Commits with the provided message.
@@ -38,7 +38,7 @@
 
 ### Fix-Type Commit
 ```bash
-/m-commit-push "fix: resolve memory leak in data processing"
+/m:commit-push "fix: resolve memory leak in data processing"
 ```
 **Expected Outcome**:
 - Creates a fix-type commit.
@@ -107,7 +107,7 @@ Commit Details:
 
 #### No Changes to Commit
 ```bash
-/m-commit-push
+/m:commit-push
 ```
 **Result**:
 ```
@@ -117,7 +117,7 @@ Please make code changes before committing
 
 #### Push Conflict
 ```bash
-/m-commit-push "fix: resolve issue"
+/m:commit-push "fix: resolve issue"
 ```
 **Result**:
 ```
@@ -127,7 +127,7 @@ Recommendation: Run git pull to merge remote changes first
 
 #### Incorrect Commit Message Format
 ```bash
-/m-commit-push "bad message format"
+/m:commit-push "bad message format"
 ```
 **Result**:
 ```
@@ -177,21 +177,21 @@ git config --global core.autocrlf true
 
 ### Development Workflow
 ```bash
-/m-task-planner requirements.md    # Plan tasks
+/m:task-planner requirements.md    # Plan tasks
 # Develop...
-/m-test-generation unit src/       # Generate tests
-/m-commit-push                     # Commit changes
+/m:test-generation unit src/       # Generate tests
+/m:commit-push                     # Commit changes
 ```
 
 ### Fix Workflow
 ```bash
-/m-bug-fix #123                    # Fix a bug
-/m-commit-push "fix: resolve issue #123"
+/m:bug-fix #123                    # Fix a bug
+/m:commit-push "fix: resolve issue #123"
 ```
 
 ## Related Commands
 
-- [`m-bug-fix`](m-bug-fix.md) - Bug Fix Workflow
-- [`m-review-code`](m-review-code.md) - Code Review
-- [`m-merge-branch`](m-merge-branch.md) - Branch Merging
-- [`m-branch-prune`](m-branch-prune.md) - Branch Pruning
+- [m:bug-fix`](m-bug-fix.md) - Bug Fix Workflow
+- [m:review-code`](m-review-code.md) - Code Review
+- [m:merge-branch`](m-merge-branch.md) - Branch Merging
+- [m:branch-prune`](m-branch-prune.md) - Branch Pruning

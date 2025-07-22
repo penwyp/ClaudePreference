@@ -1,13 +1,13 @@
-# m-task-planner - 开发任务规划工作流
+# 命令: m:task-planner - 开发任务规划工作流
 
 ## 概述
 
-`m-task-planner` 是一个智能的需求分析和任务规划工具，能够将复杂的需求文档转换为结构化的实施计划。该命令通过分析需求、设计架构、分解任务和映射依赖关系，为开发团队提供清晰的执行路径。
+`m:task-planner` 是一个智能的需求分析和任务规划工具，能够将复杂的需求文档转换为结构化的实施计划。该命令通过分析需求、设计架构、分解任务和映射依赖关系，为开发团队提供清晰的执行路径。
 
 ## 使用方法
 
 ```bash
-/m-task-planner [target]
+/m:task-planner [target]
 ```
 
 ## 参数详解
@@ -21,7 +21,7 @@
 
 ### 基于需求文档规划
 ```bash
-/m-task-planner requirements.md
+/m:task-planner requirements.md
 ```
 **预期结果**: 
 - 解析需求文档内容
@@ -31,7 +31,7 @@
 
 ### 基于项目描述规划
 ```bash
-/m-task-planner "实现电商平台用户认证和支付系统"
+/m:task-planner "实现电商平台用户认证和支付系统"
 ```
 **预期结果**: 
 - 分析项目描述
@@ -41,7 +41,7 @@
 
 ### 自动发现模式
 ```bash
-/m-task-planner
+/m:task-planner
 ```
 **预期结果**: 
 - 扫描项目目录寻找需求文档
@@ -51,7 +51,7 @@
 
 ### 目录范围规划
 ```bash
-/m-task-planner specs/
+/m:task-planner specs/
 ```
 **预期结果**: 
 - 扫描整个 specs 目录
@@ -294,7 +294,7 @@ docs/workspaces/task-plan-MM-dd-HH-mm-ss.md
 
 ## 相关命令
 
-- [`m-orchestrated-dev`](m-orchestrated-dev.md) - 多智能体开发
-- [`m-tdd-planner`](m-tdd-planner.md) - TDD规划
-- [`m-next-task`](m-next-task.md) - 下一步任务分析
-- [`m-review-code`](m-review-code.md) - 代码审查
+- [m:orchestrated-dev`](m-orchestrated-dev.md) - 多智能体开发
+- [m:tdd-planner`](m-tdd-planner.md) - TDD规划
+- [m:next-task`](m-next-task.md) - 下一步任务分析
+- [m:review-code`](m-review-code.md) - 代码审查

@@ -1,13 +1,13 @@
-# m-tdd-planner - Test-Driven Development Planning Workflow
+# Command: m:tdd-planner - Test-Driven Development Planning Workflow
 
 ## Overview
 
-`m-tdd-planner` is a specialized Test-Driven Development (TDD) planning tool that analyzes requirements and generates a comprehensive TDD implementation plan. The command uses a structured JSON output format to provide detailed Red-Green-Refactor cycle planning, test strategy design, and task dependency mapping.
+The `m:tdd-planner` is a specialized Test-Driven Development (TDD) planning tool that analyzes requirements and generates a comprehensive TDD implementation plan. The command uses a structured JSON output format to provide detailed Red-Green-Refactor cycle planning, test strategy design, and task dependency mapping.
 
 ## Usage
 
 ```bash
-/m-tdd-planner [target]
+/m:tdd-planner [target]
 ```
 
 ## Parameter Details
@@ -21,7 +21,7 @@
 
 ### Plan Based on Requirements Document
 ```bash
-/m-tdd-planner requirements.md
+/m:tdd-planner requirements.md
 ```
 **Expected Outcome**:
 - Parses testable requirements from the document.
@@ -31,7 +31,7 @@
 
 ### Plan Based on Project Description
 ```bash
-/m-tdd-planner "User authentication and permission management system"
+/m:tdd-planner "User authentication and permission management system"
 ```
 **Expected Outcome**:
 - Analyzes functional requirements from the description.
@@ -41,7 +41,7 @@
 
 ### Default Auto-Discovery
 ```bash
-/m-tdd-planner
+/m:tdd-planner
 ```
 **Expected Outcome**:
 - Automatically discovers requirements documents in the project.
@@ -298,7 +298,7 @@
 
 ## Related Commands
 
-- [`m-test-generation`](m-test-generation.md) - Test Generation Tool
-- [`m-task-planner`](m-task-planner.md) - Task Planning
-- [`m-review-code`](m-review-code.md) - Code Review
-- [`m-orchestrated-dev`](m-orchestrated-dev.md) - Collaborative Development
+- [m:test-generation`](m-test-generation.md) - Test Generation Tool
+- [m:task-planner`](m-task-planner.md) - Task Planning
+- [m:review-code`](m-review-code.md) - Code Review
+- [m:orchestrated-dev`](m-orchestrated-dev.md) - Collaborative Development
