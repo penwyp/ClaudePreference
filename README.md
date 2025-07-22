@@ -193,6 +193,24 @@ Tactical code review with detailed implementation analysis.
 - Coding standards compliance verification
 - Line-level feedback generation
 
+#### 17. **Review Completion** - `/m:review-completion`
+Review completion workflow and verification.
+
+**Features**:
+- Completion status validation
+- Quality gate verification
+- Deliverable confirmation
+- Final review sign-off
+
+#### 18. **Branch Merge** - `/m:merge-branch`
+Intelligent branch merging workflow.
+
+**Features**:
+- Smart merge strategy selection
+- Conflict resolution assistance
+- Post-merge validation
+- Automated cleanup
+
 ## 🔧 Installation & Setup
 
 ### Prerequisites:
@@ -378,7 +396,9 @@ ClaudePreference/
 │   ├── m-branch-prune.md      # Branch cleanup
 │   ├── m-branch-prune-lite.md # Lightweight branch cleanup
 │   ├── m-debate-architecture.md # Architecture review
-│   └── m-debate-code.md       # Code review debate
+│   ├── m-debate-code.md       # Code review debate
+│   ├── m-review-completion.md # Review completion
+│   └── m-merge-branch.md      # Branch merging
 └── docs/                       # Generated reports and documentation
     └── workspaces/            # Workflow output files
 ```
