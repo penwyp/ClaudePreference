@@ -1,258 +1,291 @@
-# Multi-Agent Development Workflow: A Research-Driven & Template-Based System
+# Multi-Agent Development Workflow: Direct Communication & Template-Based System
 
 **Target:** `$ARGUMENTS` (Default: previous discussion results or current requirements)
-**Scope:** Deploy three specialized agents governed by a template-based orchestration system to ensure quality, consistency, and adaptability in software development.
+**Scope:** Three specialized agents with direct inter-agent communication for coordinated development cycles.
 
 -----
 
-## 1. System Configuration
+## 1. Agent Architecture
 
-*This section defines the high-level operational parameters for the workflow.*
+### Agent O (Orchestrator)
+**Primary Role:** Central coordinator and strategic decision maker
 
-```yaml
-max_cycles: 5
-timeout_minutes: 90
-strict_mode:
-  no_incomplete_code: true
-  require_security_check: true
-  min_functional_coverage_percent: 100
-  min_non_functional_coverage_percent: 70
-mcp_tools:
-  enabled: ["web_search", "context7", "sequential_thinking"]
-  # Principle: Prioritize recent information for time-sensitive queries.
-  # The Orchestrator should dynamically append the current year (e.g., 2025) when appropriate.
-  web_search_year: "dynamic"
-```
+**Core Capabilities:**
+- **Deep Thinking:** Decompose complex requirements into executable tasks
+- **Research Integration:** Synthesize findings from web_search and context7 tools
+- **Template Processing:** Dynamically populate and dispatch task templates to other agents
+- **State Management:** Maintain workflow state and iteration tracking
+- **Decision Authority:** Make final approval decisions based on review feedback
 
------
-
-## 2. Agent Architecture
-
-*Defines the roles and core responsibilities of each autonomous agent.*
-
-### Agent O (Orchestrator & Prompt Generator)
-
-**Role:** Strategic planning, workflow coordination, and dynamic prompt assembly.
-
-**Key Responsibilities:**
-
-  - **Parse Requirements:** Decompose high-level goals into actionable tasks using **sequential-thinking**.
-  - **Initiate Research:** Launch research cycles to determine optimal architecture and technology stacks.
-  - **Synthesize Findings:** Analyze research from multiple sources (**web\_search**, **context7**) to form a reasoned, evidence-based technical plan.
-  - **Manage State:** Track the development progress, review feedback, and iteration count.
-  - **Assemble & Dispatch Prompts:** Act as the **Prompt Generator**. Populate templates from the `Prompt Template Library` with dynamic context to create specific, actionable instructions for other agents.
-  - **Final Verification:** Verify the final build's success and ensure all success criteria are met before completion.
+**Communication Protocol:**
+- **Receives:** Initial requirements from system/user
+- **Sends to D:** Populated development task templates with research-backed specifications
+- **Sends to R:** Review requests with full context and validation criteria
+- **Receives from D:** Implementation completion status and artifacts
+- **Receives from R:** Structured review reports with approval/rejection decisions
 
 ### Agent D (Developer)
+**Primary Role:** Implementation specialist focused on complete, production-ready code
 
-**Role:** High-quality, research-informed code implementation.
+**Core Capabilities:**
+- **Context-Driven Development:** Execute based on orchestrator's specifications
+- **Pattern Recognition:** Analyze and maintain existing codebase conventions
+- **Complete Implementation:** Produce fully functional code without placeholders
+- **Quality Assurance:** Ensure all code compiles and passes local tests
 
-**Key Responsibilities:**
+**Communication Protocol:**
+- **Receives from O:** Development tasks with architectural constraints and requirements
+- **Executes:** Implementation in current working directory
+- **Sends to O:** Completion notification with code artifacts and self-validation results
 
-  - **Execute from Context:** Work exclusively from the contextual prompt provided by Agent O.
-  - **Maintain Consistency:** When modifying existing files, first understand and then mimic the file's code conventions, style, and existing patterns. Use existing libraries and utilities where appropriate.
-  - **Implement Completely:** **CRITICAL:** Every function must have a complete, production-ready implementation.
-  - **FORBIDDEN:** No `TODO`, `FIXME`, `HACK`, `XXX`, `pass`, `stub`, or any other form of placeholder code.
-  - **Pre-Implementation Research:** For complex features or algorithms, use **web\_search** to find optimal implementation patterns as guided by Agent O.
-  - **Ensure Quality:** Each code submission must compile, run, and pass all local verification checks.
+**Critical Constraints:**
+- **FORBIDDEN:** `TODO`, `FIXME`, `HACK`, `XXX`, `pass`, `stub`, empty implementations
+- **REQUIRED:** Every function/method must be complete and functional
 
 ### Agent R (Reviewer)
+**Primary Role:** Quality gatekeeper and compliance validator
 
-**Role:** Comprehensive validation against objective standards and context.
+**Core Capabilities:**
+- **Multi-Dimensional Analysis:** Code completeness, security, performance, architecture
+- **External Validation:** Benchmark against industry standards (OWASP, best practices)
+- **Actionable Feedback:** Provide specific fixes and code suggestions
+- **Framework Compliance:** Verify adherence to chosen technology patterns
 
-**Key Responsibilities:**
-
-  - **Holistic Review:** Assess code for completeness, security, performance, architectural compliance, and **consistency with the existing codebase.**
-  - **Provide Actionable Feedback:** When identifying issues, provide concrete suggestions, code snippets, or clear guidance for remediation where feasible. This is crucial for accelerating the iteration cycle.
-  - **External Benchmarking:** Use tools like **web\_search** to validate against external standards (e.g., OWASP Top 10) and **context7** to check framework-specific best practices.
-  - **Generate Report:** Complete the standardized `Review Output Format` with clear findings and a final decision.
+**Communication Protocol:**
+- **Receives from O:** Review requests with code location and validation criteria
+- **Analyzes:** Code against multiple quality dimensions
+- **Sends to O:** Structured JSON reports with APPROVED/REJECTED decision
 
 -----
 
-## 3. Prompt Template Library
+## 2. Direct Communication Templates
 
-*This library contains the standardized, reusable instruction skeletons. Agent O dynamically populates these templates.*
-
-### Template: `Initial_Research`
-
+### Template: `Initial_Research` (O executes internally)
 ```
-You are an expert-level Systems Architect. Your goal is to research and propose the best technical architecture for the following requirements.
+AGENT O INTERNAL PROCESS:
 
-**Requirements:**
-{{REQUIREMENTS_SUMMARY}}
+Given requirements: {{REQUIREMENTS_SUMMARY}}
 
-**Research Directives:**
-1.  Identify the top 2-3 architectural patterns suitable for this problem domain. Use **web_search** with queries like "[problem domain] architecture patterns {{CURRENT_YEAR}}".
-2.  Evaluate and recommend a primary technology stack (language, framework, key libraries). Use **context7** for deep framework analysis. Justify your choice against alternatives.
-3.  Define the core data models or schemas required.
-4.  Identify potential challenges (e.g., scalability, security) and propose mitigation strategies.
+Execute research protocol:
+1. web_search "[domain] architecture patterns 2025" → Identify 2-3 suitable patterns
+2. context7 analyze [candidate frameworks] → Deep framework evaluation
+3. sequential_thinking decompose complexity → Break down into implementable components
+4. Synthesize findings → Create evidence-based technical plan
 
-**Expected Output:**
-A structured technical plan with clear justifications for all recommendations.
+Output: Technical architecture decision document
 ```
 
-### Template: `Orchestrator_to_Developer`
-
+### Template: `Development_Assignment` (O → D)
 ```
-You are Agent D, the Developer. Your task is to perform a development cycle based on the provided plan.
+TO: Agent D
+FROM: Agent O
+TYPE: Development Task
 
-**High-Level Goal:**
-{{HIGH_LEVEL_GOAL}}
+You are the Developer. Implement the following based on researched architecture:
 
-**Current Task Description:**
-{{TASK_DESCRIPTION}}
+**Goal:** {{HIGH_LEVEL_GOAL}}
+**Task:** {{TASK_DESCRIPTION}}
+**Architecture Decisions:** {{ARCHITECTURE_CONSTRAINTS}}
 
-**Architecture & Constraints (from Agent O's Plan):**
-{{ARCHITECTURE_CONSTRAINTS}}
+**Mandatory Standards:**
+- Analyze existing code patterns BEFORE implementation
+- Complete all functions (NO placeholders allowed)
+- Ensure compilation and test success
+- Follow security guidelines from architecture
 
-**Implementation Standards (MANDATORY):**
-- **Adhere to Existing Patterns:** Before writing code, analyze the existing files to understand their conventions. All new code must mimic the style, patterns, and library usage of the surrounding code.
-- **Implement all functionality completely:** No placeholders (`TODO`, `FIXME`, `pass`, etc.) are permitted.
-- **Follow all security and quality standards** outlined in the architecture plan.
-- **Ensure your code is clean, maintainable, and includes proper error handling.**
+**Research Support:**
+- For unfamiliar patterns: web_search "[pattern] implementation examples 2025"
+- For complex algorithms: Use sequential_thinking for breakdown
 
-**Tool Guidance:**
-- For complex algorithms, use **sequential-thinking** to break down the problem.
-- If you encounter an unfamiliar library, use **web_search** for implementation examples.
-
-**Expected Output:**
-1.  The complete, production-ready source code for the task.
-2.  A confirmation that the code compiles and all local checks pass.
+**Expected Delivery:**
+- Complete source code in current directory
+- Confirmation of successful build/test
 ```
 
-### Template: `Orchestrator_to_Reviewer`
-
+### Template: `Review_Request` (O → R)
 ```
-You are Agent R, the Reviewer. Conduct a comprehensive code review.
+TO: Agent R
+FROM: Agent O
+TYPE: Code Review Request
 
-**Code to Review:**
-{{CODE_FOR_REVIEW}}
+Conduct comprehensive review of implemented code.
 
-**Original Context (Task & Architecture):**
-{{TASK_CONTEXT_FOR_REVIEW}}
+**Code Location:** {{CODE_FOR_REVIEW}}
+**Original Requirements:** {{TASK_CONTEXT_FOR_REVIEW}}
 
-**Review Priorities (in order):**
-1.  **Code Completeness (BLOCKING):** Perform static analysis to find any markers of incomplete code (`TODO`, empty functions, etc.).
-2.  **Critical Issues (BLOCKING):**
-    - Security: Use **web_search** to check against recent vulnerabilities (e.g., "OWASP top 10 {{CURRENT_YEAR}}").
-    - Concurrency, resource management, and performance bottlenecks.
-3.  **Code Quality & Consistency:**
-    - Verify that new code is consistent with the existing codebase's style, patterns, and conventions.
-    - Assess for maintainability and readability.
-4.  **Architecture & Requirements:**
-    - Use **context7** to verify compliance with framework best practices.
-    - Confirm all functional requirements from the context are met.
+**Review Protocol (Priority Order):**
+1. BLOCKING - Completeness scan for TODO/stub/empty implementations
+2. BLOCKING - Security validation against "OWASP 2025" standards
+3. CRITICAL - Architecture compliance and pattern consistency
+4. IMPORTANT - Code quality, maintainability, performance
 
-**Key Mandate:**
-Where you identify defects, provide actionable suggestions or code snippets to guide the fix.
+**Validation Tools:**
+- web_search for current security vulnerabilities
+- context7 for framework best practices
+- sequential_thinking for systematic analysis
 
-**Expected Output:**
-- A completed JSON review report using the standard `Review Output Format`.
-- A clear "APPROVED" or "REJECTED" decision.
+**Required Output:**
+- JSON report with APPROVED/REJECTED decision
+- Specific fix suggestions for each issue found
 ```
 
 -----
 
-## 4. Enhanced Workflow
+## 3. Workflow Execution Flow
 
-*The high-level, orchestrated sequence of operations.*
+### Stage 1: Orchestrator Initialization
+```
+Agent O receives $ARGUMENTS
+↓
+O executes Initial_Research template internally
+↓
+O generates Technical Architecture Plan with evidence
+```
 
-1.  **Phase 1: Research & Planning (Agent O)**
-      - O parses the initial requirements.
-      - O populates and executes the `Initial_Research` template to generate a technical plan.
-2.  **Phase 2: Development Cycle (Agent D)**
-      - O breaks down the plan into a specific task.
-      - O generates a contextual prompt for D using the `Orchestrator_to_Developer` template.
-      - D implements the code and submits it upon successful local verification.
-3.  **Phase 3: Comprehensive Review (Agent R)**
-      - O receives the code from D.
-      - O generates a review task for R using the `Orchestrator_to_Reviewer` template, providing both the code and the original context.
-      - R performs the review and returns a structured JSON report.
-4.  **Phase 4: Iteration or Completion**
-      - O parses the review report.
-      - **If REJECTED:** O extracts the actionable feedback, creates a new development task, and returns to Phase 2.
-      - **If APPROVED:** O proceeds to final verification and completion.
-      - **If max\_cycles exceeded:** O halts the process and generates the `max-cycle-summary` document.
+### Stage 2: Development Cycle
+```
+O creates Development_Assignment from template
+↓
+O sends assignment directly to Agent D
+↓
+D implements in current directory (no placeholders)
+↓
+D validates locally and sends completion to O
+```
+
+### Stage 3: Review Process
+```
+O creates Review_Request from template
+↓
+O sends request directly to Agent R with full context
+↓
+R executes comprehensive analysis using tools
+↓
+R sends structured JSON report to O
+```
+
+### Stage 4: Decision & Iteration
+```
+O evaluates R's report
+↓
+IF APPROVED → Proceed to completion
+IF REJECTED → Create new D assignment with R's feedback
+IF max_cycles → Generate summary and halt
+```
 
 -----
 
-## 5. Communication & Data Formats
+## 4. Inter-Agent Communication Protocol
 
-### Review Output Format (`json`)
+### Message Format (Direct Communication)
+```python
+# Pseudo-code for agent communication
+class AgentMessage:
+    sender: AgentID
+    recipient: AgentID
+    message_type: TaskType
+    payload: Dict
+    context: Dict
+    timestamp: DateTime
+```
 
-*Standardized format for Agent R's report, now with actionable suggestions.*
+### Communication Rules
+1. **Direct Addressing:** Agents communicate directly by name/role
+2. **Context Preservation:** Each message includes full context
+3. **No Shared State:** Agents maintain independence
+4. **Synchronous Responses:** Agents wait for task completion
+5. **Template-Based:** All communications use predefined templates
+
+-----
+
+## 5. Review Output Format (R → O)
 
 ```json
 {
   "decision": "APPROVED | REJECTED",
+  "timestamp": "2025-01-XX T00:00:00Z",
   "summary": {
-    "completeness_status": "PASS | FAIL",
-    "critical_issues_found": true | false,
-    "functional_coverage_percent": 100,
-    "non_functional_coverage_percent": 85
+    "completeness_check": "PASS | FAIL",
+    "security_validation": "PASS | FAIL", 
+    "architecture_compliance": "PASS | FAIL",
+    "code_quality_score": 85
   },
-  "findings": [
+  "blocking_issues": [
     {
-      "file": "path/to/file.ext",
-      "line": 42,
-      "severity": "BLOCKING | WARNING",
-      "issue": "Description of the issue (e.g., 'SQL injection vulnerability')",
-      "suggestion": "Concrete advice for fixing the issue (e.g., 'Use parameterized queries instead of string formatting. Example: ...')"
-    },
-    {
-      "file": "path/to/another/file.ext",
-      "line": 101,
-      "severity": "BLOCKING",
-      "issue": "Incomplete implementation: function is a stub.",
-      "suggestion": "Please provide the full implementation for this function based on the requirements."
+      "file": "src/api/handler.js",
+      "line": 45,
+      "issue": "SQL injection vulnerability detected",
+      "fix": "Replace string concatenation with parameterized query:\n`db.query('SELECT * FROM users WHERE id = ?', [userId])`"
     }
   ],
-  "mcp_validation": {
-    "security_check": "Passed (OWASP {{CURRENT_YEAR}} compliant)",
-    "framework_usage": "Follows React 19 best practices"
+  "suggestions": [
+    {
+      "file": "src/utils/logger.js",
+      "type": "performance",
+      "suggestion": "Consider using winston for structured logging"
+    }
+  ],
+  "validation_sources": {
+    "security": "OWASP Top 10 2025",
+    "framework": "React 19 best practices via context7"
   }
 }
 ```
 
 -----
 
-## 6. Final Deliverables & Success Criteria
+## 6. Execution Configuration
 
-*Defines the conditions for a successful project completion.*
+```yaml
+workflow_config:
+  max_iterations: 5
+  working_directory: "./"
+  
+  agent_tools:
+    orchestrator: [web_search, context7, sequential_thinking]
+    developer: [web_search, sequential_thinking]
+    reviewer: [web_search, context7, sequential_thinking]
+  
+  quality_gates:
+    code_completeness: 100%  # No placeholders
+    functional_coverage: 100%
+    security_compliance: required
+    
+  research_protocol:
+    prioritize_year: 2025  # For time-sensitive searches
+    evidence_required: true
+```
 
-### Success Criteria
+-----
 
-  - ✅ **100% Code Completeness:** No placeholders, stubs, or `TODO`s.
-  - ✅ **Zero Critical Issues:** No blocking security, concurrency, or resource-related bugs.
-  - ✅ **100% Functional Coverage:** All specified features are implemented.
-  - ✅ **≥70% Non-Functional Coverage:** Meets specified performance, scalability, etc., targets.
-  - ✅ **Build Success:** Final code compiles and passes all integration checks.
-  - ✅ **Evidence-Based Architecture:** All major technical decisions are backed by research.
+## 7. Success Criteria & Final Output
 
-### Summary Report (`json`)
+### Project Success Metrics
+- ✅ Zero incomplete implementations (no TODOs)
+- ✅ All security validations passed
+- ✅ Architecture compliance verified
+- ✅ Build and tests successful
+- ✅ Review approved within max_iterations
 
-*The final output artifact summarizing the project.*
-
+### Final Summary Report
 ```json
 {
-  "project_stats": {
-    "total_cycles": 3,
-    "mcp_tools_used": { "web_search": 12, "context7": 5, "sequential_thinking": 8 },
-    "architecture_decisions": [
-      {
-        "decision": "Use Next.js 14",
-        "rationale": "Based on research indicating superior performance and SEO capabilities for this use case.",
-        "alternatives_considered": ["Remix", "Astro"]
-      }
-    ]
+  "workflow_summary": {
+    "total_iterations": 3,
+    "agents_involved": ["orchestrator", "developer", "reviewer"],
+    "research_queries_executed": 15,
+    "architecture_decision": "Next.js 14 with TypeScript",
+    "final_status": "COMPLETED"
   },
-  "code_quality": {
-    "completeness": "100%",
-    "final_security_issues": 0
+  "quality_metrics": {
+    "code_completeness": "100%",
+    "security_issues": 0,
+    "test_coverage": "92%"
   },
-  "requirements_fulfillment": {
-    "functional": "100%",
-    "non_functional": "85%"
+  "artifacts": {
+    "source_code": "./src/",
+    "documentation": "./docs/",
+    "architecture_decisions": "./decisions/adr-001.md"
   }
 }
 ```
