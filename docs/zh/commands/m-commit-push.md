@@ -1,13 +1,13 @@
-# m-commit-push - 智能提交推送工作流
+# 命令: m:commit-push - 智能提交推送工作流
 
 ## 概述
 
-`m-commit-push` 是一个自动化的Git提交和推送工作流，能够智能生成符合约定式提交规范的消息。该命令简化了代码提交过程，确保提交历史的一致性和可读性。
+`m:commit-push` 是一个自动化的Git提交和推送工作流，能够智能生成符合约定式提交规范的消息。该命令简化了代码提交过程，确保提交历史的一致性和可读性。
 
 ## 使用方法
 
 ```bash
-/m-commit-push [message]
+/m:commit-push [message]
 ```
 
 ## 参数详解
@@ -20,7 +20,7 @@
 
 ### 自动生成提交消息
 ```bash
-/m-commit-push
+/m:commit-push
 ```
 **预期结果**: 
 - 分析当前更改
@@ -29,7 +29,7 @@
 
 ### 自定义提交消息
 ```bash
-/m-commit-push "feat: add user authentication system"
+/m:commit-push "feat: add user authentication system"
 ```
 **预期结果**: 
 - 使用提供的消息进行提交
@@ -38,7 +38,7 @@
 
 ### 修复类型提交
 ```bash
-/m-commit-push "fix: resolve memory leak in data processing"
+/m:commit-push "fix: resolve memory leak in data processing"
 ```
 **预期结果**: 
 - 创建修复类型的提交
@@ -107,7 +107,7 @@
 
 #### 无更改可提交
 ```bash
-/m-commit-push
+/m:commit-push
 ```
 **结果**: 
 ```
@@ -117,7 +117,7 @@
 
 #### 推送冲突
 ```bash
-/m-commit-push "fix: resolve issue"
+/m:commit-push "fix: resolve issue"
 ```
 **结果**: 
 ```
@@ -127,7 +127,7 @@
 
 #### 提交消息格式错误
 ```bash
-/m-commit-push "bad message format"
+/m:commit-push "bad message format"
 ```
 **结果**: 
 ```
@@ -177,21 +177,21 @@ git config --global core.autocrlf true
 
 ### 开发工作流
 ```bash
-/m-task-planner requirements.md    # 规划任务
+/m:task-planner requirements.md    # 规划任务
 # 进行开发...
-/m-test-generation unit src/       # 生成测试
-/m-commit-push                     # 提交更改
+/m:test-generation unit src/       # 生成测试
+/m:commit-push                     # 提交更改
 ```
 
 ### 修复工作流
 ```bash
-/m-bug-fix #123                    # 修复bug
-/m-commit-push "fix: resolve issue #123"
+/m:bug-fix #123                    # 修复bug
+/m:commit-push "fix: resolve issue #123"
 ```
 
 ## 相关命令
 
-- [`m-bug-fix`](m-bug-fix.md) - Bug修复工作流
-- [`m-review-code`](m-review-code.md) - 代码审查
-- [`m-merge-branch`](m-merge-branch.md) - 分支合并
-- [`m-branch-prune`](m-branch-prune.md) - 分支清理
+- [m:bug-fix`](m-bug-fix.md) - Bug修复工作流
+- [m:review-code`](m-review-code.md) - 代码审查
+- [m:merge-branch`](m-merge-branch.md) - 分支合并
+- [m:branch-prune`](m-branch-prune.md) - 分支清理

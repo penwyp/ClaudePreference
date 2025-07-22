@@ -1,13 +1,13 @@
-# m-orchestrated-dev - 多智能体开发工作流：研究驱动与模板化系统
+# 命令: m:m-orchestrated-dev - 多智能体开发工作流：研究驱动与模板化系统
 
 ## 概述
 
-`m-orchestrated-dev` 是一个高级的多智能体协同开发工作流，通过部署三个专业化的智能体（编排者、开发者、审查者），由基于模板的编排系统管理，以确保软件开发的质量、一致性和适应性。该命令实现了研究驱动的开发-审查循环，适用于需要高质量代码和架构决策的复杂开发任务。
+`m:orchestrated-dev` 是一个高级的多智能体协同开发工作流，通过部署三个专业化的智能体（编排者、开发者、审查者），由基于模板的编排系统管理，以确保软件开发的质量、一致性和适应性。该命令实现了研究驱动的开发-审查循环，适用于需要高质量代码和架构决策的复杂开发任务。
 
 ## 使用方法
 
 ```bash
-/m-orchestrated-dev [target]
+/m:orchestrated-dev [target]
 ```
 
 ## 参数详解
@@ -53,19 +53,19 @@
 
 ### 基本使用
 ```bash
-/m-orchestrated-dev
+/m:orchestrated-dev
 ```
 **预期结果**: 分析当前项目需求，启动三智能体协同开发流程
 
 ### 指定需求文档
 ```bash
-/m-orchestrated-dev requirements.md
+/m:orchestrated-dev requirements.md
 ```
 **预期结果**: 基于 requirements.md 文件进行需求分析和开发规划
 
 ### 复杂项目开发
 ```bash
-/m-orchestrated-dev "实现用户认证系统"
+/m:orchestrated-dev "实现用户认证系统"
 ```
 **预期结果**: 针对用户认证系统进行完整的设计、开发和审查流程
 
@@ -210,7 +210,7 @@ mcp_tools:
 
 ## 相关命令
 
-- [`m-task-planner`](m-task-planner.md) - 任务规划
-- [`m-review-code`](m-review-code.md) - 代码审查
-- [`m-security-scan`](m-security-scan.md) - 安全扫描
-- [`m-test-generation`](m-test-generation.md) - 测试生成
+- [m:task-planner`](m-task-planner.md) - 任务规划
+- [m:review-code`](m-review-code.md) - 代码审查
+- [m:security-scan`](m-security-scan.md) - 安全扫描
+- [m:test-generation`](m-test-generation.md) - 测试生成

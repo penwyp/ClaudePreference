@@ -1,13 +1,13 @@
-# m-security-scan - 综合安全扫描工作流
+# 命令: m:security-scan - 综合安全扫描工作流
 
 ## 概述
 
-`m-security-scan` 是一个全面的安全漏洞扫描和评估工作流，能够检查依赖项、代码、认证机制和数据处理流程中的安全问题。该命令支持不同扫描范围，从依赖项检查到全面的安全审计。
+`m:security-scan` 是一个全面的安全漏洞扫描和评估工作流，能够检查依赖项、代码、认证机制和数据处理流程中的安全问题。该命令支持不同扫描范围，从依赖项检查到全面的安全审计。
 
 ## 使用方法
 
 ```bash
-/m-security-scan [scope]
+/m:security-scan [scope]
 ```
 
 ## 参数详解
@@ -25,7 +25,7 @@
 
 ### 全面安全扫描
 ```bash
-/m-security-scan
+/m:security-scan
 ```
 **预期结果**: 
 - 扫描所有代码文件
@@ -36,7 +36,7 @@
 
 ### 依赖项安全扫描
 ```bash
-/m-security-scan dependencies
+/m:security-scan dependencies
 ```
 **预期结果**: 
 - 检查 package.json/requirements.txt 等依赖文件
@@ -46,7 +46,7 @@
 
 ### 认证安全扫描
 ```bash
-/m-security-scan auth
+/m:security-scan auth
 ```
 **预期结果**: 
 - 分析认证机制实现
@@ -56,7 +56,7 @@
 
 ### 数据处理安全扫描
 ```bash
-/m-security-scan data-handling
+/m:security-scan data-handling
 ```
 **预期结果**: 
 - 检查输入验证
@@ -66,7 +66,7 @@
 
 ### 特定目录扫描
 ```bash
-/m-security-scan src/api
+/m:security-scan src/api
 ```
 **预期结果**: 
 - 扫描API相关代码
@@ -270,7 +270,7 @@ npm install express@^4.17.3
 
 ## 相关命令
 
-- [`m-review-code`](m-review-code.md) - 代码质量审查
-- [`m-test-generation`](m-test-generation.md) - 安全测试生成
-- [`m-project-cleanup`](m-project-cleanup.md) - 项目清理
-- [`m-document-update`](m-document-update.md) - 安全文档更新
+- [m:review-code`](m-review-code.md) - 代码质量审查
+- [m:test-generation`](m-test-generation.md) - 安全测试生成
+- [m:project-cleanup`](m-project-cleanup.md) - 项目清理
+- [m:document-update`](m-document-update.md) - 安全文档更新

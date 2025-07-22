@@ -1,10 +1,12 @@
 # ClaudePreference
 
+**English** | [中文](README_CN.md)
+
 A comprehensive collection of development workflow commands for Claude Code, designed to streamline software development processes from planning to deployment.
 
 ## 🚀 Overview
 
-ClaudePreference provides a suite of specialized commands that automate and optimize common development workflows. These commands integrate seamlessly with Claude Code to provide intelligent assistance for:
+ClaudePreference provides a suite of specialized commands that integrate seamlessly with Claude Code to provide intelligent assistance for:
 
 - **Development Lifecycle Management**: From requirements analysis to deployment
 - **Code Quality Assurance**: Automated reviews, testing, and security scanning
@@ -12,6 +14,7 @@ ClaudePreference provides a suite of specialized commands that automate and opti
 - **Architecture Planning**: Strategic design decisions and code analysis
 
 ## 📋 Available Commands
+💡 **Complete Documentation**: Visit [Command Documentation Hub](docs/README.md) for detailed descriptions, usage examples, and best practices for all commands.
 
 ### Core Development Workflow
 
@@ -21,10 +24,13 @@ Multi-agent development workflow with coordinated dev-review cycles.
 **Usage**: Deploy three specialized agents (Orchestrator, Developer, Reviewer) for collaborative development in the current directory.
 
 **Features**:
-- Strategic planning with research validation
-- Code implementation with review cycles
-- Build verification and quality gates
-- Evidence-based decision making
+- Research-driven architecture planning with MCP tools integration
+- Template-based prompt generation for consistent agent communication
+- Dynamic context-aware prompts with strict quality enforcement
+- Build verification with 100% functional coverage requirement
+- Evidence-based decision making with external validation
+
+- **Detailed Documentation**: [m:orchestrated-dev](docs/en/commands/m-orchestrated-dev.md)
 
 #### 2. **Commit & Push** - `/m:commit-push`
 Automated commit and push workflow with intelligent message generation.
@@ -36,6 +42,8 @@ Automated commit and push workflow with intelligent message generation.
 - `/m:commit-push "fix: resolve memory leak"`
 - `/m:commit-push` (auto-generates conventional commit message)
 
+**Detailed Documentation**: [m-commit-push](docs/en/commands/m-commit-push.md)
+
 #### 3. **Bug Fix Workflow** - `/m:bug-fix`
 Comprehensive bug analysis, reproduction, and fix workflow.
 
@@ -46,6 +54,8 @@ Comprehensive bug analysis, reproduction, and fix workflow.
 - `/m:bug-fix "NullPointerException in login"`
 - `/m:bug-fix screenshot.png` - Fix from error screenshot
 - `/m:bug-fix logs/error.log` - Analyze log file
+
+**Detailed Documentation**: [m:bug-fix](docs/en/commands/m-bug-fix.md)
 
 ### Code Quality Management
 
@@ -59,6 +69,8 @@ Comprehensive security vulnerability scanning and assessment.
 - `/m:security-scan auth` - Focus on authentication security
 - `/m:security-scan src/api` - Scan specific directory
 
+**Detailed Documentation**: [m:security-scan](docs/en/commands/m-security-scan.md)
+
 #### 5. **Test Generation** - `/m:test-generation`
 Automated test case generation with coverage analysis.
 
@@ -69,6 +81,8 @@ Automated test case generation with coverage analysis.
 - `/m:test-generation integration api` - Generate integration tests
 - `/m:test-generation e2e user-flow` - Generate end-to-end tests
 
+**Detailed Documentation**: [m:test-generation](docs/en/commands/m-test-generation.md)
+**Detailed Documentation**:
 #### 6. **Code Review** - `/m:review-code`
 Tactical code review with quality assessment and reporting.
 
@@ -92,6 +106,8 @@ Analyze requirements and generate structured implementation plans.
 - Implementation strategy design
 - Visual task flow diagrams
 
+**Detailed Documentation**: [m:task-planner](docs/en/commands/m-task-planner.md)
+
 #### 8. **TDD Planner** - `/m:tdd-planner`
 Generate comprehensive Test-Driven Development plans.
 
@@ -103,6 +119,7 @@ Generate comprehensive Test-Driven Development plans.
 - Test pyramid structure definition
 - JSON-formatted implementation plan
 
+**Detailed Documentation**: [m:tdd-planner](docs/en/commands/m-tdd-planner.md)
 #### 9. **Next Tasks** - `/m:next-task`
 Analyze current development status and generate prioritized action plans.
 
@@ -114,6 +131,7 @@ Analyze current development status and generate prioritized action plans.
 - Priority ranking and dependency assessment
 - Comprehensive status reporting
 
+**Detailed Documentation**: [m:next-task](docs/en/commands/m-next-task.md)
 #### 10. **Next Context** - `/m:next-context`
 Compile comprehensive task lists and background information.
 
@@ -125,6 +143,7 @@ Compile comprehensive task lists and background information.
 - Supporting material collection
 - Ambiguity detection and clarification
 
+**Detailed Documentation**: [m:next-context](docs/en/commands/m-next-context.md)
 ### Maintenance & Documentation
 
 #### 11. **Project Cleanup** - `/m:project-cleanup`
@@ -138,6 +157,8 @@ Automated project hygiene and maintenance workflow.
 - Codebase formatting and linting
 - Structural reorganization
 
+**Detailed Documentation**: [m:project-cleanup](docs/en/commands/m-project-cleanup.md)
+
 #### 12. **Document Update** - `/m:document-update`
 Automated documentation maintenance and updates.
 
@@ -149,6 +170,8 @@ Automated documentation maintenance and updates.
 - Code comment validation
 - Documentation consistency checks
 
+**Detailed Documentation**: [m:document-update](docs/en/commands/m-document-update.md)
+
 #### 13. **Branch Cleanup** - `/m:branch-prune`
 Comprehensive branch management and cleanup workflow.
 
@@ -158,6 +181,7 @@ Comprehensive branch management and cleanup workflow.
 - Functionality testing across versions
 - Sequential merge operations
 
+**Detailed Documentation**: [m:branch-prune](docs/en/commands/m-branch-prune.md)
 #### 14. **Branch Cleanup Lite** - `/m:branch-prune-lite`
 Lightweight branch cleanup without testing.
 
@@ -169,6 +193,7 @@ Lightweight branch cleanup without testing.
 - Specific worktree and branch removal
 - Sequential merge operations
 
+**Detailed Documentation**: [m:branch-prune-lite](docs/en/commands/m-branch-prune-lite.md)
 ### Architecture & Design
 
 #### 15. **Architecture Debate** - `/m:debate-architecture`
@@ -182,6 +207,8 @@ Strategic architecture review and analysis workflow.
 - Strategic "-ilities" evaluation
 - High-level refactoring proposals
 
+**Detailed Documentation**: [m:debate-architecture](docs/en/commands/m-debate-architecture.md)
+**Detailed Documentation**:
 #### 16. **Code Debate** - `/m:debate-code`
 Tactical code review with detailed implementation analysis.
 
@@ -193,6 +220,7 @@ Tactical code review with detailed implementation analysis.
 - Coding standards compliance verification
 - Line-level feedback generation
 
+**Detailed Documentation**: [m:debate-code](docs/en/commands/m-debate-code.md)
 #### 17. **Review Completion** - `/m:review-completion`
 Review completion workflow and verification.
 
@@ -201,6 +229,8 @@ Review completion workflow and verification.
 - Quality gate verification
 - Deliverable confirmation
 - Final review sign-off
+
+**Detailed Documentation**: [m:review-completion](docs/en/commands/m-review-completion.md)
 
 #### 18. **Branch Merge** - `/m:merge-branch`
 Intelligent branch merging workflow.
@@ -211,6 +241,7 @@ Intelligent branch merging workflow.
 - Post-merge validation
 - Automated cleanup
 
+**Detailed Documentation**: [m:merge-branch](docs/en/commands/m-merge-branch.md)
 ## 🔧 Installation & Setup
 
 ### Prerequisites:
@@ -374,33 +405,41 @@ For additional support:
 - Review error messages for specific guidance
 - Ensure your development environment meets all requirements
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ClaudePreference/
-├── README.md                    # This file
-├── commands/                    # Command definitions
-│   ├── README.md               # Command usage guide (Chinese)
-│   ├── m-orchestrated-dev.md   # Multi-agent development
-│   ├── m-commit-push.md        # Commit and push workflow
-│   ├── m-bug-fix.md           # Bug fix workflow
-│   ├── m-security-scan.md     # Security scanning
-│   ├── m-test-generation.md   # Test generation
-│   ├── m-review-code.md       # Code review
-│   ├── m-task-planner.md      # Task planning
-│   ├── m-tdd-planner.md       # TDD planning
-│   ├── m-next-task.md         # Next task analysis
-│   ├── m-next-context.md      # Context compilation
-│   ├── m-project-cleanup.md   # Project cleanup
-│   ├── m-document-update.md   # Documentation updates
-│   ├── m-branch-prune.md      # Branch cleanup
-│   ├── m-branch-prune-lite.md # Lightweight branch cleanup
-│   ├── m-debate-architecture.md # Architecture review
-│   ├── m-debate-code.md       # Code review debate
-│   ├── m-review-completion.md # Review completion
-│   └── m-merge-branch.md      # Branch merging
-└── docs/                       # Generated reports and documentation
-    └── workspaces/            # Workflow output files
+├── README.md                    # Main project documentation
+├── README_CN.md                 # Chinese documentation
+├── LICENSE                      # MIT license
+├── install.sh                   # Installation script
+├── commands/                    # Claude Code command definitions
+│   ├── m-orchestrated-dev.md
+│   ├── m-commit-push.md
+│   ├── m-bug-fix.md
+│   ├── m-security-scan.md
+│   ├── m-test-generation.md
+│   ├── m-review-code.md
+│   ├── m-task-planner.md
+│   ├── m-tdd-planner.md
+│   ├── m-next-task.md
+│   ├── m-next-context.md
+│   ├── m-project-cleanup.md
+│   ├── m-document-update.md
+│   ├── m-branch-prune.md
+│   ├── m-branch-prune-lite.md
+│   ├── m-debate-architecture.md
+│   ├── m-debate-code.md
+│   ├── m-review-completion.md
+│   └── m-merge-branch.md
+└── docs/                        # Comprehensive documentation
+    ├── README.md                # Documentation hub
+    ├── en/                      # English documentation
+    │   └── commands/            # Detailed command guides
+    │       └── ...              # 18 command documentation files
+    └── zh/                      # Chinese documentation
+        └── commands/            # Chinese command guides
+            └── ...              # 18 command documentation files
 ```
 
 ## 🤝 Contributing

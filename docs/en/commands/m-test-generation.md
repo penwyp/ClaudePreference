@@ -1,13 +1,13 @@
-# m-test-generation - Automated Test Generation Workflow
+# Command: m:test-generation - Automated Test Generation Workflow
 
 ## Overview
 
-`m-test-generation` is an intelligent test generation tool that automatically creates unit, integration, and end-to-end tests. The command analyzes code coverage, identifies testing gaps, and generates comprehensive test cases to ensure code quality and stability.
+The `m:test-generation` is an intelligent test generation tool that automatically creates unit, integration, and end-to-end tests. The command analyzes code coverage, identifies testing gaps, and generates comprehensive test cases to ensure code quality and stability.
 
 ## Usage
 
 ```bash
-/m-test-generation [type] [target] [coverage]
+/m:test-generation [type] [target] [coverage]
 ```
 
 ## Parameter Details
@@ -29,7 +29,7 @@
 
 ### Default Test Generation
 ```bash
-/m-test-generation
+/m:test-generation
 ```
 **Expected Outcome**:
 - Analyzes recently modified files.
@@ -39,7 +39,7 @@
 
 ### Unit Test Generation
 ```bash
-/m-test-generation unit src/auth 90%
+/m:test-generation unit src/auth 90%
 ```
 **Expected Outcome**:
 - Generates unit tests for the `src/auth` directory.
@@ -49,7 +49,7 @@
 
 ### Integration Test Generation
 ```bash
-/m-test-generation integration api
+/m:test-generation integration api
 ```
 **Expected Outcome**:
 - Generates integration tests for the API module.
@@ -59,7 +59,7 @@
 
 ### End-to-End Test Generation
 ```bash
-/m-test-generation e2e user-flow
+/m:test-generation e2e user-flow
 ```
 **Expected Outcome**:
 - Generates end-to-end tests for user flows.
@@ -69,7 +69,7 @@
 
 ### Comprehensive Test Generation
 ```bash
-/m-test-generation all components 85%
+/m:test-generation all components 85%
 ```
 **Expected Outcome**:
 - Generates all types of tests for all components.
@@ -320,7 +320,7 @@ Solution: Use mocks and fixed times.
 
 ## Related Commands
 
-- [`m-tdd-planner`](m-tdd-planner.md) - TDD Planning
-- [`m-review-code`](m-review-code.md) - Code Review
-- [`m-bug-fix`](m-bug-fix.md) - Bug Fix
-- [`m-security-scan`](m-security-scan.md) - Security Testing
+- [`m:tdd-planner`](m-tdd-planner.md) - TDD Planning
+- [`m:review-code`](m-review-code.md) - Code Review
+- [`m:bug-fix`](m-bug-fix.md) - Bug Fix
+- [`m:security-scan`](m-security-scan.md) - Security Testing

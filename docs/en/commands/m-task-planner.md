@@ -1,13 +1,13 @@
-# m-task-planner - Development Task Planning Workflow
+# Command: m:task-planner - Development Task Planning Workflow
 
 ## Overview
 
-`m-task-planner` is an intelligent requirements analysis and task planning tool that transforms complex requirements documents into structured implementation plans. By analyzing requirements, designing architecture, decomposing tasks, and mapping dependencies, this command provides a clear execution path for development teams.
+The `m:task-planner` is an intelligent requirements analysis and task planning tool that transforms complex requirements documents into structured implementation plans. By analyzing requirements, designing architecture, decomposing tasks, and mapping dependencies, this command provides a clear execution path for development teams.
 
 ## Usage
 
 ```bash
-/m-task-planner [target]
+/m:task-planner [target]
 ```
 
 ## Parameter Details
@@ -21,7 +21,7 @@
 
 ### Plan Based on Requirements Document
 ```bash
-/m-task-planner requirements.md
+/m:task-planner requirements.md
 ```
 **Expected Outcome**:
 - Parses the content of the requirements document.
@@ -31,7 +31,7 @@
 
 ### Plan Based on Project Description
 ```bash
-/m-task-planner "Implement e-commerce platform user authentication and payment system"
+/m:task-planner "Implement e-commerce platform user authentication and payment system"
 ```
 **Expected Outcome**:
 - Analyzes the project description.
@@ -41,7 +41,7 @@
 
 ### Auto-Discovery Mode
 ```bash
-/m-task-planner
+/m:task-planner
 ```
 **Expected Outcome**:
 - Scans the project directory for requirements documents.
@@ -51,7 +51,7 @@
 
 ### Plan for a Directory Scope
 ```bash
-/m-task-planner specs/
+/m:task-planner specs/
 ```
 **Expected Outcome**:
 - Scans the entire `specs` directory.
@@ -294,7 +294,7 @@ docs/workspaces/task-plan-MM-dd-HH-mm-ss.md
 
 ## Related Commands
 
-- [`m-orchestrated-dev`](m-orchestrated-dev.md) - Multi-Agent Development
-- [`m-tdd-planner`](m-tdd-planner.md) - TDD Planning
-- [`m-next-task`](m-next-task.md) - Next Task Analysis
-- [`m-review-code`](m-review-code.md) - Code Review
+- [m:orchestrated-dev`](m-orchestrated-dev.md) - Multi-Agent Development
+- [m:tdd-planner`](m-tdd-planner.md) - TDD Planning
+- [m:next-task`](m-next-task.md) - Next Task Analysis
+- [m:review-code`](m-review-code.md) - Code Review

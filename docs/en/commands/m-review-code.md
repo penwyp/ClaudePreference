@@ -1,13 +1,13 @@
-# m-review-code - Comprehensive Code Review Workflow
+# m:review-code - Comprehensive Code Review Workflow
 
 ## Overview
 
-`m-review-code` is a comprehensive code review tool that provides in-depth analysis of code quality, architectural assessment, and security checks. The command generates detailed bilingual reports covering functional completeness, critical bugs, code smells, third-party library optimization suggestions, and test coverage evaluation.
+The `m:review-code` is a comprehensive code review tool that provides in-depth analysis of code quality, architectural assessment, and security checks. The command generates detailed bilingual reports covering functional completeness, critical bugs, code smells, third-party library optimization suggestions, and test coverage evaluation.
 
 ## Usage
 
 ```bash
-/m-review-code [target] [depth] [focus]
+/m:review-code [target] [depth] [focus]
 ```
 
 ## Parameter Details
@@ -30,7 +30,7 @@
 
 ### Standard Code Review
 ```bash
-/m-review-code
+/m:review-code
 ```
 **Expected Outcome**:
 - Reviews the latest commits of the current branch.
@@ -40,7 +40,7 @@
 
 ### Deep Security Review
 ```bash
-/m-review-code src/auth deep security
+/m:review-code src/auth deep security
 ```
 **Expected Outcome**:
 - Deeply reviews the authentication module.
@@ -50,7 +50,7 @@
 
 ### Quick PR Review
 ```bash
-/m-review-code PR#123 quick
+/m:review-code PR#123 quick
 ```
 **Expected Outcome**:
 - Quickly reviews the Pull Request.
@@ -60,7 +60,7 @@
 
 ### Performance Review
 ```bash
-/m-review-code components standard performance
+/m:review-code components standard performance
 ```
 **Expected Outcome**:
 - Reviews component performance.
@@ -70,7 +70,7 @@
 
 ### Architecture Review
 ```bash
-/m-review-code src/core deep architecture
+/m:review-code src/core deep architecture
 ```
 **Expected Outcome**:
 - In-depth architecture analysis.
@@ -340,7 +340,7 @@ The module is mostly complete in terms of functionality but has some serious sec
 
 ## Related Commands
 
-- [`m-security-scan`](m-security-scan.md) - Security Scan
-- [`m-test-generation`](m-test-generation.md) - Test Generation
-- [`m-debate-code`](m-debate-code.md) - Code Debate
-- [`m-project-cleanup`](m-project-cleanup.md) - Project Cleanup
+- [m:security-scan`](m-security-scan.md) - Security Scan
+- [m:test-generation`](m-test-generation.md) - Test Generation
+- [m:debate-code`](m-debate-code.md) - Code Debate
+- [m:project-cleanup`](m-project-cleanup.md) - Project Cleanup

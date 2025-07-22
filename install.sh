@@ -275,7 +275,7 @@ create_backup() {
     }
     
     # Backup existing commands if they exist
-    if [[ -d "$INSTALL_DIR" ]]; then
+    if [[ -d "$INSTALL_DIR" && -n "$(ls -A "$INSTALL_DIR" 2>/dev/null)" ]]; then
         cp -r "$INSTALL_DIR"/* "$backup_path/" 2>/dev/null || true
     fi
     
@@ -306,9 +306,10 @@ migrate_legacy_installation() {
     fi
     
     local migrated_count=0
+    local failed_count=0
     
     # Find and migrate legacy files
-    while IFS= read -r -d '' legacy_file; do
+    while IFS= read -r -d '' legacy_file || [ -n "$legacy_file" ]; do
         local filename
         filename="$(basename "$legacy_file")"
         local new_filename
@@ -317,19 +318,34 @@ migrate_legacy_installation() {
         
         log_verbose "Migrating: $filename → $new_filename"
         
+        # Check if source file exists before copying
+        if [[ ! -f "$legacy_file" ]]; then
+            log_verbose "Skipping non-existent legacy file: $filename"
+            continue
+        fi
+        
         # Copy to new location with new name
-        cp "$legacy_file" "$target_file" || {
+        if ! cp "$legacy_file" "$target_file"; then
             log_error "Failed to migrate: $filename"
-            exit 1
-        }
+            ((failed_count++)) || true
+            continue
+        fi
+        
         chmod 644 "$target_file"
-        ((migrated_count++))
+        ((migrated_count++)) || true
         
     done < <(find "$legacy_dir" -maxdepth 1 -name "m-*.md" -print0 2>/dev/null)
     
     if [[ $migrated_count -gt 0 ]]; then
         log_success "Migrated $migrated_count legacy command files"
-        
+    fi
+    
+    if [[ $failed_count -gt 0 ]]; then
+        log_warning "Failed to migrate $failed_count files"
+    fi
+    
+    # Only offer to remove legacy files if we successfully migrated at least one file
+    if [[ $migrated_count -gt 0 ]]; then
         # Ask user if they want to remove legacy files
         if [[ "$FORCE" == false ]]; then
             read -p "Remove legacy files from $legacy_dir? (y/N): " -n 1 -r
@@ -342,6 +358,12 @@ migrate_legacy_installation() {
             find "$legacy_dir" -maxdepth 1 -name "m-*.md" -delete 2>/dev/null || true
             log_info "Legacy files removed (force mode)"
         fi
+    fi
+    
+    # Exit with error if all migrations failed
+    if [[ $migrated_count -eq 0 && $failed_count -gt 0 ]]; then
+        log_error "All migrations failed"
+        exit 1
     fi
 }
 
@@ -372,9 +394,10 @@ install_commands() {
     
     local installed_count=0
     local skipped_count=0
+    local failed_count=0
     
     # Process each command file
-    while IFS= read -r -d '' file; do
+    while IFS= read -r -d '' file || [ -n "$file" ]; do
         local filename
         filename="$(basename "$file")"
         local new_filename
@@ -392,38 +415,56 @@ install_commands() {
                     
                     if [[ "$source_hash" == "$target_hash" ]]; then
                         log_verbose "Skipping $new_filename (unchanged)"
-                        ((skipped_count++))
+                        ((skipped_count++)) || true
                         continue
                     fi
                 fi
             else
-                read -p "File exists: $new_filename. Overwrite? (y/N): " -n 1 -r
-                echo
+                echo -n "File exists: $new_filename. Overwrite? (y/N): "
+                read -r REPLY
                 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
                     log_verbose "Skipping $new_filename (user choice)"
-                    ((skipped_count++))
+                    ((skipped_count++)) || true
                     continue
                 fi
             fi
         fi
         
+        # Check if source file exists
+        if [[ ! -f "$file" ]]; then
+            log_verbose "Skipping non-existent file: $filename"
+            ((skipped_count++)) || true
+            continue
+        fi
+        
         # Install the file
         if [[ "$DRY_RUN" == true ]]; then
             log_info "[DRY RUN] Would install: $filename → $new_filename"
+            ((installed_count++)) || true
         else
             log_verbose "Installing: $filename → $new_filename"
-            cp "$file" "$target_file" || {
+            if ! cp "$file" "$target_file"; then
                 log_error "Failed to install: $filename"
-                exit 1
-            }
+                ((failed_count++)) || true
+                continue
+            fi
             chmod 644 "$target_file"
+            ((installed_count++)) || true
         fi
-        
-        ((installed_count++))
         
     done < <(find "$COMMANDS_SOURCE_DIR" -name "*.md" -print0)
     
+    if [[ $failed_count -gt 0 ]]; then
+        log_warning "Failed to install $failed_count files"
+    fi
+    
     log_success "Installation completed: $installed_count files installed, $skipped_count skipped"
+    
+    # Exit with error if all installations failed
+    if [[ $installed_count -eq 0 && $failed_count -gt 0 ]]; then
+        log_error "All installations failed"
+        exit 1
+    fi
 }
 
 # Create installation manifest
@@ -485,7 +526,7 @@ uninstall_commands() {
                         log_verbose "Removing: $(basename "$file")"
                         rm "$file"
                     fi
-                    ((removed_count++))
+                    ((removed_count++)) || true
                 done
                 
                 # Remove empty directory if it only contains ClaudePreference commands
@@ -518,7 +559,7 @@ uninstall_commands() {
                                 log_verbose "Removing legacy: $(basename "$file")"
                                 rm "$file"
                             fi
-                            ((removed_count++))
+                            ((removed_count++)) || true
                         done
                     fi
                 else
@@ -530,7 +571,7 @@ uninstall_commands() {
                             log_verbose "Removing legacy: $(basename "$file")"
                             rm "$file"
                         fi
-                        ((removed_count++))
+                        ((removed_count++)) || true
                     done
                 fi
             fi
@@ -551,7 +592,7 @@ uninstall_commands() {
         
         # Remove files listed in manifest
         local removed_count=0
-        while IFS= read -r filename; do
+        while IFS= read -r filename || [ -n "$filename" ]; do
             # Skip comment lines and empty lines
             if [[ "$filename" =~ ^#.*$ ]] || [[ -z "$filename" ]]; then
                 continue
@@ -566,7 +607,7 @@ uninstall_commands() {
                     log_verbose "Removing: $filename"
                     rm "$file_path"
                 fi
-                ((removed_count++))
+                ((removed_count++)) || true
             fi
         done < "$MANIFEST_FILE"
         
@@ -610,7 +651,7 @@ rollback_installation() {
     fi
     
     # Restore from backup
-    if [[ -d "$backup_path" ]]; then
+    if [[ -d "$backup_path" && -n "$(ls -A "$backup_path" 2>/dev/null)" ]]; then
         cp -r "$backup_path"/* "$INSTALL_DIR/" 2>/dev/null || true
         
         # Restore manifest if it exists in backup
@@ -675,6 +716,9 @@ main() {
                     log_info "Installation cancelled"
                     exit 2
                 fi
+                # Set UPDATE mode for existing installations
+                UPDATE=true
+                log_info "Running in update mode to avoid file conflicts"
             fi
         fi
         

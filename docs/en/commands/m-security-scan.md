@@ -1,13 +1,13 @@
-# m-security-scan - Comprehensive Security Scan Workflow
+# Command: m:security-scan - Comprehensive Security Scan Workflow
 
 ## Overview
 
-`m-security-scan` is a comprehensive security vulnerability scanning and assessment workflow that checks for security issues in dependencies, code, authentication mechanisms, and data handling processes. The command supports different scan scopes, from dependency checks to full security audits.
+The `m:security-scan` is a comprehensive security vulnerability scanning and assessment workflow that checks for security issues in dependencies, code, authentication mechanisms, and data handling processes. The command supports different scan scopes, from dependency checks to full security audits.
 
 ## Usage
 
 ```bash
-/m-security-scan [scope]
+/m:security-scan [scope]
 ```
 
 ## Parameter Details
@@ -25,7 +25,7 @@
 
 ### Full Security Scan
 ```bash
-/m-security-scan
+/m:security-scan
 ```
 **Expected Outcome**:
 - Scans all code files.
@@ -36,7 +36,7 @@
 
 ### Dependency Security Scan
 ```bash
-/m-security-scan dependencies
+/m:security-scan dependencies
 ```
 **Expected Outcome**:
 - Checks dependency files like `package.json` or `requirements.txt`.
@@ -46,7 +46,7 @@
 
 ### Authentication Security Scan
 ```bash
-/m-security-scan auth
+/m:security-scan auth
 ```
 **Expected Outcome**:
 - Analyzes the implementation of authentication mechanisms.
@@ -56,7 +56,7 @@
 
 ### Data Handling Security Scan
 ```bash
-/m-security-scan data-handling
+/m:security-scan data-handling
 ```
 **Expected Outcome**:
 - Checks input validation.
@@ -66,7 +66,7 @@
 
 ### Scan a Specific Directory
 ```bash
-/m-security-scan src/api
+/m:security-scan src/api
 ```
 **Expected Outcome**:
 - Scans API-related code.
@@ -270,7 +270,7 @@ npm install express@^4.17.3
 
 ## Related Commands
 
-- [`m-review-code`](m-review-code.md) - Code Quality Review
-- [`m-test-generation`](m-test-generation.md) - Security Test Generation
-- [`m-project-cleanup`](m-project-cleanup.md) - Project Cleanup
-- [`m-document-update`](m-document-update.md) - Security Documentation Updates
+- [m:review-code`](m-review-code.md) - Code Quality Review
+- [m:test-generation`](m-test-generation.md) - Security Test Generation
+- [m:project-cleanup`](m-project-cleanup.md) - Project Cleanup
+- [m:document-update`](m-document-update.md) - Security Documentation Updates
