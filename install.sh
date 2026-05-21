@@ -3,6 +3,7 @@
 # ClaudePreference Installation Script
 # 
 # Installs ClaudePreference commands to Claude Code configuration directory
+# and can optionally install bundled Codex skills.
 # Based on the comprehensive plan in plan.md
 #
 
@@ -10,14 +11,17 @@ set -euo pipefail
 
 # Script metadata
 readonly SCRIPT_NAME="ClaudePreference Installer"
-readonly SCRIPT_VERSION="2.0.0"
+readonly SCRIPT_VERSION="2.1.0"
 readonly REPO_URL="https://github.com/penwyp/ClaudePreference"
 
 # Default configuration
 readonly DEFAULT_INSTALL_DIR="$HOME/.claude/commands/m"
+readonly CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
+readonly DEFAULT_SKILLS_INSTALL_DIR="$CODEX_HOME_DIR/skills"
 readonly BACKUP_DIR="$HOME/.claude/backups"
 readonly MANIFEST_FILE="$HOME/.claude/.claudepreference-manifest"
 readonly COMMANDS_SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/commands"
+readonly SKILLS_SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/skills"
 
 # Colors for output
 readonly RED='\033[0;31m'
@@ -28,6 +32,7 @@ readonly NC='\033[0m' # No Color
 
 # Global variables
 INSTALL_DIR="$DEFAULT_INSTALL_DIR"
+SKILLS_INSTALL_DIR="$DEFAULT_SKILLS_INSTALL_DIR"
 DRY_RUN=false
 FORCE=false
 UPDATE=false
@@ -35,6 +40,8 @@ UNINSTALL=false
 ROLLBACK=false
 VERBOSE=false
 CUSTOM_DIR=false
+INSTALL_SKILLS=false
+SKILLS_ONLY=false
 
 # Logging functions
 log_info() {
@@ -69,23 +76,30 @@ USAGE:
 
 DESCRIPTION:
     Install, update, or manage ClaudePreference commands for Claude Code CLI.
+    Use --with-skills or --skills-only to install bundled Codex skills.
 
 OPTIONS:
     --dir PATH        Custom installation directory (default: ~/.claude/commands/m)
+    --with-skills     Also install bundled Codex skills to ~/.codex/skills
+    --skills-only     Install only bundled Codex skills, not Claude commands
+    --skills-dir PATH Custom Codex skills directory (default: \${CODEX_HOME:-~/.codex}/skills)
     --update          Update existing installation
     --force           Overwrite files without prompting
     --dry-run         Preview changes without installing
-    --uninstall       Remove ClaudePreference commands
+    --uninstall       Remove installed commands; combine with --with-skills or --skills-only for skills
     --rollback        Restore from latest backup
     --verbose         Enable detailed logging
     --help            Show this help message
 
 EXAMPLES:
     $0                          # Install to default location
+    $0 --with-skills            # Install commands and Codex skills
+    $0 --skills-only            # Install only Codex skills
     $0 --dir /custom/path       # Install to custom directory
     $0 --update                 # Update existing installation
     $0 --dry-run --verbose      # Preview installation with details
     $0 --uninstall              # Remove ClaudePreference commands
+    $0 --uninstall --skills-only # Remove bundled Codex skills
 
 For more information, visit: $REPO_URL
 EOF
@@ -98,6 +112,19 @@ parse_arguments() {
             --dir)
                 INSTALL_DIR="$2"
                 CUSTOM_DIR=true
+                shift 2
+                ;;
+            --with-skills)
+                INSTALL_SKILLS=true
+                shift
+                ;;
+            --skills-only)
+                INSTALL_SKILLS=true
+                SKILLS_ONLY=true
+                shift
+                ;;
+            --skills-dir)
+                SKILLS_INSTALL_DIR="$2"
                 shift 2
                 ;;
             --update)
@@ -160,8 +187,13 @@ validate_system() {
     done
     
     # Check if Claude Code is available (optional warning)
-    if ! command -v claude &> /dev/null; then
+    if [[ "$SKILLS_ONLY" == false ]] && ! command -v claude &> /dev/null; then
         log_warning "Claude Code CLI not found in PATH. Please ensure it's installed."
+    fi
+
+    # Check if Codex is available when installing skills (optional warning)
+    if [[ "$INSTALL_SKILLS" == true ]] && ! command -v codex &> /dev/null; then
+        log_warning "Codex CLI not found in PATH. Skills can still be copied, but Codex must be installed to use them."
     fi
     
     log_verbose "System validation completed successfully"
@@ -388,6 +420,27 @@ verify_source_commands() {
     log_verbose "Found $command_files command files to install"
 }
 
+# Verify source skills exist
+verify_source_skills() {
+    log_verbose "Verifying source skills directory..."
+
+    if [[ ! -d "$SKILLS_SOURCE_DIR" ]]; then
+        log_error "Skills source directory not found: $SKILLS_SOURCE_DIR"
+        log_error "Please run this script from the ClaudePreference repository root"
+        exit 1
+    fi
+
+    local skill_files
+    skill_files=$(find "$SKILLS_SOURCE_DIR" -mindepth 2 -maxdepth 2 -name "SKILL.md" 2>/dev/null | wc -l)
+
+    if [[ $skill_files -eq 0 ]]; then
+        log_error "No skill definitions found in: $SKILLS_SOURCE_DIR"
+        exit 1
+    fi
+
+    log_verbose "Found $skill_files skills to install"
+}
+
 # Install commands
 install_commands() {
     log_info "Installing ClaudePreference commands to: $INSTALL_DIR"
@@ -467,6 +520,65 @@ install_commands() {
     fi
 }
 
+# Install Codex skills
+install_skills() {
+    log_info "Installing ClaudePreference Codex skills to: $SKILLS_INSTALL_DIR"
+
+    local installed_count=0
+    local skipped_count=0
+    local failed_count=0
+
+    while IFS= read -r -d '' skill_dir || [ -n "$skill_dir" ]; do
+        local skill_name
+        skill_name="$(basename "$skill_dir")"
+        local target_dir="$SKILLS_INSTALL_DIR/$skill_name"
+
+        if [[ ! -f "$skill_dir/SKILL.md" ]]; then
+            log_verbose "Skipping directory without SKILL.md: $skill_name"
+            ((skipped_count++)) || true
+            continue
+        fi
+
+        if [[ -d "$target_dir" && "$FORCE" == false && "$DRY_RUN" == false ]]; then
+            if [[ "$UPDATE" == false ]]; then
+                echo -n "Skill exists: $skill_name. Replace? (y/N): "
+                read -r REPLY
+                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                    log_verbose "Skipping $skill_name (user choice)"
+                    ((skipped_count++)) || true
+                    continue
+                fi
+            fi
+        fi
+
+        if [[ "$DRY_RUN" == true ]]; then
+            log_info "[DRY RUN] Would install skill: $skill_name"
+            ((installed_count++)) || true
+        else
+            log_verbose "Installing skill: $skill_name"
+            rm -rf "$target_dir"
+            if ! cp -R "$skill_dir" "$target_dir"; then
+                log_error "Failed to install skill: $skill_name"
+                ((failed_count++)) || true
+                continue
+            fi
+            find "$target_dir/scripts" -type f \( -name "*.sh" -o -name "*.mjs" -o -name "*.js" -o -name "*.py" \) -exec chmod 755 {} \; 2>/dev/null || true
+            ((installed_count++)) || true
+        fi
+    done < <(find "$SKILLS_SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d -print0)
+
+    if [[ $failed_count -gt 0 ]]; then
+        log_warning "Failed to install $failed_count skills"
+    fi
+
+    log_success "Skills installation completed: $installed_count skills installed, $skipped_count skipped"
+
+    if [[ $installed_count -eq 0 && $failed_count -gt 0 ]]; then
+        log_error "All skills installations failed"
+        exit 1
+    fi
+}
+
 # Create installation manifest
 create_manifest() {
     if [[ "$DRY_RUN" == true ]]; then
@@ -490,6 +602,40 @@ EOF
     find "$INSTALL_DIR" -name "*.md" -exec basename {} \; | sort >> "$MANIFEST_FILE"
     
     log_verbose "Installation manifest created"
+}
+
+# Uninstall bundled Codex skills
+uninstall_skills() {
+    log_info "Uninstalling ClaudePreference Codex skills..."
+
+    if [[ ! -d "$SKILLS_SOURCE_DIR" ]]; then
+        log_error "Skills source directory not found: $SKILLS_SOURCE_DIR"
+        exit 1
+    fi
+
+    local removed_count=0
+    local skipped_count=0
+
+    while IFS= read -r -d '' skill_dir || [ -n "$skill_dir" ]; do
+        local skill_name
+        skill_name="$(basename "$skill_dir")"
+        local target_dir="$SKILLS_INSTALL_DIR/$skill_name"
+
+        if [[ ! -d "$target_dir" ]]; then
+            ((skipped_count++)) || true
+            continue
+        fi
+
+        if [[ "$DRY_RUN" == true ]]; then
+            log_info "[DRY RUN] Would remove skill: $skill_name"
+        else
+            log_verbose "Removing skill: $skill_name"
+            rm -rf "$target_dir"
+        fi
+        ((removed_count++)) || true
+    done < <(find "$SKILLS_SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d -print0)
+
+    log_success "Uninstalled $removed_count ClaudePreference Codex skills, $skipped_count not present"
 }
 
 # Uninstall ClaudePreference commands
@@ -680,73 +826,96 @@ main() {
     fi
     
     if [[ "$UNINSTALL" == true ]]; then
-        uninstall_commands
+        if [[ "$SKILLS_ONLY" == false ]]; then
+            uninstall_commands
+        fi
+        if [[ "$INSTALL_SKILLS" == true ]]; then
+            uninstall_skills
+        fi
         exit 0
     fi
     
     # Validate system
     validate_system
     
-    # Verify source commands
-    verify_source_commands
-    
-    # Check installation directory permissions
-    check_write_permissions "$INSTALL_DIR"
-    
-    # Handle existing installation
-    local has_legacy=false
-    if detect_legacy_installation; then
-        has_legacy=true
-    fi
-    
-    if detect_installation; then
-        if [[ "$UPDATE" == true ]]; then
-            log_info "Updating existing ClaudePreference installation"
-            
-            # Handle legacy migration during update
-            if [[ "$has_legacy" == true ]]; then
-                log_info "Legacy installation detected - will migrate to new structure"
-            fi
-        else
-            log_warning "Existing ClaudePreference installation detected"
-            if [[ "$FORCE" == false && "$DRY_RUN" == false ]]; then
-                read -p "Continue with installation? (y/N): " -n 1 -r
-                echo
-                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                    log_info "Installation cancelled"
-                    exit 2
+    if [[ "$SKILLS_ONLY" == false ]]; then
+        # Verify source commands
+        verify_source_commands
+
+        # Check installation directory permissions
+        check_write_permissions "$INSTALL_DIR"
+
+        # Handle existing installation
+        local has_legacy=false
+        if detect_legacy_installation; then
+            has_legacy=true
+        fi
+
+        if detect_installation; then
+            if [[ "$UPDATE" == true ]]; then
+                log_info "Updating existing ClaudePreference installation"
+
+                # Handle legacy migration during update
+                if [[ "$has_legacy" == true ]]; then
+                    log_info "Legacy installation detected - will migrate to new structure"
                 fi
-                # Set UPDATE mode for existing installations
-                UPDATE=true
-                log_info "Running in update mode to avoid file conflicts"
+            else
+                log_warning "Existing ClaudePreference installation detected"
+                if [[ "$FORCE" == false && "$DRY_RUN" == false ]]; then
+                    read -p "Continue with installation? (y/N): " -n 1 -r
+                    echo
+                    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                        log_info "Installation cancelled"
+                        exit 2
+                    fi
+                    # Set UPDATE mode for existing installations
+                    UPDATE=true
+                    log_info "Running in update mode to avoid file conflicts"
+                fi
+            fi
+
+            # Create backup before proceeding
+            create_backup
+
+            # Migrate legacy installation if present
+            if [[ "$has_legacy" == true ]]; then
+                migrate_legacy_installation
             fi
         fi
-        
-        # Create backup before proceeding
-        create_backup
-        
-        # Migrate legacy installation if present
-        if [[ "$has_legacy" == true ]]; then
-            migrate_legacy_installation
-        fi
+
+        # Install commands
+        install_commands
+
+        # Create installation manifest
+        create_manifest
     fi
-    
-    # Install commands
-    install_commands
-    
-    # Create installation manifest
-    create_manifest
+
+    if [[ "$INSTALL_SKILLS" == true ]]; then
+        verify_source_skills
+        check_write_permissions "$SKILLS_INSTALL_DIR"
+        install_skills
+    fi
     
     # Display success message
     echo
     log_success "ClaudePreference installation completed!"
     echo
-    echo "Commands installed to: $INSTALL_DIR"
+    if [[ "$SKILLS_ONLY" == false ]]; then
+        echo "Commands installed to: $INSTALL_DIR"
+    fi
+    if [[ "$INSTALL_SKILLS" == true ]]; then
+        echo "Codex skills installed to: $SKILLS_INSTALL_DIR"
+    fi
     echo
-    echo "To use ClaudePreference commands:"
-    echo "  1. Run 'claude' in your project directory"
-    echo "  2. Type '/' to see available commands"
-    echo "  3. Select any 'm:' command (e.g., /m:orchestrated-dev)"
+    if [[ "$SKILLS_ONLY" == false ]]; then
+        echo "To use ClaudePreference commands:"
+        echo "  1. Run 'claude' in your project directory"
+        echo "  2. Type '/' to see available commands"
+        echo "  3. Select any 'm:' command (e.g., /m:orchestrated-dev)"
+    fi
+    if [[ "$INSTALL_SKILLS" == true ]]; then
+        echo "To use bundled skills, run 'codex' after restarting your Codex session."
+    fi
     echo
     echo "For more information, visit: $REPO_URL"
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Image Converter"
+  short_description: "Convert local images between SVG, PNG, ICO, ICNS, JPEG, WebP, and PDF on macOS."
+  default_prompt: "Convert image files with the local macOS image conversion workflow."

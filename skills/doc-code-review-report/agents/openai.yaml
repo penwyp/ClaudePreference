@@ -1,0 +1,4 @@
+interface:
+  display_name: "Doc Code Review"
+  short_description: "Review docs against code with findings"
+  default_prompt: "Use $doc-code-review-report to review this text or document against the codebase and produce a structured findings report with refactor suggestions."

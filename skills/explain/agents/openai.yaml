@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain"
+  short_description: "结合仓库上下文解释代码、文件或当前对话中的实现作用"
+  default_prompt: "结合代码仓库解释我提供的代码、文件或当前上下文，说明它在项目中的作用，并重点讲解关键参数和调用关系。"

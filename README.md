@@ -12,6 +12,7 @@ ClaudePreference provides a suite of specialized commands that integrate seamles
 - **Code Quality Assurance**: Automated reviews, testing, and security scanning
 - **Project Maintenance**: Cleanup, documentation, and branch management
 - **Architecture Planning**: Strategic design decisions and code analysis
+- **Codex Skills**: Reusable workflows for code explanation, review reports, local runtime setup, browser flow debugging, and image conversion
 
 ## 📋 Available Commands
 💡 **Complete Documentation**: Visit [Command Documentation Hub](docs/README.md) for detailed descriptions, usage examples, and best practices for all commands.
@@ -242,10 +243,31 @@ Intelligent branch merging workflow.
 - Automated cleanup
 
 **Detailed Documentation**: [m:merge-branch](docs/en/commands/m-merge-branch.md)
+
+## 🧩 Available Codex Skills
+
+The `skills/` directory contains general-purpose Codex skills that are safe to publish and reuse across projects:
+
+- **develop-review-gate**: Implement changes in the current checkout, run two self-review/refactor passes, then pause for human confirmation.
+- **doc-code-review-report**: Review requirements, PR text, or design notes against the actual codebase and produce evidence-backed findings.
+- **refactor-design-report**: Turn concrete bugs, product gaps, or architecture concerns into an executable implementation design.
+- **explain**: Explain files, symbols, snippets, or configuration in repository context.
+- **local-project-runtime**: Stabilize local build/start/test/Compose workflows after clone or checkout.
+- **browser-flow-fallbacks**: Diagnose flaky login, OAuth, signup, and multi-step browser automation flows.
+- **image-converter**: Convert common local image formats on macOS with installed tools.
+
+Install them into Codex manually:
+
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/* "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
 ## 🔧 Installation & Setup
 
 ### Prerequisites:
    - Claude Code CLI installed and configured
+   - OpenAI Codex CLI installed and configured if you want to use the `skills/` directory
    - Appropriate development environment setup
    - Appropriate MCP environment setup (e.g. `context7`)
 
@@ -263,6 +285,12 @@ cd ClaudePreference
 ```bash
 # Install to default location (~/.claude/commands/m)
 ./install.sh
+
+# Install commands and bundled Codex skills
+./install.sh --with-skills
+
+# Install only bundled Codex skills
+./install.sh --skills-only
 
 # Install to custom directory
 ./install.sh --dir /custom/path
@@ -306,6 +334,9 @@ claude
 
 # Remove ClaudePreference commands
 ./install.sh --uninstall
+
+# Remove bundled Codex skills
+./install.sh --uninstall --skills-only
 
 # Rollback to previous version
 ./install.sh --rollback
@@ -432,6 +463,14 @@ ClaudePreference/
 │   ├── m-debate-code.md
 │   ├── m-review-completion.md
 │   └── m-merge-branch.md
+├── skills/                      # General-purpose Codex skills
+│   ├── browser-flow-fallbacks/
+│   ├── develop-review-gate/
+│   ├── doc-code-review-report/
+│   ├── explain/
+│   ├── image-converter/
+│   ├── local-project-runtime/
+│   └── refactor-design-report/
 └── docs/                        # Comprehensive documentation
     ├── README.md                # Documentation hub
     ├── en/                      # English documentation

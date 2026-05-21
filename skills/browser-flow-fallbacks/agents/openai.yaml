@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Flow Fallbacks"
+  short_description: "Diagnose flaky browser flows and add DOM fallbacks"
+  default_prompt: "Use $browser-flow-fallbacks to inspect the latest DOM, add a fallback path, and cover it with tests."

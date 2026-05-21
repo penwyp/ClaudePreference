@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local Project Runtime"
+  short_description: "Local build, test, and Compose runtime"
+  default_prompt: "Use $local-project-runtime to diagnose this repo build/start/test flow and add a local lifecycle manager."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactor Design Report"
+  short_description: "Turn technical findings into grounded implementation plans."
+  default_prompt: "Create a detailed, code-grounded refactor design report for the described issues, covering contracts, backend, frontend, tests, rollout, and acceptance criteria."
